@@ -1,6 +1,6 @@
 Schluter thermostat plugin for Indigo Home Automation
 
-The plugin enable monitoring and control of the Schluter DITRA-HEAT Thermostat.
+The plugin enables monitoring and control of the Schluter DITRA-HEAT Thermostat from the Indigo Home Automation application.
 
 Requirements:
 The username/password for your Schluter account
