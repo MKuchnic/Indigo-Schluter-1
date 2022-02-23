@@ -10,11 +10,12 @@ import os
 import sys
 
 class Plugin(indigo.PluginBase):
-	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
+    def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 
     ########################################
 	# Actions defined in MenuItems.xml:
 	####################
-    def testMethod(self):
-        indigo.server.log("Test Method Log")
+	def testMethod(self):
+		indigo.server.log("Test Method Log")
+
