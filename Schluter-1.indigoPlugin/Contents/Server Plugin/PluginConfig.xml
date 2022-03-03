@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<PluginConfig>
+  
+  <Field id="testConfig" type="textfield" defaultValue="69">
+    <Label>Test Config Variable:</Label>
+  </Field>
+  <Field id="extraInfo" type="label" fontSize="small" fontColor="darkgray">
+    <Label>This is just a test to see if config works.</Label>
+  </Field>
+  
+</PluginConfig>
