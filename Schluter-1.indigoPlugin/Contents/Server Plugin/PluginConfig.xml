@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <PluginConfig>
   
-  <Field id="email" type="textfield">
-    <Label>Email:</Label>
+  <Field id="login" type="textfield">
+    <Label>Login:</Label>
   </Field>
-  <Field id="password" type="textfield" hidden="true">
+  <Field id="password" type="textfield" secure="true">
     <Label>Password:</Label>
   </Field>
   
