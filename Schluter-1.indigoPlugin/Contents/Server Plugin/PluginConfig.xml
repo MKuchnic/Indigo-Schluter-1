@@ -13,16 +13,14 @@
     <List>
       <Option value="F">Fahrenheit</Option>
       <Option value="C">Celsius</Option>
-      <Option value="K">Kelvin</Option>
-      <Option value="R">Rankine</Option>
     </List>
   </Field>
   
-  <Field id="updateFrequency" type="textfield" defaultValue="15">
+  <Field id="updateFrequency" type="textfield" defaultValue="10">
     <Label>Update frequency (minutes):</Label>
   </Field>
   <Field id="statusNote" type="label" fontSize="small" fontColor="darkgray">
-    <Label>Minimum update interval is 3 minutes.  Default is 15.</Label>
+    <Label>Minimum update interval is 3 minutes.  Default is 10.</Label>
   </Field>
  
   <Field id="logLevel" type="menu" defaultValue="20">
