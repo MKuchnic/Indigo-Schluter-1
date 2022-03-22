@@ -19,3 +19,7 @@ class Plugin(indigo.PluginBase):
 	def testMethod(self):
 		indigo.server.log("Test Method Log")
 
+	def validatePrefsConfigUi(self, valuesDict):
+		indigo.server.log("Validate Prefs Config UI Method Log, Values:", valuesDict)
+		
+		return True
