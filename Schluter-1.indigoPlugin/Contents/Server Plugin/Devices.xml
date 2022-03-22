@@ -1,18 +1,6 @@
 <?xml version="1.0"?>
 <Devices>
-	<DeviceFactory>
-		<Name>Create Test Device</Name>
-		<ButtonTitle>Create</ButtonTitle>
-		<ConfigUI>
-			<Field type="menu" id="deviceType" defaultValue="TestDevice">
-				<Label>Device Type:</Label>
-				<List>
-					<Option value="TestDevice">Test Device</Option>
-				</List>
-			</Field>
-		</ConfigUI>
-	</DeviceFactory>
-	<Device type="custom" id="TestDevice">
+	<Device type="thermostat" id="TestDevice">
 		<Name>Test Device</Name>
 		<ConfigUI>
 			<Field id="testButton" type="button">
