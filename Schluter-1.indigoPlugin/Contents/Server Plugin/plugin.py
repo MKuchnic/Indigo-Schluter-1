@@ -20,7 +20,7 @@ class Plugin(indigo.PluginBase):
 		indigo.server.log("Test Method Log")
 
 	def validatePrefsConfigUi(self, valuesDict):
-		output = "Validate Prefs Config UI Method Log, Values:" + valuesDict
+		#output = "Validate Prefs Config UI Method Log, Values:" + valuesDict
 		indigo.server.log("Validate Prefs Config UI Method Log")
 		#indigo.server.log(output)
 		
