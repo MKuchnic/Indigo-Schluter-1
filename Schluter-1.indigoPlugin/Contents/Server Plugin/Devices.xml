@@ -8,6 +8,10 @@
 				<Title>Test</Title>
 				<CallbackMethod>test_device_method</CallbackMethod>
 			</Field>
+			<Field id="insteonDimmers" type="menu">
+				<Label>Test Dynamic List:</Label>
+				<List class="self" filter="stuff" method="myListGenerator"/>
+			</Field>
 		</ConfigUI>
 	</Device>
 </Devices>
