@@ -8,6 +8,7 @@ import indigo
 
 import os
 import sys
+from schluter import Schluter
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
@@ -15,6 +16,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.login = ""
 		self.password = ""
+		self.schluter = Schluter()
 
 	########################################
 	# Actions defined in MenuItems.xml:
@@ -29,7 +31,17 @@ class Plugin(indigo.PluginBase):
 
 	def myListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
 		myArray = [("option1", "First Option"),("option2","Second Option")]
-		return myArray
+		
+		response = schluter.get_session("mkuchnic@shaw.ca", "4G@mgTPU+)3A")
+		output = response.json()
+		sessionID = output['SessionId']
+		
+		thermostat_list = schluter.get_thermostats(sessionID)
+		serial_numbers = []
+		for thermostat in thermostat_list:
+			serial_numbers.append(thermostat.serial_number)
+		
+		return serial_numbers
 
 	def validatePrefsConfigUi(self, valuesDict):
 		self.login = valuesDict["login"]
