@@ -16,7 +16,6 @@ class Plugin(indigo.PluginBase):
 		
 		self.login = ""
 		self.password = ""
-		self.schluter = Schluter()
 
 	########################################
 	# Actions defined in MenuItems.xml:
@@ -31,6 +30,7 @@ class Plugin(indigo.PluginBase):
 
 	def myListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
 		myArray = [("option1", "First Option"),("option2","Second Option")]
+		schluter = Schluter()
 		
 		response = schluter.get_session("mkuchnic@shaw.ca", "4G@mgTPU+)3A")
 		output = response.json()
