@@ -6,11 +6,19 @@ class Schluter_Thermo():
         self._group_name = data["GroupName"]
         self._temperature = data["Temperature"]
         self._set_point_temp = data["SetPointTemp"]
+        self._regulation_mode = data["RegulationMode"]
+        self._vacation_enabled = data["VacationEnabled"]
+        self._vacation_begin_day = data["VacationBeginDay"]
+        self._vacation_end_day = data["VacationEndDay"]
+        self._vacation_temperature = data["VacationTemperature"]
+        self._comfort_temperature = data["ComfortTemperature"]
+        self._comfort_end_time = data["ComfortEndTime"]
         self._manual_temp = data["ManualTemperature"]
         self._is_online = data["Online"]
         self._is_heating = data["Heating"]
         self._max_temp = data["MaxTemp"]
         self._min_temp = data["MinTemp"]
+        self._tzoffset = data["TZOffset"]
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
         self._sw_version = data["SWVersion"]
@@ -40,6 +48,34 @@ class Schluter_Thermo():
         return round((self._set_point_temp / 100) * 2) / 2 
     
     @property
+    def regulation_mode(self):
+        return self._regulation_mode
+
+    @property
+    def vacation_enabled(self):
+        return self._vacation_enabled
+    
+    @property
+    def vacation_begin_day(self):
+        return self._vacation_begin_day
+
+    @property
+    def vacation_end_day(self):
+        return self._vacation_end_day
+
+    @property
+    def vacation_temperature(self):
+        return self._vacation_temperature
+
+    @property
+    def comfort_temperature(self):
+        return self._comfort_temperature
+
+    @property
+    def comfort_end_time(self):
+        return self._comfort_end_time
+
+    @property
     def manual_temp(self):
         return round((self._manual_temp / 100) * 2) / 2
     
@@ -59,6 +95,10 @@ class Schluter_Thermo():
     def min_temp(self):
         return round((self._min_temp / 100) * 2) / 2
     
+    @property
+    def tzoffset(self):
+        return self._tzoffset
+
     @property
     def kwh_charge(self):
         return self._kwh_charge
