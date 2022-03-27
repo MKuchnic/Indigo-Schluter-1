@@ -2,6 +2,7 @@ from ensurepip import version
 import json
 import logging
 from requests import request, Session
+import requests
 from schluter_thermo import Schluter_Thermo
 
 # URL Constants
