@@ -6,3 +6,7 @@ Requirements:
 The username/password for your Schluter account
 Supported thermostats:  (so far)
 - Schluter DITRA-HEAT E-WIFI Thermostat
+
+Thanks to:
+Adam Michaleski - we very heavy borrowed his code for the schluter thermostat in our modules
+
