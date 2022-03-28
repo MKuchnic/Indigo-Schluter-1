@@ -19,7 +19,7 @@ class Schluter:
     def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
         self._command_timeout = command_timeout
-#        self._http_session = None
+        self._http_session = None
 
     def get_session(self, email, password):
         response = self._call_api(
@@ -38,7 +38,7 @@ class Schluter:
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
-#        print(groups)
+
         thermostat_list = []
         for group in groups:
             for thermostat in group["Thermostats"]:
