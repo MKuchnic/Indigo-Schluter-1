@@ -16,8 +16,6 @@ class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
-		#self.login = ""
-		#self.password = ""
 		self.schluter = Schluter()
 	
 	def startup(self):
@@ -42,14 +40,8 @@ class Plugin(indigo.PluginBase):
 		indigo.server.log("Test Device Method Log")
 
 	def myListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
-		#myArray = [("option1", "First Option"),("option2","Second Option")]
-		
-		authenticator = Authenticator(self.schluter, "mkuchnic@shaw.ca", "4G@mgTPU+)3A")
+		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
 		authentication = authenticator.authenticate()
-		
-		#response = self.schluter.get_session("mkuchnic@shaw.ca", "4G@mgTPU+)3A")
-		#output = response.json()
-		#sessionID = output['SessionId']
 		
 		sessionID = authentication.session_id[0]
 		
@@ -63,9 +55,9 @@ class Plugin(indigo.PluginBase):
 		return serial_numbers
 
 	def validatePrefsConfigUi(self, valuesDict):
-		self.login = valuesDict["login"]
-		self.password = valuesDict["password"]
-		output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
-		indigo.server.log(output)
+		#self.login = valuesDict["login"]
+		#self.password = valuesDict["password"]
+		#output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
+		#indigo.server.log(output)
 		
 		return True
