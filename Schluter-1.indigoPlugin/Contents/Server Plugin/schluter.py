@@ -19,7 +19,7 @@ class Schluter:
     def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
         self._command_timeout = command_timeout
-#        self._http_session = http_session
+#        self._http_session = None
 
     def get_session(self, email, password):
         response = self._call_api(
@@ -68,7 +68,9 @@ class Schluter:
         
         _LOGGER.debug("Calling %s with payload=%s", url, payload)
 
-        response = self.request(method, url, params = params, **kwargs)
+        response = self._http_session.request(method, url, params = params, **kwargs) if\
+            self._http_session is not None else\
+            request(method, url, params = params, **kwargs)
 
         _LOGGER.debug("API Response received: %s - %s", response.status_code, response.content)
 
