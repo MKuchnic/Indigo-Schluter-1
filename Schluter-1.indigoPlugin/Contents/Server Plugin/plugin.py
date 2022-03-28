@@ -39,7 +39,7 @@ class Plugin(indigo.PluginBase):
 		thermostat_list = schluter.get_thermostats(sessionID)
 		serial_numbers = []
 		for thermostat in thermostat_list:
-			tuple = (thermostat.serial_number, thermostat.serial_number)
+			tuple = (thermostat.name, thermostat.serial_number)
 			serial_numbers.append(tuple)
 		
 		return serial_numbers
