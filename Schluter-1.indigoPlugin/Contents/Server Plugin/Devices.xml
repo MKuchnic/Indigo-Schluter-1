@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Devices>
 	<Device type="thermostat" id="TestDevice">
-		<Name>Test Device</Name>
+		<Name>DITRA-HEAT-E-WIFI</Name>
 		<ConfigUI>
 			<Field id="testButton" type="button">
 				<Label>This button tests:</Label>
