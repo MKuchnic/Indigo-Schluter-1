@@ -4,4 +4,8 @@
 		<Name>Test Menu Item</Name>
 		<CallbackMethod>testMethod</CallbackMethod>
 	</MenuItem>
+	<MenuItem id="pluginPrefs">
+		<Name>Print Plugin Prefs</Name>
+		<CallbackMethod>printPluginPrefs</CallbackMethod>
+	</MenuItem>
 </MenuItems>
