@@ -53,7 +53,7 @@ class Plugin(indigo.PluginBase):
 		
 		sessionID = authentication.session_id[0]
 		
-		thermostat_list = schluter.get_thermostats(sessionID)
+		thermostat_list = self.schluter.get_thermostats(sessionID)
 		serial_numbers = []
 		for thermostat in thermostat_list:
 			# The UI uses a tuple for the list: (variable name, display name)
