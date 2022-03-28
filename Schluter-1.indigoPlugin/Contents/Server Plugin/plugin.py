@@ -58,19 +58,20 @@ class Plugin(indigo.PluginBase):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
 		
-		output = "Login:" + valuesDict["login"] + " Password:" + valuesDict["password"]
-		indigo.server.log(output)
-		output = "Authentication State: " + authentication.state.value
-		indigo.server.log(output)
+		#output = "Login:" + valuesDict["login"] + " Password:" + valuesDict["password"]
+		#indigo.server.log(output)
+		#output = "Authentication State: " + authentication.state.value
+		#indigo.server.log(output)
 		
-		if authentication.state.value == "authenticated":
-			authenticated = True
-		else:
-			authenticated = False
+		errorDict = indigo.Dict()
+		errorDict["showAlertText"] = "Invalid Login or Password."
+		
+		if authentication.state.value != "authenticated":
+			return (False, valuesDict, errorDict)
 		
 		#self.login = valuesDict["login"]
 		#self.password = valuesDict["password"]
 		#output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
 		#indigo.server.log(output)
 		
-		return authenticated
+		return True
