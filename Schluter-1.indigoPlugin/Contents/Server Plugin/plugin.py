@@ -55,9 +55,17 @@ class Plugin(indigo.PluginBase):
 		return serial_numbers
 
 	def validatePrefsConfigUi(self, valuesDict):
+		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
+		authentication = authenticator.authenticate()
+		
+		if authentication.state.value == "authenticated":
+			authenticated = True
+		else:
+			authenticated = False
+		
 		#self.login = valuesDict["login"]
 		#self.password = valuesDict["password"]
 		#output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
 		#indigo.server.log(output)
 		
-		return True
+		return authenticated
