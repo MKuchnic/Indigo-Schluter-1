@@ -44,7 +44,7 @@ class Plugin(indigo.PluginBase):
 	def myListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
 		#myArray = [("option1", "First Option"),("option2","Second Option")]
 		
-		authenticator = Authenticator(schluter, "mkuchnic@shaw.ca", "4G@mgTPU+)3A")
+		authenticator = Authenticator(self.schluter, "mkuchnic@shaw.ca", "4G@mgTPU+)3A")
 		authentication = authenticator.authenticate()
 		
 		#response = self.schluter.get_session("mkuchnic@shaw.ca", "4G@mgTPU+)3A")
