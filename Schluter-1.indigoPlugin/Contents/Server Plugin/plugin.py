@@ -29,7 +29,7 @@ class Plugin(indigo.PluginBase):
 	####################
 	def testMethod(self):
 		indigo.server.log("Test Method Log")
-		output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
+		output = "Validate Prefs Config UI Method Log, login:" + self.testMethod["login"] + " password:" + self.testMethod["password"]
 		indigo.server.log(output)
 	
 	def printPluginPrefs(self):
