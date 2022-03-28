@@ -16,10 +16,10 @@ API_APPLICATION_ID = 7
 _LOGGER = logging.getLogger(__name__)
 
 class Schluter:
-    def __init__(self, timeout=10, command_timeout=60, http_session: Session = None):
+    def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
         self._command_timeout = command_timeout
-        self._http_session = http_session
+#        self._http_session = http_session
 
     def get_session(self, email, password):
         response = self._call_api(
