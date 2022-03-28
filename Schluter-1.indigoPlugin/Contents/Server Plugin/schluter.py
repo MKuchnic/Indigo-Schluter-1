@@ -68,9 +68,7 @@ class Schluter:
         
         _LOGGER.debug("Calling %s with payload=%s", url, payload)
 
-        response = self._http_session.request(method, url, params = params, **kwargs) if\
-            self._http_session is not None else\
-            request(method, url, params = params, **kwargs)
+        response = self.request(method, url, params = params, **kwargs)
 
         _LOGGER.debug("API Response received: %s - %s", response.status_code, response.content)
 
