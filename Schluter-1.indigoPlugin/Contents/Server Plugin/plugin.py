@@ -72,9 +72,11 @@ class Plugin(indigo.PluginBase):
 		
 		if authentication.state.value != "authenticated":
 			errorDict["showAlertText"] = "Invalid Login or Password."
+		
 		updateFrequency = int(valuesDict['updateFrequency'])
 		if (updateFrequency < 3) or (updateFrequency > 60):
 			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
+		
 		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
 		
