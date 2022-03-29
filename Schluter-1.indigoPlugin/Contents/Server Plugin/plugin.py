@@ -46,7 +46,7 @@ class Plugin(indigo.PluginBase):
 		
 		if authentication.state.value = "bad_email":
 			errorDict["login"] = "Login is invalid"
-
+		
 		if authentication.state.value = "bad_password":
 			errorDict["password"] = "Password is invalid"
 
