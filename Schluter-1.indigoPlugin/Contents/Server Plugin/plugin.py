@@ -44,10 +44,10 @@ class Plugin(indigo.PluginBase):
 		authentication = authenticator.authenticate()
 		errorDict = indigo.Dict()
 		
-		if authentication.state.value = "bad_email":
+		if authentication.state.value == "bad_email":
 			errorDict["login"] = "Login is invalid"
 		
-		if authentication.state.value = "bad_password":
+		if authentication.state.value == "bad_password":
 			errorDict["password"] = "Password is invalid"
 
 		updateFrequency = int(valuesDict['updateFrequency'])
