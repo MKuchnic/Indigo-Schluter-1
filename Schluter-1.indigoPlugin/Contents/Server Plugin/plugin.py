@@ -20,7 +20,7 @@ class Plugin(indigo.PluginBase):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
 		self.schluter = Schluter()
-        self.logLevel = 20
+#        self.logLevel = int(self.pluginPrefs["logLevel"])
 #        self.indigo_log_handler.setLevel(self.logLevel)
 #        self.logger.debug(u"logLevel = {}".format(self.logLevel))
 	
