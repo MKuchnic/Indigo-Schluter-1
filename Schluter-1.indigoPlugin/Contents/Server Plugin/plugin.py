@@ -18,6 +18,8 @@ class Plugin(indigo.PluginBase):
 		
 		self.schluter = Schluter()
 		
+        pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
+        self.plugin_file_handler.setFormatter(pfmt)
         self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
         self.indigo_log_handler.setLevel(self.logLevel)
         self.logger.debug(u"logLevel = {}".format(self.logLevel))
