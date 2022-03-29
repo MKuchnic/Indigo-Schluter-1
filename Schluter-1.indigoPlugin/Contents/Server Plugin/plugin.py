@@ -17,11 +17,10 @@ from authenticator import Authenticator, Authentication
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
-        indigo.PluginBase.__init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-#		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
 		self.schluter = Schluter()
-        self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
+		self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
 #        self.indigo_log_handler.setLevel(self.logLevel)
 #        self.logger.debug(u"logLevel = {}".format(self.logLevel))
 	
