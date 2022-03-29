@@ -18,11 +18,13 @@ from authenticator import Authenticator, Authentication
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+		pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
+		self.plugin_file_handler.setFormatter(pfmt)
+
+		self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
+		self.indigo_log_handler.setLevel(self.logLevel)
+		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 		
-#        self.logLevel = int(self.pluginPrefs["logLevel"])
-#        self.indigo_log_handler.setLevel(self.logLevel)
-#        self.logger.debug(u"logLevel = {}".format(self.logLevel))
-	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
 		
@@ -39,11 +41,20 @@ class Plugin(indigo.PluginBase):
 	def validatePrefsConfigUi(self, valuesDict):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
+		self.logger.debug(u"validatePrefsConfigUi called")
+		errorDict = indigo.Dict()
 		
 		errorDict = indigo.Dict()
 		errorDict["showAlertText"] = "Invalid Login or Password."
 		
 		if authentication.state.value != "authenticated":
+			errorDict["showAlertText"] = "Invalid Login or Password."
+
+		updateFrequency = int(valuesDict['updateFrequency'])
+		if (updateFrequency < 3) or (updateFrequency > 60):
+			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
+
+		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
 		
 		return True
