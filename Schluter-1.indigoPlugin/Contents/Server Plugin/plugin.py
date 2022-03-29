@@ -30,7 +30,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.schluter = Schluter()
 		
-		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "15")) *  60.0
+		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.next_update = time.time() + self.updateFrequency
 		
 		self.update_needed = False
