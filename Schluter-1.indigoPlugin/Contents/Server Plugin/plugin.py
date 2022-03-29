@@ -67,13 +67,14 @@ class Plugin(indigo.PluginBase):
 	def validatePrefsConfigUi(self, valuesDict):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-        self.logger.debug(u"validatePrefsConfigUi called")
-        errorDict = indigo.Dict()
-        if authentication.state.value != "authenticated":
+		self.logger.debug(u"validatePrefsConfigUi called")
+		errorDict = indigo.Dict()
+		
+		if authentication.state.value != "authenticated":
 			errorDict["showAlertText"] = "Invalid Login or Password."
-#		updateFrequency = int(valuesDict['updateFrequency'])
-#		if (updateFrequency < 3) or (updateFrequency > 60):
-#			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
+		updateFrequency = int(valuesDict['updateFrequency'])
+		if (updateFrequency < 3) or (updateFrequency > 60):
+			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
 		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
 		
