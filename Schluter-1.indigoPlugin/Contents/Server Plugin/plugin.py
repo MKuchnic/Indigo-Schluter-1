@@ -9,9 +9,11 @@ import indigo
 import os
 import sys
 import logging
+import time
+import threading
+
 from schluter import Schluter
-from authenticator import Authenticator
-from authenticator import Authentication
+from authenticator import Authenticator, Authentication
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
