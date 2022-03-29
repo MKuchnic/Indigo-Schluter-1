@@ -55,6 +55,23 @@ class Plugin(indigo.PluginBase):
 			return (False, valuesDict, errorDict)
 		
 		return True
+
+	def closedPrefsConfigUi(self, valuesDict, userCancelled):
+		self.logger.debug(u"closedPrefsConfigUi called")
+		if not userCancelled:
+			try:
+				self.logLevel = int(valuesDict[u"logLevel"])
+			except:
+				self.logLevel = logging.INFO
+			self.indigo_log_handler.setLevel(self.logLevel)
+			self.logger.debug(u"logLevel = " + str(self.logLevel))
+			
+			self.updateFrequency = float(valuesDict['updateFrequency']) * 60.0
+			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
+			self.next_update = time.time()
+
+            self.update_needed = True
+
 	
 	########################################
 	
