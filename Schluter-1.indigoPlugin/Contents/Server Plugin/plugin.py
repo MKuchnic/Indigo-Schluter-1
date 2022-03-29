@@ -27,7 +27,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 	
 	def startup(self):
-		indigo.server.log("Starting Schluter"")
+		indigo.server.log("Starting Schluter")
         self.logger.info("Starting Schluter")
 	
 	def shutdown(self):
