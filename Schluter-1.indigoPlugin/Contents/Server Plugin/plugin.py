@@ -8,6 +8,7 @@ import indigo
 
 import os
 import sys
+import logging
 from schluter import Schluter
 from authenticator import Authenticator
 from authenticator import Authentication
