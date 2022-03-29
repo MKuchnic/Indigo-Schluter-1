@@ -21,8 +21,8 @@ class Plugin(indigo.PluginBase):
 		
 		self.schluter = Schluter()
 		self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
-#        self.indigo_log_handler.setLevel(self.logLevel)
-#        self.logger.debug(u"logLevel = {}".format(self.logLevel))
+		self.indigo_log_handler.setLevel(self.logLevel)
+		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
