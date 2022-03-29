@@ -68,7 +68,7 @@ class Plugin(indigo.PluginBase):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
         self.logger.debug(u"validatePrefsConfigUi called")
-		errorDict = indigo.Dict()
+        errorDict = indigo.Dict()
 		
 		if authentication.state.value != "authenticated":
 			errorDict["showAlertText"] = "Invalid Login or Password."
