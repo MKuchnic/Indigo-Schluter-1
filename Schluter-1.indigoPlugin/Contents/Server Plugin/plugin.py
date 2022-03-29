@@ -20,6 +20,9 @@ class Plugin(indigo.PluginBase):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
 		self.schluter = Schluter()
+        self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
+        self.indigo_log_handler.setLevel(self.logLevel)
+        self.logger.debug(u"logLevel = {}".format(self.logLevel))
 	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
