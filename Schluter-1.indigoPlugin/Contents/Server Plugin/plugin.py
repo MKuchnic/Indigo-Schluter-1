@@ -27,7 +27,6 @@ class Plugin(indigo.PluginBase):
 		
 	def startup(self):
 		self.logger.info(u"Starting Schluter")
-		indigo.server.log("Starting Schluter")
 		
 		self.schluter = Schluter()
 		
@@ -37,7 +36,7 @@ class Plugin(indigo.PluginBase):
 		self.update_needed = False
 	
 	def shutdown(self):
-		indigo.server.log("Stopping Schluter")
+		self.logger.info(u"Stopping Schluter")
 	
 	def validatePrefsConfigUi(self, valuesDict):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
