@@ -18,6 +18,8 @@ from authenticator import Authenticator, Authentication
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+		pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
+		self.plugin_file_handler.setFormatter(pfmt)
 		
 		self.schluter = Schluter()
 		self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
