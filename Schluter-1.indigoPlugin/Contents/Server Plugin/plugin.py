@@ -28,15 +28,10 @@ class Plugin(indigo.PluginBase):
 	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
-#		self.logger.info(u"Starting Schluter")
-        self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
-        self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
-        self.next_update = time.time() + self.updateFrequency
 
 	
 	def shutdown(self):
 		indigo.server.log("Stopping Schluter")
-#		self.logger.info(u"Starting Schluter")
 
 	
 	########################################
@@ -72,21 +67,17 @@ class Plugin(indigo.PluginBase):
 	def validatePrefsConfigUi(self, valuesDict):
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-		
-		#output = "Login:" + valuesDict["login"] + " Password:" + valuesDict["password"]
-		#indigo.server.log(output)
-		#output = "Authentication State: " + authentication.state.value
-		#indigo.server.log(output)
-		
+        self.logger.debug(u"validatePrefsConfigUi called")
 		errorDict = indigo.Dict()
-		errorDict["showAlertText"] = "Invalid Login or Password."
-		
+
 		if authentication.state.value != "authenticated":
-			return (False, valuesDict, errorDict)
+			errorDict["showAlertText"] = "Invalid Login or Password."
+
+        updateFrequency = int(valuesDict['updateFrequency'])
+        if (updateFrequency < 3) or (updateFrequency > 60):
+            errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
 		
-		#self.login = valuesDict["login"]
-		#self.password = valuesDict["password"]
-		#output = "Validate Prefs Config UI Method Log, login:" + self.login + " password:" + self.password
-		#indigo.server.log(output)
+		if len(errorDict) > 0 :
+			return (False, valuesDict, errorDict)
 		
 		return True
