@@ -8,9 +8,9 @@
 				<Title>Test</Title>
 				<CallbackMethod>test_device_method</CallbackMethod>
 			</Field>
-			<Field id="insteonDimmers" type="menu">
+			<Field id="serialNumbers" type="menu">
 				<Label>Test Dynamic List:</Label>
-				<List class="self" filter="stuff" method="myListGenerator"/>
+				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
 		</ConfigUI>
 	</Device>
