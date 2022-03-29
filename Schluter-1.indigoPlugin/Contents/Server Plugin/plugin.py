@@ -69,8 +69,8 @@ class Plugin(indigo.PluginBase):
 			self.updateFrequency = float(valuesDict['updateFrequency']) * 60.0
 			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 			self.next_update = time.time()
-
-            self.update_needed = True
+			
+			self.update_needed = True
 
 	
 	########################################
