@@ -28,7 +28,7 @@ class Plugin(indigo.PluginBase):
 	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
-		self.logger.info(u"Starting Schluter")
+#		self.logger.info(u"Starting Schluter")
         self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
         self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
         self.next_update = time.time() + self.updateFrequency
