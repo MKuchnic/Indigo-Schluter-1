@@ -15,21 +15,13 @@ from authenticator import Authentication
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
-		indigoPluginBase._init_(self,pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-#		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
 		self.schluter = Schluter()
 		
-        pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
-        self.plugin_file_handler.setFormatter(pfmt)
-        self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
-        self.indigo_log_handler.setLevel(self.logLevel)
-        self.logger.debug(u"logLevel = {}".format(self.logLevel))
-
 	
 	def startup(self):
 		indigo.server.log("Starting Schluter")
-        self.logger.info(u"Starting Schluter")
                      
         self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
         self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
