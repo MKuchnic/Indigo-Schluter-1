@@ -15,7 +15,8 @@ from authenticator import Authentication
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
-		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+		indigoPluginBase._init_(self,pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
+#		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		
 		self.schluter = Schluter()
 		
