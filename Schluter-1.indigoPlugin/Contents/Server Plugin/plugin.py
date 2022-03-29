@@ -39,9 +39,9 @@ class Plugin(indigo.PluginBase):
 		self.logger.info(u"Stopping Schluter")
 	
 	def validatePrefsConfigUi(self, valuesDict):
+		self.logger.debug(u"validatePrefsConfigUi called")
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-		self.logger.debug(u"validatePrefsConfigUi called")
 		errorDict = indigo.Dict()
 		
 		if authentication.state.value = "bad_email":
@@ -74,18 +74,18 @@ class Plugin(indigo.PluginBase):
 			self.next_update = time.time()
 			
 			self.update_needed = True
-
 	
 	########################################
 	
 	def runConcurrentThread(self):
+		self.logger.debug(u"runConcurrentThread starting")
 		try:
 			while True:
 				if (time.time() > self.next_update) or self.update_needed:
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 					
-					indigo.server.log("Schluter - Periodic Update")
+					self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(60.0)
 				
@@ -114,13 +114,10 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def testMethod(self):
-		indigo.server.log("Test Method Log")
-		output = "Test Method menu Item, login:" + self.pluginPrefs["login"] + " password:" + self.pluginPrefs["password"]
-		indigo.server.log(output)
+		self.logger.debug("testMethod called: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
 	
 	def printPluginPrefs(self):
-		output = "Login: " + self.pluginPrefs["login"] + " Password: " + self.pluginPrefs["password"]
-		indigo.server.log(output)
+		self.logger.debug("printPluginPrefs values: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
 	
 	def test_device_method(self):
-		indigo.server.log("Test Device Method Log")
+		self.logger.debug("test_device_method called")
