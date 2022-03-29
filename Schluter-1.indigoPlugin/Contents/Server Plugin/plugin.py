@@ -24,16 +24,12 @@ class Plugin(indigo.PluginBase):
 		indigo.server.log("Starting Schluter")
                      
         self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
-        self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
-        self.next_update = time.time() + self.updateFrequency
-        
+        self.next_update = time.time() + self.updateFrequency  
         self.update_needed = False
-
 	
 	def shutdown(self):
 		indigo.server.log("Stopping Schluter")
         self.logger.info(u"Stopping Schluter")
-
 	
 	########################################
 	# Actions defined in MenuItems.xml:
