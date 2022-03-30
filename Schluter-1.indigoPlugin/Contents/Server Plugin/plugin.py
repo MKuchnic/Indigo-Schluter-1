@@ -42,7 +42,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"validatePrefsConfigUi called")
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-		self.logger.debug(u"calling authenticator")
+
 		errorDict = indigo.Dict()
 		
 		if authentication.state.value == "bad_email":
