@@ -96,6 +96,7 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 					if self.authentication.expires <= datetime.utcnow():
 						self.logger.debug(u"Re-authenticating NOW!")
+						self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 						self.authentication = self.authenticator.authenticate()
 						self.logger.debug("Resulting Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
 					
