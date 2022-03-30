@@ -71,14 +71,12 @@ class Schluter:
             kwargs["timeout"] = self._timeout
         
         self.logger.debug("Calling %s with payload=%s", url, payload)
-        indigo.server.log("calling with payload")
 
         response = self._http_session.request(method, url, params = params, **kwargs) if\
             self._http_session is not None else\
             request(method, url, params = params, **kwargs)
 
         self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
-        indigo.server.log("API response received")
 
         response.raise_for_status()
         return response

@@ -36,7 +36,7 @@ class Authentication:
         self._state = state
         self._session_id = session_id,
         self._expires = expires
-        self.logger = logging.getLogger('Schluter Authentication')
+        self.logger = logging.getLogger('Plugin.Authentication')
     	
     @property
     def session_id(self):
@@ -61,7 +61,7 @@ class Authenticator:
         self._email = email
         self._password = password
         self._session_id_cache_file = session_id_cache_file
-        self.logger = logging.getLogger('Schluter Authenticate')
+        self.logger = logging.getLogger('Plufgin.Authenticator')
         
         if (session_id_cache_file is not None and
                 os.path.exists(session_id_cache_file)):
