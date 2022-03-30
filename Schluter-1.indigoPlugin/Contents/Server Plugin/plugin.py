@@ -10,7 +10,7 @@ import os
 import sys
 import logging
 import time
-import datetime, delta
+from datetime import datetime, timedelta
 import threading
 
 from schluter import Schluter
