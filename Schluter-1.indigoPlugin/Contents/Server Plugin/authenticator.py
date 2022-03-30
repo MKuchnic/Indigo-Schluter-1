@@ -35,7 +35,7 @@ class Authentication:
         self._state = state
         self._session_id = session_id,
         self._expires = expires
-    	self.logger.debug(u"Authentication")
+        self.logger = logging.getLogger('Schluter Authentication')
     	
     @property
     def session_id(self):
