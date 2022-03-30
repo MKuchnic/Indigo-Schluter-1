@@ -63,9 +63,6 @@ class Authenticator:
         self._session_id_cache_file = session_id_cache_file
         self.logger = logging.getLogger('Schluter Authenticate')
         
-        self.logger.debug(u"logLevel = {}".format(self.logLevel))
-
-
         if (session_id_cache_file is not None and
                 os.path.exists(session_id_cache_file)):
             with open(session_id_cache_file, 'r') as file:
