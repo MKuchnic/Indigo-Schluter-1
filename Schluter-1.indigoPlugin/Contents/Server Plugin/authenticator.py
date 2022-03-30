@@ -4,7 +4,6 @@ import logging
 from enum import Enum
 from datetime import datetime, timedelta
 
-_LOGGER = logging.getLogger(__name__)
 
 def to_authentication_json(authentication):
     if authentication is None:
@@ -74,16 +73,17 @@ class Authenticator:
                     
                     if token_expired < timedelta(
                             seconds=0):
-                        _LOGGER.error("Token has expired.")
+                        self.logger.error("Token has expired.")
                         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
                     return
                 except json.decoder.JSONDecodeError as error:
-                    _LOGGER.error("Unable to read cache file (%s): %s",
+                    self.logger.error("Unable to read cache file (%s): %s",
                                   session_id_cache_file, error)
 
         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 
     def authenticate(self):
+    	self.logger.debug(u"Authenticate")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
                 return self._authentication
         

@@ -22,6 +22,7 @@ class Schluter:
         self._http_session = None
 
     def get_session(self, email, password):
+        self.logger.debug(u"get_session")
         response = self._call_api(
             "post", 
             API_AUTH_URL,
@@ -35,6 +36,7 @@ class Schluter:
         return response
 
     def get_thermostats(self, sessionId):
+        self.logger.debug(u"get_thermostats")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
@@ -47,6 +49,7 @@ class Schluter:
         return thermostat_list
     
     def get_temperature(self, sessionId, serialNumber):
+    	self.logger.debug(u"get_temperature")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
@@ -66,13 +69,13 @@ class Schluter:
         if "timeout" not in kwargs:
             kwargs["timeout"] = self._timeout
         
-        _LOGGER.debug("Calling %s with payload=%s", url, payload)
+        self.logger.debug("Calling %s with payload=%s", url, payload)
 
         response = self._http_session.request(method, url, params = params, **kwargs) if\
             self._http_session is not None else\
             request(method, url, params = params, **kwargs)
 
-        _LOGGER.debug("API Response received: %s - %s", response.status_code, response.content)
+        self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
 
         response.raise_for_status()
         return response
