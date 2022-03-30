@@ -93,8 +93,7 @@ class Authenticator:
 
         data = response.json()
         session_id = data["SessionId"]
-        expires = data["expires"]
-#        expires = datetime.utcnow() + timedelta(hours=1)
+        expires = datetime.utcnow() + timedelta(hours=1)
 
         if data["ErrorCode"] == 2:
             state = AuthenticationState.BAD_PASSWORD
