@@ -37,7 +37,7 @@ class Plugin(indigo.PluginBase):
 		self.update_needed = False
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
-		self.authentication = authenticator.authenticate()
+		self.authentication = self.authenticator.authenticate()
 		self.logger.debug(u"Startup authentication")
 
 	
