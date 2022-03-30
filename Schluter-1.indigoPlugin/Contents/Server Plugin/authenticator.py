@@ -62,6 +62,7 @@ class Authenticator:
         self._password = password
         self._session_id_cache_file = session_id_cache_file
         self.logger = logging.getLogger('Schluter Authenticate')
+        
         self.logger.debug(u"logLevel = {}".format(self.logLevel))
 
 
