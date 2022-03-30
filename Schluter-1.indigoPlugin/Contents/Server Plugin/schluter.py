@@ -23,7 +23,7 @@ class Schluter:
         self.logger = logging.getLogger(__name__)
 
     def get_session(self, email, password):
-        self.logger.debug("get_session")
+        self.logger.debug(u"get_session")
         response = self._call_api(
             "post", 
             API_AUTH_URL,
@@ -37,7 +37,7 @@ class Schluter:
         return response
 
     def get_thermostats(self, sessionId):
-        self.logger.debug("get_thermostats")
+        self.logger.debug(u"get_thermostats")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
@@ -50,7 +50,7 @@ class Schluter:
         return thermostat_list
     
     def get_temperature(self, sessionId, serialNumber):
-    	self.logger.debug("get_temperature")
+    	self.logger.debug(u"get_temperature")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
