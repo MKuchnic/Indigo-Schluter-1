@@ -86,7 +86,7 @@ class Authenticator:
 
     def authenticate(self):
     	self.logger.debug(u"Authenticate called")
-    	indigo.server.log("Authenticate called - print")
+    	indigo.server.log("Authenticate called - printed")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
                 return self._authentication
         
