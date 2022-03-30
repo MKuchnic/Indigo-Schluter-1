@@ -59,7 +59,7 @@ class Plugin(indigo.PluginBase):
 
 		updateFrequency = int(valuesDict['updateFrequency'])
 		if (updateFrequency < 3) or (updateFrequency > 30):
-			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 30)"
+			errorDict['updateFrequency'] = "Update frequency is invalid - enter a valid number (between 3 and 30)"
 
 		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
@@ -79,11 +79,11 @@ class Plugin(indigo.PluginBase):
 			self.updateFrequency = float(valuesDict['updateFrequency']) * 60.0
 			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 			self.next_update = time.time()
+			self.update_needed = True
 			
 			self.authentication = self.authenticator.authenticate()
 			self.logger.debug(u"updating authentication")
 			
-			self.update_needed = True
 	
 	########################################
 	
@@ -95,9 +95,9 @@ class Plugin(indigo.PluginBase):
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 					if self.authentication.expires <= datetime.utcnow():
-						self.authentication = self.authenticator.authenticate()
 						self.logger.debug(u"Re-authenticating NOW!")
-						self.logger.debug(u"Expires = {}".format(self.authentication.expires))
+						self.authentication = self.authenticator.authenticate()
+						self.logger.debug("Resulting Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
 					
 					self.logger.debug("runConcurrentThread loop iteration")
 
