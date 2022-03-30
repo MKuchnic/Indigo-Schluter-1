@@ -85,7 +85,7 @@ class Authenticator:
         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 
     def authenticate(self):
-    	self.logger.debug(u"Authenticate called")
+    	self.logger.debug(u"authenticate called")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
                 return self._authentication
         

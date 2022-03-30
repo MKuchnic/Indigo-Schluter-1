@@ -10,6 +10,7 @@ import os
 import sys
 import logging
 import time
+import datetime, delta
 import threading
 
 from schluter import Schluter
@@ -33,8 +34,12 @@ class Plugin(indigo.PluginBase):
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 		self.next_update = time.time() + self.updateFrequency
-		
 		self.update_needed = False
+		
+		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
+		self.authentication = authenticator.authenticate()
+		self.logger.debug(u"Startup authentication")
+
 	
 	def shutdown(self):
 		self.logger.info(u"Stopping Schluter")
@@ -86,9 +91,11 @@ class Plugin(indigo.PluginBase):
 				if (time.time() > self.next_update) or self.update_needed:
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
+					if self.authenticate.expires =< datetime.utcnow():
+						self.authetication = authenticator.authenticate()
+						self.logger.debug(u"Reauthenticating NOW"")
 					
 					self.logger.debug("runConcurrentThread loop iteration")
-					self.logger.debug("Next update time: ".format(self.next_update))
 
 				self.sleep(60.0)
 				
@@ -98,10 +105,11 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def serialNumberListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
-		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
-		authentication = authenticator.authenticate()
-		
-		sessionID = authentication.session_id[0]
+#		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
+#		authentication = authenticator.authenticate()
+		self.logger.debug(u"get serial number called")
+				
+		sessionID = self.authentication.session_id[0]
 		
 		thermostat_list = self.schluter.get_thermostats(sessionID)
 		serial_numbers = []

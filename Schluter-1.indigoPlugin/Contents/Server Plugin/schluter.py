@@ -23,7 +23,7 @@ class Schluter:
         self.logger = logging.getLogger("Plugin.Schluter")
 
     def get_session(self, email, password):
-        self.logger.debug(u"get_session")
+        self.logger.debug(u"get_session called")
         response = self._call_api(
             "post", 
             API_AUTH_URL,
@@ -37,7 +37,7 @@ class Schluter:
         return response
 
     def get_thermostats(self, sessionId):
-        self.logger.debug(u"get_thermostats")
+        self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
@@ -50,13 +50,14 @@ class Schluter:
         return thermostat_list
     
     def get_temperature(self, sessionId, serialNumber):
-    	self.logger.debug(u"get_temperature")
+    	self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
         return result
 
     def set_temperature(self, sessionId, serialNumber, temperature):
+    	self.logger.debug(u"set_temperature called")
         modifiedTemp = int(temperature * 100)
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { 'ManualTemperature': modifiedTemp, "RegulationMode": 3, "VacationEnabled": False}
