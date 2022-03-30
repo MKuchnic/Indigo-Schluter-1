@@ -38,7 +38,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
 		self.authentication = self.authenticator.authenticate()
-		self.logger.debug(u"Startup authentication")
+		self.logger.debug(u"Startup authentication".format(authentication.session_id.value))
 
 	
 	def shutdown(self):
