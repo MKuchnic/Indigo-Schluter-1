@@ -31,6 +31,7 @@ class Plugin(indigo.PluginBase):
 		self.schluter = Schluter()
 		
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
+		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 		self.next_update = time.time() + self.updateFrequency
 		
 		self.update_needed = False
@@ -52,8 +53,8 @@ class Plugin(indigo.PluginBase):
 			errorDict["password"] = "Password is invalid"
 
 		updateFrequency = int(valuesDict['updateFrequency'])
-		if (updateFrequency < 3) or (updateFrequency > 60):
-			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 60)"
+		if (updateFrequency < 3) or (updateFrequency > 30):
+			errorDict['updateFrequency'] = u"Update frequency is invalid - enter a valid number (between 3 and 30)"
 
 		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
