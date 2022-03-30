@@ -88,7 +88,7 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 					
 					self.logger.debug("runConcurrentThread loop iteration")
-					self.logger.debug("Next update time: ", self.next_update)
+					self.logger.debug("Next update time: ".format(self.next_update))
 
 				self.sleep(60.0)
 				
