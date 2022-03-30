@@ -38,7 +38,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
 		self.authentication = self.authenticator.authenticate()
-		self.logger.debug(u"Startup authentication ={}".format(self.authentication.session_id))
+		self.logger.debug("Startup authentication = {}".format(self.authentication.session_id))
 
 	
 	def shutdown(self):
@@ -97,7 +97,7 @@ class Plugin(indigo.PluginBase):
 					if self.authentication.expires <= datetime.utcnow():
 						self.authentication = self.authenticator.authenticate()
 						self.logger.debug(u"Re-authenticating NOW!")
-						self.logger.debug(self.authentication.expires)
+						self.logger.debug("Expires = {}".format(self.authentication.expires))
 					
 					self.logger.debug("runConcurrentThread loop iteration")
 
