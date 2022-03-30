@@ -35,7 +35,8 @@ class Authentication:
         self._state = state
         self._session_id = session_id,
         self._expires = expires
-
+    	self.logger.debug(u"Authentication")
+    	
     @property
     def session_id(self):
         return self._session_id
@@ -59,7 +60,7 @@ class Authenticator:
         self._email = email
         self._password = password
         self._session_id_cache_file = session_id_cache_file
-        self.logger = logging.getLogger('Schluter Authenticate class objects')
+        self.logger = logging.getLogger('Schluter Authenticate')
 
         if (session_id_cache_file is not None and
                 os.path.exists(session_id_cache_file)):
