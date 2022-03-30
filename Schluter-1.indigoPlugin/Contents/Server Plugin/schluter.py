@@ -13,13 +13,13 @@ API_GET_THERMOSTATS_URL = API_BASE_URL + "/api/thermostats"
 API_SET_TEMPERATURE_URL = API_BASE_URL + "/api/thermostat"
 API_APPLICATION_ID = 7
 
-_LOGGER = logging.getLogger(__name__)
 
 class Schluter:
     def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
         self._command_timeout = command_timeout
         self._http_session = None
+        self.logger = logging.getLogger('Schluter class objects')
 
     def get_session(self, email, password):
         self.logger.debug(u"get_session")
