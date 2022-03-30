@@ -20,7 +20,7 @@ class Schluter:
         self._timeout = timeout
         self._command_timeout = command_timeout
         self._http_session = None
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger("schluter.py")
 
     def get_session(self, email, password):
         self.logger.debug(u"get_session")
