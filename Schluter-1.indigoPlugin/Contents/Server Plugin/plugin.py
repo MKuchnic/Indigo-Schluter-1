@@ -46,8 +46,8 @@ class Plugin(indigo.PluginBase):
 	
 	def validatePrefsConfigUi(self, valuesDict):
 		self.logger.debug(u"validatePrefsConfigUi called")
-#		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
-		self.authentication = self.authenticator.authenticate()
+		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
+		authentication = authenticator.authenticate()
 
 		errorDict = indigo.Dict()
 		
@@ -80,6 +80,9 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 			self.next_update = time.time()
 			
+			self.authentication = self.authenticator.authenticate()
+			self.logger.debug(u"updating authentication")
+			
 			self.update_needed = True
 	
 	########################################
@@ -92,7 +95,7 @@ class Plugin(indigo.PluginBase):
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 					if self.authentication.expires <= datetime.utcnow():
-						self.authetication = self.authenticator.authenticate()
+						self.authentication = self.authenticator.authenticate()
 						self.logger.debug(u"Re-authenticating NOW!")
 					
 					self.logger.debug("runConcurrentThread loop iteration")
