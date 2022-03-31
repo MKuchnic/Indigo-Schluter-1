@@ -45,7 +45,7 @@ class Authenticator:
         
         if self._authentication.state == None :
         	self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
-			return
+        	return
 			
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
             token_expired = self._authentication.expires - datetime.utcnow()
