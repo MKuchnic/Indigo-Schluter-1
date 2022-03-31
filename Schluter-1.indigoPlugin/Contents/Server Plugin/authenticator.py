@@ -43,7 +43,7 @@ class Authenticator:
         self._authentication = authentication_cache
         self.logger = logging.getLogger('Plugin.Authenticator')
         
-        if self._authentication == None :
+        if self._authenticatione == None :
         	self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
         	return
 			
@@ -60,7 +60,8 @@ class Authenticator:
     def authenticate(self):
     	self.logger.debug(u"authenticate called")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
-                return self._authentication
+        	self.logger.debug(u"Exiting authenticate - authetication still valid")
+        	return self._authentication
         
         response = self._api.get_session(self._email, self._password)
 
