@@ -46,20 +46,23 @@ class Plugin(indigo.PluginBase):
 	
 	def validatePrefsConfigUi(self, valuesDict):
 		self.logger.debug(u"validatePrefsConfigUi called")
+# 		do an authentication here to check entered values
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
 
 		errorDict = indigo.Dict()
-		
+
+#		use authentication state to determine errors	
 		if authentication.state.value == "bad_email":
 			errorDict["login"] = "Login is invalid"
 		
 		if authentication.state.value == "bad_password":
 			errorDict["password"] = "Password is invalid"
 
+#		validate range for update interval
 		updateFrequency = int(valuesDict['updateFrequency'])
-		if (updateFrequency < 3) or (updateFrequency > 30):
-			errorDict['updateFrequency'] = "Update frequency is invalid - enter a valid number (between 3 and 30)"
+		if (updateFrequency < 3) or (updateFrequency > 60):
+			errorDict['updateFrequency'] = "Update frequency is invalid - enter a valid number (between 3 and 60)"
 
 		if len(errorDict) > 0 :
 			return (False, valuesDict, errorDict)
@@ -100,7 +103,6 @@ class Plugin(indigo.PluginBase):
 					self.authentication = self.authenticator.authenticate()
 					
 				self.logger.debug("runConcurrentThread loop iteration")
-
 				self.sleep(60.0)
 				
 		except self.StopThread:
