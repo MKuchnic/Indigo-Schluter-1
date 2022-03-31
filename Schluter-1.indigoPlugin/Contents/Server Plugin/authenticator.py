@@ -74,7 +74,7 @@ class Authenticator:
                     ) - datetime.utcnow()
                     
                     if token_expired < timedelta(
-                            seconds=0):
+                            minutes=55):
                         self.logger.error("Token has expired.")
                         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
                     return
