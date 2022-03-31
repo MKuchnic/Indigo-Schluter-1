@@ -6,25 +6,6 @@ from enum import Enum
 from datetime import datetime, timedelta
 
 
-def to_authentication_json(authentication):
-    if authentication is None:
-        return json.dumps({})
-
-    return json.dumps({
-        "session_id": authentication.session_id,
-        "state": authentication.state.value,
-        "expires": authentication.expires.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-    })
-
-def from_authentication_json(data):
-    if data is None:
-        return None
-
-    session_id = data["session_id"]
-    state = AuthenticationState(data["state"])
-    expires = data["expires"]
-    return Authentication(state, session_id, expires)
-
 class AuthenticationState(Enum):
     REQUIRES_AUTHENTICATION = "requires_authentication"
     AUTHENTICATED = "authenticated"
@@ -55,32 +36,20 @@ class Authentication:
 
 class Authenticator:
 
-    def __init__(self, api, email, password, session_id_cache_file=None):
+    def __init__(self, api, email, password, authentication_cache):
         self._api = api
         self._email = email
         self._password = password
-        self._session_id_cache_file = session_id_cache_file
+        self._authentication = authentication_cache
         self.logger = logging.getLogger('Plugin.Authenticator')
         
-        if (session_id_cache_file is not None and
-                os.path.exists(session_id_cache_file)):
-            with open(session_id_cache_file, 'r') as file:
-                try:
-                    self._authentication = from_authentication_json(
-                        json.load(file))
-                    token_expired = datetime.strptime(
-                        self._authentication.expires,
-                        '%Y-%m-%dT%H:%M:%S.%fZ'
-                    ) - datetime.utcnow()
-                    
-                    if token_expired < timedelta(
-                            minutes=55):
-                        self.logger.error("Token has expired.")
-                        self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
-                    return
-                except json.decoder.JSONDecodeError as error:
-                    self.logger.error("Unable to read cache file (%s): %s",
-                                  session_id_cache_file, error)
+        if self._authentication.state == AuthenticationState.AUTHENTICATED :
+            token_expired = self._authentication.expires - datetime.utcnow()
+            self.logger.debug(u"Checking token expiry")
+            if token_expired < timedelta(minutes=5):
+                self.logger.debug(u"Token has expired.")
+                self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
+            return
 
         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 
@@ -104,12 +73,5 @@ class Authenticator:
         
         self._authentication = Authentication(state, session_id, expires)
 
-        if state == AuthenticationState.AUTHENTICATED:
-            self._cache_authentication(self._authentication)
-
         return self._authentication
-    
-    def _cache_authentication(self, authentication):
-        if self._session_id_cache_file is not None:
-            with open(self._session_id_cache_file, "w") as file:
-                file.write(to_authentication_json(authentication))
+

@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 import threading
 
 from schluter import Schluter
-from authenticator import Authenticator, Authentication
+from authenticator import Authenticator, Authentication, AuthenticationState
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
@@ -26,6 +26,8 @@ class Plugin(indigo.PluginBase):
 		self.indigo_log_handler.setLevel(self.logLevel)
 		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 		
+		self.authentication_cache = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION, None, None)
+		
 	def startup(self):
 		self.logger.info(u"Starting Schluter")
 		
@@ -36,8 +38,9 @@ class Plugin(indigo.PluginBase):
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
-		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
+		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 		self.authentication = self.authenticator.authenticate()
+		self.authentication_cache = self.authentication
 		self.logger.debug("Startup Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
 
 	
@@ -99,10 +102,12 @@ class Plugin(indigo.PluginBase):
 					self.logger.info("Current temp - %s C", self.thermostat['Temperature']/100)
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
-				if (self.authentication.expires - datetime.utcnow()) < timedelta(minutes=5):
-					self.logger.info(u"Re-authenticating")
-					self.authentication.state = "requires_authentication"
-					self.authentication = self.authenticator.authenticate()
+				self.logger.info(u"Re-authenticating")
+				self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
+				self.authentication = self.authenticator.authenticate()
+				self.authentication_cache = self.authentication
+				self.logger.debug("Periodic Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
+
 					
 				self.logger.debug("runConcurrentThread loop iteration")
 				self.sleep(60.0)
