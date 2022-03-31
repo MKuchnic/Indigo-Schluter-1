@@ -44,8 +44,9 @@ class Authenticator:
         self.logger = logging.getLogger('Plugin.Authenticator')
         
         if self._authentication.state == None :
-			self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
-            return
+        	self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
+			return
+			
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
             token_expired = self._authentication.expires - datetime.utcnow()
             self.logger.debug(u"Checking token expiry")
