@@ -98,11 +98,11 @@ class Plugin(indigo.PluginBase):
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 				if (self.authentication.expires - datetime.utcnow()) < timedelta(minutes=5):
-					self.logger.debug(u"Re-authenticating")
+					self.logger.info(u"Re-authenticating")
 					self.authentication.state = "requires_authentication"
 					self.authentication = self.authenticator.authenticate()
 					
-#				self.logger.debug("runConcurrentThread loop iteration")
+				self.logger.debug("runConcurrentThread loop iteration")
 				self.sleep(60.0)
 				
 		except self.StopThread:
