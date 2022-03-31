@@ -66,10 +66,13 @@ class Authenticator:
 
         if data["ErrorCode"] == 2:
             state = AuthenticationState.BAD_PASSWORD
+            self.logger.error(u"Authenticate - Bad Password")
         elif data["ErrorCode"] == 1:
             state = AuthenticationState.BAD_EMAIL
+            self.logger.error(u"Authenticate - Bad Email")
         else:
             state = AuthenticationState.AUTHENTICATED
+
         
         self._authentication = Authentication(state, session_id, expires)
 
