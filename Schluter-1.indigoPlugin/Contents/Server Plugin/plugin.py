@@ -102,7 +102,7 @@ class Plugin(indigo.PluginBase):
 					self.authentication.state = "requires_authentication"
 					self.authentication = self.authenticator.authenticate()
 					
-				self.logger.debug("runConcurrentThread loop iteration")
+#				self.logger.debug("runConcurrentThread loop iteration")
 				self.sleep(60.0)
 				
 		except self.StopThread:
