@@ -121,6 +121,19 @@ class Plugin(indigo.PluginBase):
 	
 	########################################
 	
+	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
+		self.logger.debug("Serial Number = {}".format(dev.pluginProps.get("serialNumbers", False)))
+	
+	########################################
+	
+	def deviceStartComm(self, dev):
+		self._refreshStatesFromHardware(dev, True, True)
+	
+	def deviceStopComm(self, dev):
+		pass
+	
+	########################################
+	
 	def serialNumberListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
 #		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
 #		authentication = authenticator.authenticate()
