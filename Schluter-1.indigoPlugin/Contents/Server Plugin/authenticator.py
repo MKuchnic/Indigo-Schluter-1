@@ -43,7 +43,7 @@ class Authenticator:
         self._authentication = authentication_cache
         self.logger = logging.getLogger('Plugin.Authenticator')
         
-		if self._authentication.state == None :
+        if self._authentication.state == None :
 			self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
             return
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
