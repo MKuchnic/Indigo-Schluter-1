@@ -105,9 +105,10 @@ class Plugin(indigo.PluginBase):
 					self.thermostat = self.schluter.get_temperature(self.authentication.session_id,"954095")
 #					self.thermostat = self.schluter.add_temp_scale(self.thermostat)
 					if self.thermostat["MaxTemp"] == 40 :
-						self.thermostat = self.thermostat | {'TempScale':'C'}
+						dict = {'TempScale':'C'}
 					else:
-						self.thermostat = self.thermostat | {'TempScale':'F'}
+						dict = {'TempScale':'F'}
+					selt.thermostat = self.thermostat | dict
 					self.logger.info("Current temp - %s %s", self.thermostat["Temperature"]/100, self.thermostat["TempScale"])
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
