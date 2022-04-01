@@ -1,16 +1,38 @@
 <?xml version="1.0"?>
 <Devices>
-	<Device type="thermostat" id="TestDevice">
+	<Device type="thermostat" id="Thermostat">
 		<Name>DITRA-HEAT-E-WIFI</Name>
 		<ConfigUI>
-			<Field id="testButton" type="button">
-				<Label>This button tests:</Label>
-				<Title>Test</Title>
-				<CallbackMethod>test_device_method</CallbackMethod>
-			</Field>
 			<Field id="serialNumbers" type="menu">
-				<Label>Test Dynamic List:</Label>
+				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
+			</Field>
+        ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
+                <Label>Default Hold Type:</Label>
+                <List>
+                    <Option value="nextTransition">Next Transition</Option>
+                    <Option value="indefinite">Indefinite</Option>
+                </List>
+            </Field>
+			<Field type="checkbox" id="SupportsHeatSetpoint" defaultValue="true" hidden="true">
+				<Label>Supports heat setpoint:</Label>
+				<Description>Show heat setpoint controls in UI</Description>
+			</Field>
+			<Field type="checkbox" id="SupportsCoolSetpoint" defaultValue="false" hidden="true">
+				<Label>Supports cool setpoint:</Label>
+				<Description>Show cool setpoint controls in UI</Description>
+			</Field>
+			<Field type="checkbox" id="SupportsHvacOperationMode" defaultValue="false" hidden="true">
+				<Label>Supports thermostat modes:</Label>
+				<Description>Show thermostat mode controls (heat/cool/auto) in UI</Description>
+			</Field>
+			<Field type="checkbox" id="SupportsHvacFanMode" defaultValue="false" hidden="true">
+				<Label>Supports fan modes:</Label>
+				<Description>Show fan mode controls (auto/always on) in UI</Description>
+			</Field>
+			<Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" hidden="true">
+				<Label>Supports compressor/furnace feedback:</Label>
+				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
 		</ConfigUI>
 	</Device>

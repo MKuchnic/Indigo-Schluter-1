@@ -111,13 +111,41 @@ class Plugin(indigo.PluginBase):
 				self.authentication = self.authenticator.authenticate()
 				self.authentication_cache = self.authentication
 				self.logger.debug("Periodic Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
-
+				
+				for dev in indigo.devices.iter("self"):
+					if not dev.enabled or not dev.configured:
+						continue
+					
+					self._refreshStatesFromHardware(dev, False, False)
 					
 				self.logger.debug("runConcurrentThread loop iteration")
 				self.sleep(60.0)
 				
 		except self.StopThread:
 			pass
+	
+	########################################
+	
+	def _changeTempSensorValue(self, dev, index, value):
+		stateKey = "temperatureInput" + str(index)
+		dev.updateStateOnServer(stateKey, value, uiValue="%d °F" % (value))
+	
+	########################################
+	
+	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
+		self.logger.debug("Serial Number = {}".format(dev.pluginProps.get("serialNumbers", False)))
+		
+		#response = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		
+		self._changeTempSensorValue(dev, 1, 69)
+	
+	########################################
+	
+	def deviceStartComm(self, dev):
+		self._refreshStatesFromHardware(dev, True, True)
+	
+	def deviceStopComm(self, dev):
+		pass
 	
 	########################################
 	
