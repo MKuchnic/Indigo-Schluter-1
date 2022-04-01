@@ -57,6 +57,7 @@ class Schluter:
         return result
 
 	def add_temp_scale(self, dict1):
+#		adding tempscale to the object
 		if dict1["MaxTemp"]/100 == 40:
 			dict2 = {'TempScale': 'C'}
 		else:
