@@ -135,9 +135,9 @@ class Plugin(indigo.PluginBase):
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("Serial Number = {}".format(dev.pluginProps.get("serialNumbers", False)))
 		
-		response = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		#response = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
-		self._changeTempSensorValue(dev, 1, response["temperature"])
+		self._changeTempSensorValue(dev, 1, 69)
 	
 	########################################
 	
