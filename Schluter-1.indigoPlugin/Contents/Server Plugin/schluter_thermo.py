@@ -18,6 +18,7 @@ class Schluter_Thermo():
         self._is_heating = data["Heating"]
         self._max_temp = data["MaxTemp"]
         self._min_temp = data["MinTemp"]
+        self._temp_scale = ""
         self._tzoffset = data["TZOffset"]
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
@@ -94,6 +95,13 @@ class Schluter_Thermo():
     @property
     def min_temp(self):
         return round((self._min_temp / 100) * 2) / 2
+
+	@property
+    def temp_scale(self):
+        if self._max_temp == 40 :
+        	return "C"
+        else:
+        	return "F" 
     
     @property
     def tzoffset(self):
