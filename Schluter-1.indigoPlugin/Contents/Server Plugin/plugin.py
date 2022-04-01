@@ -121,8 +121,15 @@ class Plugin(indigo.PluginBase):
 	
 	########################################
 	
+	def _changeTempSensorValue(self, dev, index, value):
+		stateKey = "temperatureInput" + str(index)
+		dev.updateStateOnServer(stateKey, value, uiValue="%d °F" % (value))
+	
+	########################################
+	
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("Serial Number = {}".format(dev.pluginProps.get("serialNumbers", False)))
+		self._changeTempSensorValue(dev, index, 69)
 	
 	########################################
 	
