@@ -102,9 +102,9 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 				if (time.time() > self.next_update) or self.update_needed:
-					self.thermostat = self.schluter.get_temperature(self.authentication.session_id,"954095")
+#					self.thermostat = self.schluter.get_temperature(self.authentication.session_id,"954095")
 #					self.thermostat = self.schluter.add_temp_scale(self.thermostat)
-					self.logger.info("Current temp - %s C", self.thermostat["Temperature"]/100)
+#					self.logger.info("Current temp - %s C", self.thermostat["Temperature"]/100)
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 				self.logger.info(u"Re-authenticating")
@@ -129,16 +129,16 @@ class Plugin(indigo.PluginBase):
 	
 	def _changeTempSensorValue(self, dev, index, value):
 		stateKey = "temperatureInput" + str(index)
-		dev.updateStateOnServer(stateKey, value, uiValue="%d °F" % (value))
+		dev.updateStateOnServer(stateKey, value, uiValue="%f °C" % (value))
 	
 	########################################
 	
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
-		self.logger.debug("Serial Number = {}".format(dev.pluginProps.get("serialNumbers", False)))
+		self.logger.debug("_refreshStatesFromHardware called")
 		
-		result = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
-		self._changeTempSensorValue(dev, 1, result["Temperature"]/100)
+		self._changeTempSensorValue(dev, 1, thermostat["Temperature"]/100)
 	
 	########################################
 	
