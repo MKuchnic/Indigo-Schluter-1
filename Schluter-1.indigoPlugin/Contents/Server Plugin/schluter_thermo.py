@@ -97,11 +97,11 @@ class Schluter_Thermo():
         return round((self._min_temp / 100) * 2) / 2
 
 	@property
-    def temp_scale(self):
-        if self._max_temp == 40 :
-        	return "C"
-        else:
-        	return "F" 
+	def temp_scale(self):
+		if self._max_temp == 40 :
+			return "C"
+		else:
+			return "F" 
     
     @property
     def tzoffset(self):
