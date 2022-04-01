@@ -50,20 +50,20 @@ class Schluter:
         return thermostat_list
     
     def get_temperature(self, sessionId, serialNumber):
-    	self.logger.debug(u"get_temperature called")
+        self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
         return result
 
-	def add_temp_scale(self, dict1):
-#		adding tempscale to the object
-		if dict1["MaxTemp"]/100 == 40:
-			dict2 = {'TempScale': 'C'}
-		else:
-			dict2 = {'TempScale':'F'}
-		dict1 = dict1 | dict2
-		return dict1
+    def add_temp_scale(self, dict1):
+#       adding tempscale to the object
+        if dict1["MaxTemp"]/100 == 40:
+            dict2 = {'TempScale':'C'}
+        else:
+            dict2 = {'TempScale':'F'}
+        dict1 = dict1 | dict2
+        return dict1
 
     def return_to_schedule(self, sessionId, serialNumber):
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }

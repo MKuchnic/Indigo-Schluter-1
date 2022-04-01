@@ -17,7 +17,7 @@ class Authentication:
         self._state = state
         self._session_id = session_id,
         self._expires = expires
-    	
+    
     @property
     def session_id(self):
         return self._session_id
@@ -44,9 +44,9 @@ class Authenticator:
         self.logger = logging.getLogger('Plugin.Authenticator')
         
         if self._authentication == None :
-        	self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
-        	return
-			
+            self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
+            return
+        
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
             token_expired = self._authentication.expires - datetime.utcnow()
             self.logger.debug(u"Checking token expiry")
@@ -58,10 +58,10 @@ class Authenticator:
         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 
     def authenticate(self):
-    	self.logger.debug(u"authenticate called")
+        self.logger.debug(u"authenticate called")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
-        	self.logger.debug(u"Exiting authenticate - authetication still valid")
-        	return self._authentication
+            self.logger.debug(u"Exiting authenticate - authetication still valid")
+            return self._authentication
         
         response = self._api.get_session(self._email, self._password)
 
