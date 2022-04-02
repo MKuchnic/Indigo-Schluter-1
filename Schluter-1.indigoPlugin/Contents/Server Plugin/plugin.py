@@ -31,7 +31,7 @@ class Plugin(indigo.PluginBase):
 	def startup(self):
 		self.logger.info(u"Starting Schluter")
 		
-		self.schluter = Schluter()
+		self.schluter = Schluter_Thermo(Schluter())
 		
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
@@ -102,9 +102,6 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 				if (time.time() > self.next_update) or self.update_needed:
-#					self.thermostat = self.schluter.get_temperature(self.authentication.session_id,"954095")
-#					self.thermostat = self.schluter.add_temp_scale(self.thermostat)
-#					self.logger.info("Current temp - %s C", self.thermostat["Temperature"]/100)
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 				self.logger.info(u"Re-authenticating")
@@ -140,7 +137,7 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
-		self._changeTempSensorValue(dev, 1, float(thermostat["Temperature"])/100)
+		self._changeTempSensorValue(dev, 1, float(thermostat.temperature)
 	
 	########################################
 	
