@@ -23,8 +23,8 @@ class Schluter:
         self.logger = logging.getLogger("Plugin.Schluter")
 
 	def get_session(self, email, password):
-        self.logger.debug(u"get_session called")
-        response = self._call_api(
+		self.logger.debug(u"get_session called")
+		response = self._call_api(
             "post", 
             API_AUTH_URL,
             params = None,
