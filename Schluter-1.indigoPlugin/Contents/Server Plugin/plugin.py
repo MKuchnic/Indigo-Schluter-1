@@ -32,7 +32,7 @@ class Plugin(indigo.PluginBase):
 	def startup(self):
 		self.logger.info(u"Starting Schluter")
 		
-		self.schluter = Schluter_Thermo(Schluter())
+		self.schluter = Schluter()
 		
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
@@ -136,7 +136,7 @@ class Plugin(indigo.PluginBase):
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
-		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		thermostat = Schluter_Thermo(self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False)))
 		
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 	
