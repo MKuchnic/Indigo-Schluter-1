@@ -48,7 +48,7 @@ class Schluter:
 		if scale == "F" :
 			return round((((temperature - 32) * 5) / 9) * 2.0) / 2.0
 		else :
-		return temperature
+			return temperature
 
 	def get_thermostats(self, sessionId):
         self.logger.debug(u"get_thermostats called")
