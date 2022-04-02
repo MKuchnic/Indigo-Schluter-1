@@ -140,7 +140,7 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
-		self._changeTempSensorValue(dev, 1, thermostat["Temperature"]/100)
+		self._changeTempSensorValue(dev, 1, float(thermostat["Temperature"])/100)
 	
 	########################################
 	
