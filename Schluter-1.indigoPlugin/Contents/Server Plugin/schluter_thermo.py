@@ -112,7 +112,6 @@ class Schluter_Thermo():
         return self._sw_version
 
     def temp_convert_from(self, temperature):
-        self.logger.debug(u"temp_convert_from called")
         if self.pluginPrefs["temperatureScale"] == "F" :
             return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
         else :
