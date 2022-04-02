@@ -36,6 +36,7 @@ class Schluter:
 
 		return response
 
+#
 	def temp_convert_from(self, temperature, scale):
 		self.logger.debug(u"temp_convert_from called")
 		if scale == "F" :
