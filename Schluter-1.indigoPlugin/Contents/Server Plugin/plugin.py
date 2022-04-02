@@ -28,6 +28,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 		
 		self.authentication_cache = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION, None, None)
+		self.temp_scale = self.pluginPrefs["temperatureScale"]
 		
 	def startup(self):
 		self.logger.info(u"Starting Schluter")
@@ -120,8 +121,8 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 
 #				debug checking 
-				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095, self.pluginPrefs["temperatureScale"])
-				self.logger.info(u"Current temp: %s °%s",tempthermo.temperature, self.pluginPrefs["temperatureScale"])
+				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095, self.temp_scale])
+				self.logger.info(u"Current temp: %s °%s",tempthermo.temperature, self.temp_scale)
 				self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(60.0)
@@ -142,7 +143,7 @@ class Plugin(indigo.PluginBase):
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
-		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False), self.pluginPrefs["temperatureScale"])
+		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False), self.temp_scale)
 
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 	
