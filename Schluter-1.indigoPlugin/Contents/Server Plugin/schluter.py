@@ -51,8 +51,8 @@ class Schluter:
 			return temperature
 
 	def get_thermostats(self, sessionId):
-        self.logger.debug(u"get_thermostats called")
-        params = { 'sessionId': sessionId }
+		self.logger.debug(u"get_thermostats called")
+		params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
 
