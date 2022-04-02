@@ -22,9 +22,9 @@ class Schluter:
         self._http_session = None
         self.logger = logging.getLogger("Plugin.Schluter")
 
-	def get_session(self, email, password):
-		self.logger.debug(u"get_session called")
-		response = self._call_api(
+    def get_session(self, email, password):
+        self.logger.debug(u"get_session called")
+        response = self._call_api(
             "post", 
             API_AUTH_URL,
             params = None,
@@ -33,27 +33,27 @@ class Schluter:
                 'Password': password, 
                 'Application': API_APPLICATION_ID
             })
+        
+        return response
 
-		return response
-
-	def temp_convert_from(self, temperature, scale):
+    def temp_convert_from(self, temperature, scale):
         self.logger.debug(u"temp_convert_from called")
         if scale == "F" :
             return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
         else :
             return temperature
-			
+
     def temp_convert_to(self, temperature, scale):
         self.logger.debug(u"temp_convert_to called")
-		if scale == "F" :
-			return round((((temperature - 32) * 5) / 9) * 2.0) / 2.0
-		else :
-			return temperature
+        if scale == "F" :
+            return round((((temperature - 32) * 5) / 9) * 2.0) / 2.0
+        else :
+            return temperature
 
-	def get_thermostats(self, sessionId):
-		self.logger.debug(u"get_thermostats called")
-		params = { 'sessionId': sessionId }
-		thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
+    def get_thermostats(self, sessionId):
+        self.logger.debug(u"get_thermostats called")
+        params = { 'sessionId': sessionId }
+        thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
 
         thermostat_list = []
