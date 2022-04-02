@@ -102,7 +102,7 @@ class Schluter_Thermo():
 #			self._temp_scale = "C"
 #		else :
 #			self._temp_scale = "F"
-		return self._temp_scale
+		return self._min_temp
 
     @property
     def tzoffset(self):
