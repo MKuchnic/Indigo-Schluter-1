@@ -120,11 +120,10 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 
 #				debug checking 
-					tempthermo = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
-					self.logger.info(u"Current temp: %s %s",tempthermo.temperature, tempthermo.temp_scale)
-
-					
+				tempthermo = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+				self.logger.info(u"Current temp: %s %s",tempthermo.temperature, tempthermo.temp_scale)
 				self.logger.debug("runConcurrentThread loop iteration")
+
 				self.sleep(60.0)
 				
 		except self.StopThread:
