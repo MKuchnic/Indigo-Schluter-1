@@ -15,7 +15,7 @@
     <Label>Minimum update interval is 3 minutes.  Default is 10.</Label>
   </Field>
  
-  <Field id="logLevel" type="menu" defaultValue="20">
+  <Field id="logLevel" type="menu" defaultValue="30">
     <Label>Event Logging Level:</Label>
     <List>
       <Option value="5">Detailed Debugging Messages</Option>
