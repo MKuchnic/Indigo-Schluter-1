@@ -22,7 +22,7 @@ class Schluter:
         self._http_session = None
         self.logger = logging.getLogger("Plugin.Schluter")
 
-    def get_session(self, email, password):
+	def get_session(self, email, password):
         self.logger.debug(u"get_session called")
         response = self._call_api(
             "post", 
@@ -50,7 +50,7 @@ class Schluter:
 		else :
 			return temperature
 	
-    def get_thermostats(self, sessionId):
+	def get_thermostats(self, sessionId):
         self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
