@@ -93,8 +93,8 @@ class Schluter_Thermo():
         return round((self._max_temp / 100) * 2.0) / 2.0
     
 	@property
-    def min_temp(self):
-    	return self._temp_scale
+	def min_temp(self):
+		return self._temp_scale
 #        return round((self._min_temp / 100) * 2.0) / 2.0
         
 	@property
