@@ -89,6 +89,8 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 			self.next_update = time.time()
 			self.update_needed = True
+
+			self.tempScale = valuesDict["temperatureScale"]
 			
 			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 			self.authentication = self.authenticator.authenticate()
