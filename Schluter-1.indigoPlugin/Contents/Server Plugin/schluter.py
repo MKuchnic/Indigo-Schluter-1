@@ -34,14 +34,14 @@ class Schluter:
                 'Application': API_APPLICATION_ID
             })
 
-        return response
+		return response
 
 	def temp_convert_from(self, temperature, scale):
 		self.logger.debug(u"temp_convert_from called")
 		if scale == "F" :
 			return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
 		else :
-			return temperature
+		return temperature
 			
 	def temp_convert_to(self, temperature, scale):
 		self.logger.debug(u"temp_convert_to called")
@@ -53,7 +53,7 @@ class Schluter:
 	def get_thermostats(self, sessionId):
 		self.logger.debug(u"get_thermostats called")
 		params = { 'sessionId': sessionId }
-        thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
+		thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
         groups = thermostats["Groups"]
 
         thermostat_list = []
