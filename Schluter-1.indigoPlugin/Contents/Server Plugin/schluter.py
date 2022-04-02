@@ -36,6 +36,20 @@ class Schluter:
 
         return response
 
+	def temp_convert_from(self, temp)
+		self.logger.debug(u"temp_convert_from called")
+		if self.pluginPrefs["temperatureScale"] == "F" :
+			return round((((temp * 9) / 5) + 32) * 2.0) / 2.0
+		else :
+			return temp
+			
+	def temp_convert_to(self, temp)
+		self.logger.debug(u"temp_convert_to called")
+		if self.pluginPrefs["temperatureScale"] == "F" :
+			return round((((temp - 32) * 5) / 9) * 2.0) / 2.0
+		else :
+			return temp
+	
     def get_thermostats(self, sessionId):
         self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
