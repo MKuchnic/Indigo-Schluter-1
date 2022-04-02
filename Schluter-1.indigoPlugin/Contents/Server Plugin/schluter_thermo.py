@@ -41,7 +41,7 @@ class Schluter_Thermo():
     
     @property
     def temperature(self):
-        return round((self._temperature / 100.0) * 2.0) / 2.0 
+        return round((self.temp_convert_from(self._temperature) / 100.0) * 2.0) / 2.0 
 
     @property
     def set_point_temp(self):
@@ -89,11 +89,11 @@ class Schluter_Thermo():
     
     @property
     def max_temp(self):
-		return round((self._max_temp / 100) * 2.0) / 2.0
+        return round((self._max_temp / 100) * 2.0) / 2.0
     
     @property
     def min_temp(self):
-    	return round((self._min_temp / 100) * 2.0) / 2.0
+        return round((self._min_temp / 100) * 2.0) / 2.0
 		    
     @property
     def tzoffset(self):
@@ -110,3 +110,11 @@ class Schluter_Thermo():
     @property
     def sw_version(self):
         return self._sw_version
+
+    def temp_convert_from(self, temperature):
+        self.logger.debug(u"temp_convert_from called")
+        if self.pluginPrefs["temperatureScale"] == "F" :
+            return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
+        else :
+            return temperature
+
