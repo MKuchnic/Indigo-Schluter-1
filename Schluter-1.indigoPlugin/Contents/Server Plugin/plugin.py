@@ -121,7 +121,7 @@ class Plugin(indigo.PluginBase):
 
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
-#				tempthermo.temperature = self.schluter.temp_convert_from(tempthermo.temperature, self.pluginPrefs["temperatureScale"])
+				tempthermo.temperature = self.schluter.temp_convert_from(tempthermo.temperature, self.pluginPrefs["temperatureScale"])
 				self.logger.info(u"Current temp: %s °%s",tempthermo.temperature, self.pluginPrefs["temperatureScale"])
 				self.logger.debug("runConcurrentThread loop iteration")
 
