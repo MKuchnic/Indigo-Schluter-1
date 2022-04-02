@@ -54,7 +54,7 @@ class Schluter:
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
-        return result
+        return Schluter_Thermo(result)
 
     def return_to_schedule(self, sessionId, serialNumber):
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }

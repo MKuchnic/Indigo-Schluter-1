@@ -120,7 +120,7 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 
 #				debug checking 
-					tempthermo = Schluter_Thermo(self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False)))
+					tempthermo = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 					self.logger.info(u"Current temp: %s %s",tempthermo.temperature, tempthermo.temp_scale)
 
 					
@@ -143,7 +143,7 @@ class Plugin(indigo.PluginBase):
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
-		thermostat = Schluter_Thermo(self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False)))
+		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 	
