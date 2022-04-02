@@ -63,12 +63,12 @@ class Schluter:
          
         return thermostat_list
     
-    def get_temperature(self, sessionId, serialNumber):
+    def get_temperature(self, sessionId, serialNumber, temp_scale):
         self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
-        return Schluter_Thermo(result)
+        return Schluter_Thermo(result, temp_scale)
 
     def return_to_schedule(self, sessionId, serialNumber):
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }

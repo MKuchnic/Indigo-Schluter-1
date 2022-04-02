@@ -1,5 +1,5 @@
 class Schluter_Thermo():
-    def __init__(self, data):
+    def __init__(self, data, temp_scale):
         self._serial_number = data["SerialNumber"]
         self._name = data["Room"]
         self._group_id = data["GroupId"]
@@ -22,6 +22,7 @@ class Schluter_Thermo():
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
         self._sw_version = data["SWVersion"]
+        self.temp_scale = temp_scale
     
     @property
     def serial_number(self):
@@ -112,7 +113,7 @@ class Schluter_Thermo():
         return self._sw_version
 
     def temp_convert_from(self, temperature):
-        if _self.pluginPrefs["temperatureScale"] == "F" :
+        if self.temp_scale == "F" :
             return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
         else :
             return temperature
