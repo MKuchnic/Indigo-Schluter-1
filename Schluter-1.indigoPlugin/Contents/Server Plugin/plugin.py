@@ -104,7 +104,7 @@ class Plugin(indigo.PluginBase):
 			while True:
 				if (time.time() > self.next_update) or self.update_needed:
 					tempthermo = Schluter_Thermo(self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False)))
-					self.logger.info(u"Current temp: %s %s",tempthermo.temperature,tempthermo.temp_scale)
+					self.logger.info(u"Current temp: %s %s",tempthermo.temperature, "C")
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 				self.logger.info(u"Re-authenticating")
