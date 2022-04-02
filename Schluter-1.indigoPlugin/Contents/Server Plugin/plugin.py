@@ -53,7 +53,7 @@ class Plugin(indigo.PluginBase):
 # 		do an authentication here to check entered values
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-		self.authentication_cache = authentication
+#		self.authentication_cache = authentication
 
 		errorDict = indigo.Dict()
 
