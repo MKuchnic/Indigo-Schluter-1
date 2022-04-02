@@ -143,7 +143,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
-		self.logger.debug(u"Temp Scale: %s", thermostat.temp_scale)
+
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 	
 	########################################
