@@ -11,8 +11,8 @@
   <Field id="temperatureScale" type="menu">
     <Label>Temperature scale:</Label>
     <List>
-      <Option value="F">Fahrenheit</Option>
       <Option value="C">Celsius</Option>
+      <Option value="F">Fahrenheit</Option>
     </List>
   </Field>
 
