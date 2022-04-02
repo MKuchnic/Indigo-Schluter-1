@@ -18,7 +18,7 @@ class Schluter_Thermo():
         self._is_heating = data["Heating"]
         self._max_temp = data["MaxTemp"]
         self._min_temp = data["MinTemp"]
-        self._temp_scale = {'TempScale': 'K'}
+        self._temp_scale = 'K'
         self._tzoffset = data["TZOffset"]
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
