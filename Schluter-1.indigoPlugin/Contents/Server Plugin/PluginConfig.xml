@@ -8,7 +8,7 @@
     <Label>Password:</Label>
   </Field>
     
-  <Field id="temperatureScale" type="menu">
+  <Field id="temperatureScale" type="menu" defaultValue="C">
     <Label>Temperature scale:</Label>
     <List>
       <Option value="C">Celsius</Option>
