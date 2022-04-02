@@ -46,7 +46,7 @@ class Schluter_Thermo():
 
     @property
     def set_point_temp(self):
-        return round((self._set_point_temp / 100.0) * 2.0) / 2.0 
+        return round((self.temp_convert_from(self._set_point_temp / 100.0)) * 2.0) / 2.0 
     
     @property
     def regulation_mode(self):
@@ -66,11 +66,11 @@ class Schluter_Thermo():
 
     @property
     def vacation_temperature(self):
-        return round((self._vacation_temperature / 100) * 2.0) / 2.0
+        return round((self.temp_convert_from(self._vacation_temperature / 100)) * 2.0) / 2.0
 
     @property
     def comfort_temperature(self):
-        return round((self._comfort_temperature / 100) * 2.0) / 2.0
+        return round((self.temp_convert_from(self._comfort_temperature / 100)) * 2.0) / 2.0
 
     @property
     def comfort_end_time(self):
@@ -78,7 +78,7 @@ class Schluter_Thermo():
 
     @property
     def manual_temp(self):
-        return round((self._manual_temp / 100) * 2.0) / 2.0
+        return round((self.temp_convert_from(self._manual_temp / 100)) * 2.0) / 2.0
     
     @property
     def is_online(self):
@@ -90,11 +90,11 @@ class Schluter_Thermo():
     
     @property
     def max_temp(self):
-        return round((self._max_temp / 100) * 2.0) / 2.0
+        return round((self.temp_convert_from(self._max_temp / 100)) * 2.0) / 2.0
     
     @property
     def min_temp(self):
-        return round((self._min_temp / 100) * 2.0) / 2.0
+        return round((self.temp_convert_from(self._min_temp / 100)) * 2.0) / 2.0
 		    
     @property
     def tzoffset(self):
