@@ -18,11 +18,12 @@ class Schluter_Thermo():
         self._is_heating = data["Heating"]
         self._max_temp = data["MaxTemp"]
         self._min_temp = data["MinTemp"]
-        self._temp_scale = "K"
         self._tzoffset = data["TZOffset"]
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
         self._sw_version = data["SWVersion"]
+        self._temp_scale = "K"
+
     
     @property
     def serial_number(self):
@@ -103,19 +104,6 @@ class Schluter_Thermo():
     	else :
     		self._temp_scale = "F"
     	return self._temp_scale
-
-#	@property
-#	def min_temp(self):
-#		return round((self._min_temp / 100) * 2.0) / 2.0
-#
-#        
-#	@property
-#	def temp_scale(self):
-#		if self._max_temp == 4000 :
-#			self._temp_scale = "C"
-#		else :
-#			self._temp_scale = "F"
-#		return self.temp_scale
 
     @property
     def tzoffset(self):
