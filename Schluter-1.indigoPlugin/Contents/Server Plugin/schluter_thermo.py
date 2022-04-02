@@ -42,7 +42,7 @@ class Schluter_Thermo():
     
     @property
     def temperature(self):
-        return round((self.temp_convert_from(self._temperature) / 100.0) * 2.0) / 2.0 
+        return round((self.temp_convert_from(self._temperature / 100.0)) * 2.0) / 2.0 
 
     @property
     def set_point_temp(self):
