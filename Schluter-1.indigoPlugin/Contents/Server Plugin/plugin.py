@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 import threading
 
 from schluter import Schluter
-#from schluter_thermo import Schluter_Thermo
+from schluter_thermo import Schluter_Thermo
 from authenticator import Authenticator, Authentication, AuthenticationState
 
 class Plugin(indigo.PluginBase):
