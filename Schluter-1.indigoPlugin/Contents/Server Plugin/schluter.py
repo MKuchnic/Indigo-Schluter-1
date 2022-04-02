@@ -44,7 +44,7 @@ class Schluter:
             return temperature
 			
     def temp_convert_to(self, temperature, scale):
-		self.logger.debug(u"temp_convert_to called")
+        self.logger.debug(u"temp_convert_to called")
 		if scale == "F" :
 			return round((((temperature - 32) * 5) / 9) * 2.0) / 2.0
 		else :
