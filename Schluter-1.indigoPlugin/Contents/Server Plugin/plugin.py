@@ -33,7 +33,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.info(u"Starting Schluter")
 		
 		self.schluter = Schluter()
-		
+
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 		self.next_update = time.time() + self.updateFrequency
@@ -121,7 +121,7 @@ class Plugin(indigo.PluginBase):
 
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
-				self.logger.info(u"Current temp: %s °%s",tempthermo.temperature, self.pluginPrefs["temperatureScale"])
+				self.logger.info(u"Current temp: %s °%s",self.schluter.convert_temp_from(tempthermo.temperature), self.pluginPrefs["temperatureScale"])
 				self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(60.0)
