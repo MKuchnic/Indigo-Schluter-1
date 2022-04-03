@@ -7,63 +7,7 @@
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-=======
-			<Field type="textfield" id="address" defaultValue="serialNumbers">
->>>>>>> parent of 25ab49f (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="serialNumbers">
->>>>>>> parent of 25ab49f (Update Devices.xml)
-				<Label>Module Address:</Label>
-			</Field>
-=======
-#			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-#				<Label>Module Address:</Label>
-#			</Field>
->>>>>>> parent of 6d6d035 (Revert "Update plugin.py")
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
-			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-				<Label>Module Address:</Label>
-			</Field>
->>>>>>> parent of e09956b (Update Devices.xml)
-=======
->>>>>>> parent of 089900e (Update Devices.xml)
-        ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
+		   <Field type="menu" id="holdType" defaultValue="nextTransition" hidden="true">
                 <Label>Default Hold Type:</Label>
                 <List>
                     <Option value="nextTransition">Next Transition</Option>
