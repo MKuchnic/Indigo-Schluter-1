@@ -160,6 +160,14 @@ class Plugin(indigo.PluginBase):
 			
 	########################################
 	
+	def _changehvacHeaterIsOnt(self, value):
+		stateKey = "hvacHeaterIsOn"
+		
+		self.logger.debug("_hvacHeaterIsOn:", value )
+		dev.updateStateOnServer("hvacHeaterIsOn", value)
+			
+	########################################
+	
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
@@ -167,7 +175,8 @@ class Plugin(indigo.PluginBase):
 
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 		self._changeTempSetpoint(dev, thermostat.set_point_temp)
-	
+		self._changehvacHeaterIsOnt(self, thermostat.is_heating)
+
 	########################################
 	
 	def deviceStartComm(self, dev):
