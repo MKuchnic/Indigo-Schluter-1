@@ -12,7 +12,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
+=======
+			<Field type="textfield" id="address" defaultValue="serialNumbers">
+>>>>>>> parent of 25ab49f (Update Devices.xml)
 				<Label>Module Address:</Label>
 			</Field>
 =======
