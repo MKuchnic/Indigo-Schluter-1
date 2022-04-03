@@ -160,7 +160,7 @@ class Plugin(indigo.PluginBase):
 			
 	########################################
 	
-	def _changehvacHeaterIsOnt(self, value):
+	def _changehvacHeaterIsOn(self, dev, value):
 		stateKey = "hvacHeaterIsOn"
 		
 		self.logger.debug("_hvacHeaterIsOn:", value )
@@ -175,7 +175,7 @@ class Plugin(indigo.PluginBase):
 
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 		self._changeTempSetpoint(dev, thermostat.set_point_temp)
-		self._changehvacHeaterIsOnt(self, thermostat.is_heating)
+		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
 
 	########################################
 	
