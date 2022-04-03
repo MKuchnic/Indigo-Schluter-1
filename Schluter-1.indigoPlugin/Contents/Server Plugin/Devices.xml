@@ -7,6 +7,9 @@
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
+			<Field type="textfield" id="address" defaultValue="serialNumbers">
+				<Label>Module Address:</Label>
+			</Field>
         ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
                 <Label>Default Hold Type:</Label>
                 <List>
