@@ -34,6 +34,11 @@
 				<Label>Supports compressor/furnace feedback:</Label>
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
+			<State id="hvacOperationModeIsHeat">
+				<ValueType>Boolean</ValueType>
+				<TriggerLabel>Heat Mode: </TriggerLabel>
+				<ControlPageLabel>Heat Mode:</ControlPageLabel>
+			</State>
 			<State id="hvacHeaterIsOn">
 				<ValueType>Boolean</ValueType>
 				<TriggerLabel>Heater On: </TriggerLabel>
