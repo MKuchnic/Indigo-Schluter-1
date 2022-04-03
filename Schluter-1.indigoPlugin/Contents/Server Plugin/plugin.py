@@ -164,7 +164,7 @@ class Plugin(indigo.PluginBase):
 		stateKey = "hvacHeaterIsOn"
 		
 		self.logger.debug("_hvacHeaterIsOn: %s", str(value))
-		dev.updateStateOnServer("hvacHeaterIsOn", bool(value))
+		dev.updateStateOnServer("hvacHeaterIsOn", value)
 			
 	########################################
 	
