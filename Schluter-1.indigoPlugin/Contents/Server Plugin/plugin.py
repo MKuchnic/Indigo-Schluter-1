@@ -153,9 +153,9 @@ class Plugin(indigo.PluginBase):
 		if self.tempScale == "F":
 			displayText = "%.1f °F" % (value)
 		else:
-			displayText = "%.1f °C" % (value)
+			displayText = str(value)+" °C"
 		
-		self.logger.debug("changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
+		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer("setpointHeat", value, uiValue=str(displayText))
 			
 	########################################
