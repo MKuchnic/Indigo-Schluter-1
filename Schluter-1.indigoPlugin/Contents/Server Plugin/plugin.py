@@ -156,15 +156,15 @@ class Plugin(indigo.PluginBase):
 			displayText = str(value)+" °C"
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer("setpointHeat", value, uiValue=str(displayText), decimalPlaces=1)
+		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
 			
 	########################################
 	
 	def _changehvacHeaterIsOn(self, dev, value):
-		stateKey = "hvacHeaterIsOn"
+		stateKey = "equipmentStatus"
 		
-		self.logger.debug("_hvacHeaterIsOn: %s", str(value))
-		dev.updateStateOnServer("hvacHeaterIsOn", value)
+		self.logger.debug("equipmentStatus: %s", str(value))
+		dev.updateStateOnServer(stateKey, value)
 			
 	########################################
 	
