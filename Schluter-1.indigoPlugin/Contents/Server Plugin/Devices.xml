@@ -22,7 +22,7 @@
 				<Label>Supports cool setpoint:</Label>
 				<Description>Show cool setpoint controls in UI</Description>
 			</Field>
-			<Field type="checkbox" id="SupportsHvacOperationMode" defaultValue="true" hodden="true">
+			<Field type="checkbox" id="SupportsHvacOperationMode" defaultValue="true" hidden="true">
 				<Label>Supports thermostat modes:</Label>
 				<Description>Show thermostat mode controls (heat/cool/auto) in UI</Description>
 			</Field>
