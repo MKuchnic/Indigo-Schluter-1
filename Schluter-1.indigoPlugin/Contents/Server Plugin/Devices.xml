@@ -7,9 +7,6 @@
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
-#			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
-#				<Label>Module Address:</Label>
-#			</Field>
         ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
                 <Label>Default Hold Type:</Label>
                 <List>
@@ -20,10 +17,6 @@
 			<Field type="checkbox" id="SupportsHeatSetpoint" defaultValue="true" hidden="true">
 				<Label>Supports heat setpoint:</Label>
 				<Description>Show heat setpoint controls in UI</Description>
-			</Field>
-			<Field type="checkbox" id="hvacHeaterIsOn" defaultValue="false" hidden="true">
-				<Label>Heater is On:</Label>
-				<Description>Show UI</Description>
 			</Field>
 			<Field type="checkbox" id="SupportsCoolSetpoint" defaultValue="false" hidden="true">
 				<Label>Supports cool setpoint:</Label>
