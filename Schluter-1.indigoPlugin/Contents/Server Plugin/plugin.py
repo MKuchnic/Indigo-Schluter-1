@@ -136,9 +136,14 @@ class Plugin(indigo.PluginBase):
 	
 	def _changeTempSensorValue(self, dev, index, value):
 		stateKey = "temperatureInput" + str(index)
-		uiValue = "%.1f °C" % (value)
+		
+		if self.tempScale == "F":
+			uiValue = "%.1f °F" % (value)
+		else:
+			uiValue = "%.1f °C" % (value)
+		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, uiValue))
-		dev.updateStateOnServer(stateKey, value, uiValue="%.1f °C" % (value), decimalPlaces=1)
+		dev.updateStateOnServer(stateKey, value, uiValue, decimalPlaces=1)
 	
 	########################################
 	
