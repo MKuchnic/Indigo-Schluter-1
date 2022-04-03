@@ -7,7 +7,7 @@
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
-        ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
+			<Field type="menu" id="holdType" defaultValue="nextTransition" hidden="true">
                 <Label>Default Hold Type:</Label>
                 <List>
                     <Option value="nextTransition">Next Transition</Option>
@@ -33,6 +33,10 @@
 			<Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" hidden="true">
 				<Label>Supports compressor/furnace feedback:</Label>
 				<Description>Show compressor/furnace states in UI</Description>
+			</Field>
+			<Field type="checkbox" id="setpointHeat" defaultValue="false" hidden="true">
+				<Label>Heat is On:</Label>
+				<Description>Allow for heat is On in UI</Description>
 			</Field>
 		</ConfigUI>
 	</Device>
