@@ -144,28 +144,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-		
-	########################################
 	
-	def _changeTempSetpoint(self, dev, value):
-		stateKey = "setpointHeat"
-		
-		if self.tempScale == "F":
-			displayText = "%.1f °F" % (value)
-		else:
-			displayText = str(value)+" °C"
-		
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-			
-	########################################
-	
-	def _changehvacHeaterIsOn(self, dev, value):
-		stateKey = "hvacHeaterIsOn"
-		
-		self.logger.debug("hvacHeaterIsOn: %s", str(value))
-		dev.updateStateOnServer(stateKey, value)
-			
 	########################################
 	
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
@@ -174,9 +153,7 @@ class Plugin(indigo.PluginBase):
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False), self.tempScale)
 
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
-		self._changeTempSetpoint(dev, thermostat.set_point_temp)
-		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
-
+	
 	########################################
 	
 	def deviceStartComm(self, dev):
