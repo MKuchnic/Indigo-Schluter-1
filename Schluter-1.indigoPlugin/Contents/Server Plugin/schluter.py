@@ -36,7 +36,7 @@ class Schluter:
         
         return response
 
-    def get_thermostats(self, sessionId):
+    def get_thermostats(self, sessionId, temp_scale):
         self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
@@ -45,7 +45,7 @@ class Schluter:
         thermostat_list = []
         for group in groups:
             for thermostat in group["Thermostats"]:
-                thermostat_list.append(Schluter_Thermo(thermostat))
+                thermostat_list.append(Schluter_Thermo(thermostat, temp_scale))
          
         return thermostat_list
     
