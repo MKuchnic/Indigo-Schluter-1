@@ -8,6 +8,7 @@
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
 				<Label>Module Address:</Label>
 			</Field>
@@ -16,6 +17,11 @@
 #				<Label>Module Address:</Label>
 #			</Field>
 >>>>>>> parent of 6d6d035 (Revert "Update plugin.py")
+=======
+			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
+				<Label>Module Address:</Label>
+			</Field>
+>>>>>>> parent of e09956b (Update Devices.xml)
         ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
                 <Label>Default Hold Type:</Label>
                 <List>
