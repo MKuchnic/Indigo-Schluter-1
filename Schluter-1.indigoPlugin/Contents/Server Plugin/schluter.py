@@ -36,7 +36,7 @@ class Schluter:
         
         return response
 
-    def get_thermostats(self, sessionId, temp_scale):
+    def get_thermostats(self, sessionId, temp_scale="C"):
         self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
