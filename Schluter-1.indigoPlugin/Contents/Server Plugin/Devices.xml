@@ -7,7 +7,7 @@
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
 			</Field>
-		   <Field type="menu" id="holdType" defaultValue="nextTransition" hidden="true">
+        ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
                 <Label>Default Hold Type:</Label>
                 <List>
                     <Option value="nextTransition">Next Transition</Option>
