@@ -41,10 +41,6 @@
 				<Label>Supports compressor/furnace feedback:</Label>
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
-			<Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" hidden="true">
-				<Label>Supports compressor/furnace feedback:</Label>
-				<Description>Show compressor/furnace states in UI</Description>
-			</Field>
 		</ConfigUI>
 	</Device>
 </Devices>
