@@ -34,10 +34,6 @@
 				<Label>Supports compressor/furnace feedback:</Label>
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
-			<Field type="checkbox" id="hvacHeaterIsOn" defaultValue="false" hidden="true">
-				<Label>Heat is On:</Label>
-				<Description>Allow for heat is On in UI</Description>
-			</Field>
 		</ConfigUI>
 	</Device>
 </Devices>
