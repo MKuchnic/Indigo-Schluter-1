@@ -16,6 +16,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<Field type="textfield" id="address" defaultValue="123456" hidden="true">
 =======
 			<Field type="textfield" id="address" defaultValue="serialNumbers">
@@ -60,6 +61,8 @@
 				<Label>Module Address:</Label>
 			</Field>
 >>>>>>> parent of e09956b (Update Devices.xml)
+=======
+>>>>>>> parent of 089900e (Update Devices.xml)
         ￼   <Field type="menu" id="holdType" defaultValue="nextTransition">
                 <Label>Default Hold Type:</Label>
                 <List>
