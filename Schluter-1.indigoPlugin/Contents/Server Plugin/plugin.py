@@ -22,7 +22,7 @@ TEMPERATURE_SCALE_PLUGIN_PREF='temperatureScale'
 TEMP_CONVERTERS = {
     'F': temperature_scale.Fahrenheit(),
     'C': temperature_scale.Celsius(),
-
+}
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
