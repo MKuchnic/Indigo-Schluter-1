@@ -14,11 +14,11 @@ class Fahrenheit(TemperatureScale):
 
     # convertFromSchluter() methods input the Schuter temperature value (convert to C x 100) and output the rounded to the nearest 0.5 converted value for the class
     def convertFromSchuter(self, reading):
-        return round(((((reading / 100.0) * 9) / 5) + 32) * 2.0) / 2.0
+        return round(((((reading / 100.0) * 9.0) / 5.0) + 32.0) * 2.0) / 2.0
         
     # convertToSchuter() methods input the temperature value in the current scale and output the Schluter value int(convert to C x 100)
     def convertToSchuter(self, reading):
-        return int((((reading - 32) * 5) / 9) * 100)
+        return int((((reading - 32.0) * 5.0) / 9.0) * 100)
         
     def suffix(self):
         return u"F"
