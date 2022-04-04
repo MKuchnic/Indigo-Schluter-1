@@ -176,7 +176,7 @@ class Plugin(indigo.PluginBase):
 #		dev.updateStateOnServer("hvacOperationMode", indigo.kHvacMode.Heat)
 		self._changeTempSensorValue(dev, 1, thermostat.temperature)
 		self._changeTempSetpoint(dev, thermostat.set_point_temp)
-		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
+#		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
 
 	########################################
 	
