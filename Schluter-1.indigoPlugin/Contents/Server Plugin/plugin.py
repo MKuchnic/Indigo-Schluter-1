@@ -12,7 +12,7 @@ import logging
 import time
 from datetime import datetime, timedelta
 import threading
-import temperarture_scale
+import temperature_scale
 
 from schluter import Schluter
 from schluter_thermo import Schluter_Thermo
