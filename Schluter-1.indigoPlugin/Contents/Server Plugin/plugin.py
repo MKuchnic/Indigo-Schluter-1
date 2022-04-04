@@ -46,9 +46,9 @@ class Plugin(indigo.PluginBase):
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
-        scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
-        self.logger.debug(u'setting temperature scale to {}'.format(scale))
-        Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
+		self.logger.debug(u'setting temperature scale to {}'.format(scale))
+		Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 		self.authentication = self.authenticator.authenticate()
