@@ -4,6 +4,7 @@ import logging
 import indigo
 from requests import request, Session
 import requests
+import temperature_scale
 from schluter_thermo import Schluter_Thermo
 
 # URL Constants
