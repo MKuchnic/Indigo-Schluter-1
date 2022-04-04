@@ -21,7 +21,7 @@ class Fahrenheit(TemperatureScale):
         return int((((temp - 32) * 5) / 9) * 100)
         
     def suffix(self):
-        return u"°F"
+        return u"F"
         
 class Celsius(TemperatureScale):
 
@@ -34,5 +34,5 @@ class Celsius(TemperatureScale):
         return int(temp * 100)
         
     def suffix(self):
-        return u"°C"
+        return u"C"
         
