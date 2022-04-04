@@ -109,7 +109,7 @@ class Plugin(indigo.PluginBase):
 
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
 			self.logger.debug(u'setting temperature scale to {}'.format(scale))
-			EcobeeDevice.temperatureFormatter = TEMP_CONVERTERS[scale]
+			Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
 
 			self.logger.debug(u"updating authentication")
 			
