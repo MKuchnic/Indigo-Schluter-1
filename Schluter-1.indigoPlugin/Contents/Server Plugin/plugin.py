@@ -40,6 +40,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.info(u"Starting Schluter")
 		
 		self.schluter = Schluter()
+		self.tempScale = "C"
 
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
