@@ -12,10 +12,17 @@ import logging
 import time
 from datetime import datetime, timedelta
 import threading
+import temperarture_scale
 
 from schluter import Schluter
 from schluter_thermo import Schluter_Thermo
 from authenticator import Authenticator, Authentication, AuthenticationState
+
+TEMPERATURE_SCALE_PLUGIN_PREF='temperatureScale'
+TEMP_CONVERTERS = {
+    'F': temperature_scale.Fahrenheit(),
+    'C': temperature_scale.Celsius(),
+
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
@@ -33,13 +40,16 @@ class Plugin(indigo.PluginBase):
 		self.logger.info(u"Starting Schluter")
 		
 		self.schluter = Schluter()
-		self.tempScale = self.pluginPrefs["temperatureScale"]
 
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
 		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
+        scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
+        self.logger.debug(u'setting temperature scale to {}'.format(scale))
+        Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 		self.authentication = self.authenticator.authenticate()
 		self.authentication_cache = self.authentication
@@ -95,6 +105,10 @@ class Plugin(indigo.PluginBase):
 			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 			self.authentication = self.authenticator.authenticate()
 			self.authentication_cache = self.authentication
+
+            scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
+            self.logger.debug(u'setting temperature scale to {}'.format(scale))
+            EcobeeDevice.temperatureFormatter = TEMP_CONVERTERS[scale]
 
 			self.logger.debug(u"updating authentication")
 			
