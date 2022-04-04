@@ -20,8 +20,8 @@ from authenticator import Authenticator, Authentication, AuthenticationState
 
 TEMPERATURE_SCALE_PLUGIN_PREF='temperatureScale'
 TEMP_CONVERTERS = {
-    'F': temperature_scale.Fahrenheit(),
-    'C': temperature_scale.Celsius(),
+	'F': temperature_scale.Fahrenheit(),
+	'C': temperature_scale.Celsius(),
 }
 
 class Plugin(indigo.PluginBase):
@@ -106,9 +106,9 @@ class Plugin(indigo.PluginBase):
 			self.authentication = self.authenticator.authenticate()
 			self.authentication_cache = self.authentication
 
-            scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
-            self.logger.debug(u'setting temperature scale to {}'.format(scale))
-            EcobeeDevice.temperatureFormatter = TEMP_CONVERTERS[scale]
+			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
+			self.logger.debug(u'setting temperature scale to {}'.format(scale))
+			EcobeeDevice.temperatureFormatter = TEMP_CONVERTERS[scale]
 
 			self.logger.debug(u"updating authentication")
 			
