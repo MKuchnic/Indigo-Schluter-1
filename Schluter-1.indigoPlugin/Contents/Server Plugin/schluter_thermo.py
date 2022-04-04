@@ -16,8 +16,10 @@ class Schluter_Thermo():
         self._manual_temp = data["ManualTemperature"]
         self._is_online = data["Online"]
         self._is_heating = data["Heating"]
+        self._early_start_of_heating = data["EarlyStartOfHeating"]
         self._max_temp = data["MaxTemp"]
         self._min_temp = data["MinTemp"]
+        self._error_code = data["ErrorCode"]
         self._tzoffset = data["TZOffset"]
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
@@ -66,11 +68,11 @@ class Schluter_Thermo():
 
     @property
     def vacation_temperature(self):
-        return round((self.temp_convert_from(self._vacation_temperature / 100)) * 2.0) / 2.0
+        return self._vacation_temperature
 
     @property
     def comfort_temperature(self):
-        return round((self.temp_convert_from(self._comfort_temperature / 100)) * 2.0) / 2.0
+        return self._comfort_temperature
 
     @property
     def comfort_end_time(self):
@@ -78,7 +80,7 @@ class Schluter_Thermo():
 
     @property
     def manual_temp(self):
-        return round((self.temp_convert_from(self._manual_temp / 100)) * 2.0) / 2.0
+        return self._manual_temp
     
     @property
     def is_online(self):
@@ -87,14 +89,22 @@ class Schluter_Thermo():
     @property
     def is_heating(self):
         return self._is_heating
+
+    @property
+    def early_start_of_heating(self):
+        return self._early_start_of_heating
     
     @property
     def max_temp(self):
-        return round((self.temp_convert_from(self._max_temp / 100)) * 2.0) / 2.0
+        return self._max_temp
     
     @property
     def min_temp(self):
-        return round((self.temp_convert_from(self._min_temp / 100)) * 2.0) / 2.0
+        return self._min_temp
+
+    @property
+    def error_code(self):
+        return self._error_code
 		    
     @property
     def tzoffset(self):
@@ -111,10 +121,3 @@ class Schluter_Thermo():
     @property
     def sw_version(self):
         return self._sw_version
-
-    def temp_convert_from(self, temperature):
-        if self.temp_scale == "F" :
-            return round((((temperature * 9) / 5) + 32) * 2.0) / 2.0
-        else :
-            return temperature
-
