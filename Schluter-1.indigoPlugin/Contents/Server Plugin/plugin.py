@@ -189,7 +189,7 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def _updateDeviceStatesList(self, dev, thermostat):
-		self.logger.debug("{}: Updating device".format(self.dev.name))
+		self.logger.debug("{}: Updating device".format(dev.name))
 		
 		update_list = []
 		
