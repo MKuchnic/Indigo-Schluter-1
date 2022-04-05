@@ -226,6 +226,9 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.load_measured_watt
 		update_list.append({'key' : "load_measured_watt", 'value' : value})
 		
+		value = thermostat.regulation_mode
+		update_list.append({'key' : "regulation_mode", 'value' : value})
+		
 		dev.updateStatesOnServer(update_list)
 	
 	########################################
@@ -287,11 +290,19 @@ class Plugin(indigo.PluginBase):
 							"TriggerLabel" : "Load Measured Watt",   
 							"Type"         : 100 })
 		
+		stateList.append({  "Disabled"     : False, 
+							"Key"          : "regulation_mode", 
+							"StateLabel"   : "Regulation Mode",   
+							"TriggerLabel" : "Regulation Mode",   
+							"Type"         : 100 })
+		
 		return stateList
 	
+	########################################
 	def deviceStartComm(self, dev):
 		self._refreshStatesFromHardware(dev, True, True)
 	
+	########################################
 	def deviceStopComm(self, dev):
 		pass
 	
