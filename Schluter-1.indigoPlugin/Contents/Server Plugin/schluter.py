@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from ensurepip import version
 import json
 import logging

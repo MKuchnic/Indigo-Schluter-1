@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Schluter_Thermo():
     def __init__(self, data, temp_scale):
         self._serial_number = data["SerialNumber"]

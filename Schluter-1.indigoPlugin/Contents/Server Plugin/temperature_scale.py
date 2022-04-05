@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+ 
 FORMAT_STRING = "{0:.1f}"
 
 class TemperatureScale:
@@ -21,7 +23,7 @@ class Fahrenheit(TemperatureScale):
         return int((((reading - 32.0) * 5.0) / 9.0) * 100)
         
     def suffix(self):
-        return u"F"
+        return u"°F"
         
 class Celsius(TemperatureScale):
 
@@ -34,5 +36,5 @@ class Celsius(TemperatureScale):
         return int(reading * 100)
         
     def suffix(self):
-        return u"C"
+        return u"°C"
         
