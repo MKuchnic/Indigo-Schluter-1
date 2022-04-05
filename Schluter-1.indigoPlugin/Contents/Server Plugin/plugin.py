@@ -205,13 +205,13 @@ class Plugin(indigo.PluginBase):
 		
 		update_list = []
 		
-		value = bool(thermostat.vacation_enabled == "True")
+		value = bool(thermostat.vacation_enabled)
 		update_list.append({'key' : "vacation_enabled", 'value' : value})
 		
-		value = bool(thermostat.is_online == "True")
+		value = bool(thermostat.is_online)
 		update_list.append({'key' : "is_online", 'value' : value})
 		
-		value = bool(thermostat.early_start_of_heating == "True")
+		value = bool(thermostat.early_start_of_heating)
 		update_list.append({'key' : "early_start_of_heating", 'value' : value})
 		
 		value = thermostat.error_code
