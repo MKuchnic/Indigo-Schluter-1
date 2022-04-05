@@ -289,7 +289,6 @@ class Plugin(indigo.PluginBase):
 							"StateLabel"   : "Load Measured Watt",   
 							"TriggerLabel" : "Load Measured Watt",   
 							"Type"         : 100 })
-		
 		stateList.append({  "Disabled"     : False, 
 							"Key"          : "regulation_mode", 
 							"StateLabel"   : "Regulation Mode",   
