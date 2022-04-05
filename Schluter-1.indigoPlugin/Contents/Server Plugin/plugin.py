@@ -10,6 +10,7 @@ import os
 import sys
 import logging
 import time
+import json # For debugging
 from datetime import datetime, timedelta
 import threading
 import temperature_scale
@@ -191,6 +192,10 @@ class Plugin(indigo.PluginBase):
 	def _updateDeviceStatesList(self, dev, thermostat):
 		self.logger.debug("{}: Updating device".format(dev.name))
 		
+		self.logger.debug("Device Details: id = {}, name = {}, model = {}, enabled = {}, deviceTypeId = {}, displayStateId = {}".format(dev.id, dev.name, dev.model, dev.enabled, dev.deviceTypeId, dev.displayStateId))
+		self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps)))
+		self.logger.debug("states = {}".format(json.dumps(dev.states)))
+		
 		update_list = []
 		
 		value = bool(thermostat.vacation_enabled == "True")
@@ -214,7 +219,7 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.load_measured_watt
 		update_list.append({'key' : "load_measured_watt", 'value' : value})
 		
-		dev.updateStatesOnServer(update_list)
+		#dev.updateStatesOnServer(update_list)
 	
 	########################################
 	
