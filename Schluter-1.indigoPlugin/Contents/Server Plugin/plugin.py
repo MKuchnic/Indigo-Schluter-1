@@ -295,8 +295,8 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def serialNumberListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
-#		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
-#		authentication = authenticator.authenticate()
+		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
+		authentication = authenticator.authenticate()
 		self.logger.debug(u"get serial number called")
 				
 		sessionID = self.authentication.session_id[0]
