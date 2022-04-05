@@ -42,7 +42,7 @@ class Schluter:
         
         return response
 
-    def get_thermostats(self, sessionId, temp_scale="C"):
+    def get_thermostats(self, sessionId):
         self.logger.debug(u"get_thermostats called")
         params = { 'sessionId': sessionId }
         thermostats = self._call_api("get", API_GET_THERMOSTATS_URL, params).json()
@@ -51,16 +51,16 @@ class Schluter:
         thermostat_list = []
         for group in groups:
             for thermostat in group["Thermostats"]:
-                thermostat_list.append(Schluter_Thermo(thermostat, temp_scale))
+                thermostat_list.append(Schluter_Thermo(thermostat))
          
         return thermostat_list
     
-    def get_temperature(self, sessionId, serialNumber, temp_scale):
+    def get_temperature(self, sessionId, serialNumber):
         self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
         
-        return Schluter_Thermo(result, temp_scale)
+        return Schluter_Thermo(result)
 
     def return_to_schedule(self, sessionId, serialNumber):
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Schluter_Thermo():
-    def __init__(self, data, temp_scale):
+    def __init__(self, data):
         self._serial_number = data["SerialNumber"]
         self._name = data["Room"]
         self._group_id = data["GroupId"]
@@ -26,7 +26,6 @@ class Schluter_Thermo():
         self._kwh_charge = data["KwhCharge"]
         self._load_measured_watt = data["LoadMeasuredWatt"]
         self._sw_version = data["SWVersion"]
-        self.temp_scale = temp_scale
     
     @property
     def serial_number(self):

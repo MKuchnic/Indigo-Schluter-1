@@ -138,8 +138,8 @@ class Plugin(indigo.PluginBase):
 					self.next_update = time.time() + self.updateFrequency
 
 #				debug checking 
-				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095, self.tempScale)
-				self.logger.info(u"Current temp: %s °%s",Schluter.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
+				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
+				self.logger.info(u"Current temp: %s °%s",Schluter.temperatureFormatter.convertFromSchuter(tempthermo.temperature))
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug("runConcurrentThread loop iteration")
 
@@ -187,7 +187,7 @@ class Plugin(indigo.PluginBase):
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
-		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False), self.tempScale)
+		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
 #		dev.updateStateOnServer("hvacOperationMode", indigo.kHvacMode.Heat)
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
