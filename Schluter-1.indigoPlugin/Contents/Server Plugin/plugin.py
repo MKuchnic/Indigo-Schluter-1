@@ -223,7 +223,7 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.load_measured_watt
 		update_list.append({'key' : "load_measured_watt", 'value' : value})
 		
-		#dev.updateStatesOnServer(update_list)
+		dev.updateStatesOnServer(update_list)
 	
 	########################################
 	
