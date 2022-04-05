@@ -286,9 +286,11 @@ class Plugin(indigo.PluginBase):
 #		
 #		return stateList
 	
+	########################################
 	def deviceStartComm(self, dev):
 		self._refreshStatesFromHardware(dev, True, True)
 	
+	########################################
 	def deviceStopComm(self, dev):
 		pass
 	
