@@ -236,7 +236,7 @@ class Plugin(indigo.PluginBase):
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
-		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
+#		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
 
 	########################################
 	
