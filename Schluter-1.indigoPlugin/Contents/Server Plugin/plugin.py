@@ -193,7 +193,11 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("{}: Updating device".format(dev.name))
 		
 		self.logger.debug("Device Details: id = {}, name = {}, model = {}, enabled = {}, deviceTypeId = {}, displayStateId = {}".format(dev.id, dev.name, dev.model, dev.enabled, dev.deviceTypeId, dev.displayStateId))
+		
+		pluginProps_dict = dev.pluginProps.to_dict()
 		self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps.to_dict())))
+		
+		states_dict = dev.states.to_dict()
 		self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
 		
 		update_list = []
@@ -236,51 +240,51 @@ class Plugin(indigo.PluginBase):
 
 	########################################
 	
-	def getDeviceStateList(self, dev):
-		stateList = indigo.PluginBase.getDeviceStateList(self, dev)
-		
-		# Type:
-		#  52 = Boolean
-		# 100 = Number
-		# 150 = String
-		
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "vacation_enabled", 
-							"StateLabel"   : "Vacation Enabled",   
-							"TriggerLabel" : "Vacation Enabled",   
-							"Type"         : 52 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "is_online", 
-							"StateLabel"   : "Online",   
-							"TriggerLabel" : "Online",   
-							"Type"         : 52 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "early_start_of_heating", 
-							"StateLabel"   : "Early Start of Heating",   
-							"TriggerLabel" : "Early Start of Heating",   
-							"Type"         : 52 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "error_code", 
-							"StateLabel"   : "Error Code",   
-							"TriggerLabel" : "Error Code",   
-							"Type"         : 100 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "tzoffset", 
-							"StateLabel"   : "TZ Offset",   
-							"TriggerLabel" : "TZ Offset",   
-							"Type"         : 100 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "kwh_charge", 
-							"StateLabel"   : "KWH Charge",   
-							"TriggerLabel" : "KWH Charge",   
-							"Type"         : 100 })
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "load_measured_watt", 
-							"StateLabel"   : "Load Measured Watt",   
-							"TriggerLabel" : "Load Measured Watt",   
-							"Type"         : 100 })
-		
-		return stateList
+#	def getDeviceStateList(self, dev):
+#		stateList = indigo.PluginBase.getDeviceStateList(self, dev)
+#		
+#		# Type:
+#		#  52 = Boolean
+#		# 100 = Number
+#		# 150 = String
+#		
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "vacation_enabled", 
+#							"StateLabel"   : "Vacation Enabled",   
+#							"TriggerLabel" : "Vacation Enabled",   
+#							"Type"         : 52 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "is_online", 
+#							"StateLabel"   : "Online",   
+#							"TriggerLabel" : "Online",   
+#							"Type"         : 52 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "early_start_of_heating", 
+#							"StateLabel"   : "Early Start of Heating",   
+#							"TriggerLabel" : "Early Start of Heating",   
+#							"Type"         : 52 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "error_code", 
+#							"StateLabel"   : "Error Code",   
+#							"TriggerLabel" : "Error Code",   
+#							"Type"         : 100 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "tzoffset", 
+#							"StateLabel"   : "TZ Offset",   
+#							"TriggerLabel" : "TZ Offset",   
+#							"Type"         : 100 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "kwh_charge", 
+#							"StateLabel"   : "KWH Charge",   
+#							"TriggerLabel" : "KWH Charge",   
+#							"Type"         : 100 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "load_measured_watt", 
+#							"StateLabel"   : "Load Measured Watt",   
+#							"TriggerLabel" : "Load Measured Watt",   
+#							"Type"         : 100 })
+#		
+#		return stateList
 	
 	def deviceStartComm(self, dev):
 		self._refreshStatesFromHardware(dev, True, True)
