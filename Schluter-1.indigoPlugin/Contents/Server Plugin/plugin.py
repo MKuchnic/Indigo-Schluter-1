@@ -200,6 +200,8 @@ class Plugin(indigo.PluginBase):
 		states_dict = dev.states.to_dict()
 		self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
 		
+		self.logger.debug("Thermostat values: vacation_enabled = {}, is_online = {}, early_start_of_heating = {}, error_code = {}, tzoffset = {}, kwh_charge = {}, load_measured_watt = {}".format(thermostat.vacation_enabled, thermostat.is_online, thermostat.early_start_of_heating, thermostat.error_code, thermostat.tzoffset, thermostat.kwh_charge, thermostat.load_measured_watt))
+		
 		update_list = []
 		
 		value = bool(thermostat.vacation_enabled == "True")
