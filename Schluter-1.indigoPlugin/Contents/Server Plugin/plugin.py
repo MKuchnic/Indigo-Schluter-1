@@ -49,6 +49,7 @@ class Plugin(indigo.PluginBase):
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+# remove once tempformatter fixed
 		self.tempScale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
@@ -108,6 +109,7 @@ class Plugin(indigo.PluginBase):
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
 			self.logger.debug(u'setting temperature scale to {}'.format(scale))
 			Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+# remove once tempformatter fixed
 			self.tempScale = valuesDict["temperatureScale"]
 
 			self.logger.debug(u"updating authentication")
@@ -138,6 +140,7 @@ class Plugin(indigo.PluginBase):
 
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
+# fix it once tempformatter fixed
 				self.logger.info(u"Current temp: %s °%s",Schluter.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug("runConcurrentThread loop iteration")
@@ -151,7 +154,8 @@ class Plugin(indigo.PluginBase):
 	
 	def _changeTempSensorValue(self, dev, index, value):
 		stateKey = "temperatureInput" + str(index)
-		
+
+# remove once tempformatter fixed
 		if self.tempScale == "F":
 			displayText = "%.1f°F" % (value)
 		else:
@@ -164,7 +168,8 @@ class Plugin(indigo.PluginBase):
 	
 	def _changeTempSetpoint(self, dev, value):
 		stateKey = "setpointHeat"
-		
+
+# remove once tempformatter fixed
 		if self.tempScale == "F":
 			displayText = "%.1f°F" % (value)
 		else:
