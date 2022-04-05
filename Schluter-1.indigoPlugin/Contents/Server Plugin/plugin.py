@@ -154,9 +154,9 @@ class Plugin(indigo.PluginBase):
 		stateKey = "temperatureInput" + str(index)
 		
 		if self.tempScale == "F":
-			displayText = "%.1f °F" % (value)
+			displayText = "%.1f°F" % (value)
 		else:
-			displayText = "%.1f °C" % (value)
+			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
@@ -167,9 +167,9 @@ class Plugin(indigo.PluginBase):
 		stateKey = "setpointHeat"
 		
 		if self.tempScale == "F":
-			displayText = "%.1f °F" % (value)
+			displayText = "%.1f°F" % (value)
 		else:
-			displayText = "%.1f °C" % (value)
+			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
