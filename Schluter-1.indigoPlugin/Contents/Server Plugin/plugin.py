@@ -228,7 +228,7 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-		dev.updateStateOnServer("hvacHeaterIsOn", true)
+	#	dev.updateStateOnServer("hvacHeaterIsOn", true)
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
