@@ -193,8 +193,8 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("{}: Updating device".format(dev.name))
 		
 		self.logger.debug("Device Details: id = {}, name = {}, model = {}, enabled = {}, deviceTypeId = {}, displayStateId = {}".format(dev.id, dev.name, dev.model, dev.enabled, dev.deviceTypeId, dev.displayStateId))
-		self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps)))
-		self.logger.debug("states = {}".format(json.dumps(dev.states)))
+		self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps.to_dict())))
+		self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
 		
 		update_list = []
 		
@@ -228,7 +228,7 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-	#	dev.updateStateOnServer("hvacHeaterIsOn", true)
+#		dev.updateStateOnServer("hvacOperationMode", indigo.kHvacMode.Heat)
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
