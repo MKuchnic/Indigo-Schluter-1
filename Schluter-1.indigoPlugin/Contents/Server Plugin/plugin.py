@@ -185,7 +185,37 @@ class Plugin(indigo.PluginBase):
 		
 		self.logger.debug("hvacHeaterIsOn: %s", str(value))
 		dev.updateStateOnServer(stateKey, value)
-			
+		
+	########################################
+	
+	def _updateDeviceStatesList(self, dev, thermostat):
+		self.logger.debug("{}: Updating device".format(self.dev.name))
+		
+		update_list = []
+		
+		value = bool(thermostat.vacation_enabled == "True")
+		update_list.append({'key' : "vacation_enabled", 'value' : value})
+		
+		value = bool(thermostat.is_online == "True")
+		update_list.append({'key' : "is_online", 'value' : value})
+		
+		value = bool(thermostat.early_start_of_heating == "True")
+		update_list.append({'key' : "early_start_of_heating", 'value' : value})
+		
+		value = thermostat.error_code
+		update_list.append({'key' : "error_code", 'value' : value})
+		
+		value = thermostat.tzoffset
+		update_list.append({'key' : "tzoffset", 'value' : value})
+		
+		value = thermostat.kwh_charge
+		update_list.append({'key' : "kwh_charge", 'value' : value})
+		
+		value = thermostat.load_measured_watt
+		update_list.append({'key' : "load_measured_watt", 'value' : value})
+		
+		dev.updateStatesOnServer(update_list)
+	
 	########################################
 	
 	def _refreshStatesFromHardware(self, dev, logRefresh, commJustStarted):
@@ -196,6 +226,7 @@ class Plugin(indigo.PluginBase):
 #		dev.updateStateOnServer("hvacOperationMode", indigo.kHvacMode.Heat)
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
+		self._updateDeviceStatesList(dev, thermostat)
 #		self._changehvacHeaterIsOn(dev, thermostat.is_heating)
 
 	########################################
