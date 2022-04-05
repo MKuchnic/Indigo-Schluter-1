@@ -35,6 +35,7 @@
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
 		</ConfigUI>
+		<!--
 		<States>
 			<State id="vacation_enabled">
                 <ValueType boolType="YesNo">Boolean</ValueType>
@@ -72,5 +73,6 @@
 				<ControlPageLabel>Load Measured Watt</ControlPageLabel>
 			</State>
 		</States>
+		-->
 	</Device>
 </Devices>
