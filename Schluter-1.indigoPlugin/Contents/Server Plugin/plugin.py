@@ -179,15 +179,8 @@ class Plugin(indigo.PluginBase):
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-			
-	########################################
-	
-	def _changehvacHeaterIsOn(self, dev, value):
-		stateKey = "hvacHeaterIsOn"
-		
-		self.logger.debug("hvacHeaterIsOn: %s", str(value))
-		dev.updateStateOnServer(stateKey, value)
-		
+
+
 	########################################
 	
 	def _updateDeviceStatesList(self, dev, thermostat):
@@ -231,9 +224,6 @@ class Plugin(indigo.PluginBase):
 
 		update_list.append({'key' : "hvacOperationMode", 'value' : 1})
 		
-		value = bool(thermostat.is_heating)
-		update_list.append({'key' : "hvacHeaterIsOn", 'value' : value})
-
 		dev.updateStatesOnServer(update_list)
 	
 	########################################
@@ -243,7 +233,7 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-#		dev.updateStateOnServer("hvacOperationMode", indigo.kHvacMode.Heat)
+
 		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
@@ -299,12 +289,6 @@ class Plugin(indigo.PluginBase):
 							"StateLabel"   : "Regulation Mode",   
 							"TriggerLabel" : "Regulation Mode",   
 							"Type"         : 100 })
-		
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "hvacHeaterIsOn", 
-							"StateLabel"   : "hvacHeaterIsOn",   
-							"TriggerLabel" : "hvacHeaterIsOn",   
-							"Type"         : 52 })
 		
 		return stateList
 	
