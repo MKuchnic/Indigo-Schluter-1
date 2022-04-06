@@ -247,7 +247,7 @@ class Plugin(indigo.PluginBase):
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
-		displayText = self.temperatureFormatter.format(value)
+		displayText = self.temperatureFormatter.format(self.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 
 		# remove once tempformatter fixed
 #		if self.tempScale == "F":
