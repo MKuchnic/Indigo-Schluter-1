@@ -80,7 +80,7 @@ class Plugin(indigo.PluginBase):
 # 		do an authentication here to check entered values
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-#		self.authentication_cache = authentication
+
 
 		errorDict = indigo.Dict()
 
@@ -247,7 +247,7 @@ class Plugin(indigo.PluginBase):
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
 		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature)
-		displayText = Schluter.temperatureFormatter.format(Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
+		displayText = Schluter.temperatureFormatter.format(value)
 
 		# remove once tempformatter fixed
 #		if self.tempScale == "F":
