@@ -236,7 +236,7 @@ class Plugin(indigo.PluginBase):
 		update_list.append({'key' : "regulation_mode", 'value' : value})
 
 # added to get the mode list
-		update_list.append({'key' : "hvacOperationMode", indigo.kHvacMode.Heat})
+		update_list.append({'key' : "hvacOperationMode", 'value' : indigo.kHvacMode.Heat})
 		
 		dev.updateStatesOnServer(update_list)
 	
