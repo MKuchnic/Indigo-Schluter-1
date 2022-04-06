@@ -3,6 +3,9 @@
 	<Device type="thermostat" id="Thermostat">
 		<Name>DITRA-HEAT-E-WIFI</Name>
 		<ConfigUI>
+			<Field id="address" type="textfield">
+				<Label>Enter Address (any random number):</Label>
+			</Field>
 			<Field id="serialNumbers" type="menu">
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
@@ -35,44 +38,5 @@
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
 		</ConfigUI>
-		<!--
-		<States>
-			<State id="vacation_enabled">
-                <ValueType boolType="YesNo">Boolean</ValueType>
-				<TriggerLabel>Vacation Enabled</TriggerLabel>
-				<ControlPageLabel>Vacation Enabled</ControlPageLabel>
-			</State>
-			<State id="is_online">
-                <ValueType boolType="YesNo">Boolean</ValueType>
-				<TriggerLabel>Online</TriggerLabel>
-				<ControlPageLabel>Online</ControlPageLabel>
-			</State>
-			<State id="early_start_of_heating">
-                <ValueType boolType="YesNo">Boolean</ValueType>
-				<TriggerLabel>Early Start of Heating</TriggerLabel>
-				<ControlPageLabel>Early Start of Heating</ControlPageLabel>
-			</State>
-			<State id="error_code">
-                <ValueType>Integer</ValueType>
-				<TriggerLabel>Error Code</TriggerLabel>
-				<ControlPageLabel>Error Code</ControlPageLabel>
-			</State>
-			<State id="tzoffset">
-                <ValueType>Number</ValueType>
-				<TriggerLabel>TZ Offset</TriggerLabel>
-				<ControlPageLabel>TZ Offset</ControlPageLabel>
-			</State>
-			<State id="kwh_charge">
-                <ValueType>Number</ValueType>
-				<TriggerLabel>KWH Charge</TriggerLabel>
-				<ControlPageLabel>KWH Charge</ControlPageLabel>
-			</State>
-			<State id="load_measured_watt">
-                <ValueType>Number</ValueType>
-				<TriggerLabel>Load Measured Watt</TriggerLabel>
-				<ControlPageLabel>Load Measured Watt</ControlPageLabel>
-			</State>
-		</States>
-		-->
 	</Device>
 </Devices>
