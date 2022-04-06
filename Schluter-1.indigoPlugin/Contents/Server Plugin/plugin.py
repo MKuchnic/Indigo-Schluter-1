@@ -222,9 +222,7 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.regulation_mode
 		update_list.append({'key' : "regulation_mode", 'value' : value})
 
-		value = bool(thermostat.is_heating)
-		update_list.append({'key' : "hvacHeaterIsOn", 'value' : value})
-
+# added to get the mode list
 		update_list.append({'key' : "hvacOperationMode", 'value' : 1})
 		
 		dev.updateStatesOnServer(update_list)
@@ -293,11 +291,11 @@ class Plugin(indigo.PluginBase):
 							"TriggerLabel" : "Regulation Mode",   
 							"Type"         : 100 })
 		
-		stateList.append({  "Disabled"     : False, 
-							"Key"          : "hvacHeaterIsOn", 
-							"StateLabel"   : "hvacHeaterIsOn",   
-							"TriggerLabel" : "hvacHeaterIsOn",   
-							"Type"         : 52 })
+#		stateList.append({  "Disabled"     : False, 
+#							"Key"          : "hvacHeaterIsOn", 
+#							"StateLabel"   : "hvacHeaterIsOn",   
+#							"TriggerLabel" : "hvacHeaterIsOn",   
+#							"Type"         : 52 })
 		
 		return stateList
 	
