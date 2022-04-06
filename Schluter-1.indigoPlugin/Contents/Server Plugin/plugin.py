@@ -361,6 +361,11 @@ class Plugin(indigo.PluginBase):
 		
 		return serial_numbers
 	
+	def serialNumberPicked(self, valuesDict, typeId, devId):
+		self.logger.debug("serialNumberPicked called")
+		
+		self.logger.debug("valuesDict = {}".format(json.dumps(valuesDict.to_dict())))
+	
 	########################################
 	# Actions defined in MenuItems.xml:
 	########################################

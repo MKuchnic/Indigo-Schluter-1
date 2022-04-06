@@ -3,12 +3,13 @@
 	<Device type="thermostat" id="Thermostat">
 		<Name>DITRA-HEAT-E-WIFI</Name>
 		<ConfigUI>
-			<Field id="address" type="textfield">
-				<Label>Enter Address (any random number):</Label>
+			<Field id="address" type="textfield" readonly="YES">
+				<Label>Address (serial number):</Label>
 			</Field>
 			<Field id="serialNumbers" type="menu">
 				<Label>Thermostats:</Label>
 				<List class="self" filter="stuff" method="serialNumberListGenerator"/>
+				<CallbackMethod>serialNumberPicked</CallbackMethod>
 			</Field>
 			<Field type="menu" id="holdType" defaultValue="nextTransition" hidden="true">
                 <Label>Default Hold Type:</Label>
