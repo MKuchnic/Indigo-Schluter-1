@@ -25,6 +25,7 @@ TEMP_CONVERTERS = {
 	'F': temperature_scale.Fahrenheit(),
 	'C': temperature_scale.Celsius(),
 }
+temperatureFormatter = TEMP_CONVERTERS[TEMPERATURE_SCALE_PLUGIN_PREF]
 
 ################################################################################
 kHvacModeEnumToStrMap = {
