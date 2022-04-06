@@ -25,7 +25,6 @@ TEMP_CONVERTERS = {
 	'F': temperature_scale.Fahrenheit(),
 	'C': temperature_scale.Celsius(),
 }
-temperatureFormatter = TEMP_CONVERTERS[TEMPERATURE_SCALE_PLUGIN_PREF]
 
 ################################################################################
 kHvacModeEnumToStrMap = {
@@ -248,7 +247,7 @@ class Plugin(indigo.PluginBase):
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
 		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature)
-		displayText = Schluter.temperatureFormatter.format(value)
+		displayText = Schluter.temperatureFormatter.format(Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
 
 		# remove once tempformatter fixed
 #		if self.tempScale == "F":
