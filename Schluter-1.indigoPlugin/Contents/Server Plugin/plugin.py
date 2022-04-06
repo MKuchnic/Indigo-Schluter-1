@@ -300,6 +300,12 @@ class Plugin(indigo.PluginBase):
 							"TriggerLabel" : "Regulation Mode",   
 							"Type"         : 100 })
 		
+		stateList.append({  "Disabled"     : False, 
+							"Key"          : "hvacHeaterIsOn", 
+							"StateLabel"   : "hvacHeaterIsOn",   
+							"TriggerLabel" : "hvacHeaterIsOn",   
+							"Type"         : 52 })
+		
 		return stateList
 	
 	########################################
