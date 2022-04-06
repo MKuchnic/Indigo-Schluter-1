@@ -238,7 +238,8 @@ class Plugin(indigo.PluginBase):
 # added to get the mode list
 		update_list.append({'key' : "hvacOperationMode", 'value' : indigo.kHvacMode.Heat})
 		
-		value = thermostat.is_heating
+		value = bool(thermostat.is_heating)
+		self.logger.debug("Heating is on: %s", value)
 		update_list.append({'key' : "hvacHeaterIsOn", 'value' : value})
 
 		dev.updateStatesOnServer(update_list)
