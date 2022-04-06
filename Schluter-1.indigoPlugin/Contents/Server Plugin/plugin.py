@@ -192,7 +192,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-
+		
 
 	########################################
 	
@@ -307,11 +307,11 @@ class Plugin(indigo.PluginBase):
 							"TriggerLabel" : "Regulation Mode",   
 							"Type"         : 100 })
 		
-#		stateList.append({  "Disabled"     : False, 
-#							"Key"          : "hvacHeaterIsOn", 
-#							"StateLabel"   : "hvacHeaterIsOn",   
-#							"TriggerLabel" : "hvacHeaterIsOn",   
-#							"Type"         : 52 })
+		stateList.append({  "Disabled"     : False, 
+							"Key"          : "hvacHeaterIsOn", 
+							"StateLabel"   : "hvacHeaterIsOn",   
+							"TriggerLabel" : "hvacHeaterIsOn",   
+							"Type"         : 52 })
 		
 		return stateList
 	
