@@ -255,7 +255,7 @@ class Plugin(indigo.PluginBase):
 			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
-		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1)})
+		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
 		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
@@ -267,7 +267,7 @@ class Plugin(indigo.PluginBase):
 			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		update_list.append({'key' : "setpointHeat", 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1)})
+		update_list.append({'key' : "setpointHeat", 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
 
 		dev.updateStatesOnServer(update_list)
 	
