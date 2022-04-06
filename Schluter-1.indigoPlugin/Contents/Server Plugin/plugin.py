@@ -62,7 +62,7 @@ class Plugin(indigo.PluginBase):
 		
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
-		Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+		self.temperatureFormatter = TEMP_CONVERTERS[scale]
 # remove once tempformatter fixed
 		self.tempScale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		
@@ -122,7 +122,7 @@ class Plugin(indigo.PluginBase):
 
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
 			self.logger.debug(u'setting temperature scale to {}'.format(scale))
-			Schluter.temperatureFormatter = TEMP_CONVERTERS[scale]
+			self.temperatureFormatter = TEMP_CONVERTERS[scale]
 # remove once tempformatter fixed
 			self.tempScale = valuesDict["temperatureScale"]
 
@@ -155,7 +155,7 @@ class Plugin(indigo.PluginBase):
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
 # fix it once tempformatter fixed
-				self.logger.info(u"Current temp: %s °%s",Schluter.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
+				self.logger.info(u"Current temp: %s °%s",self.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 				self.logger.debug("runConcurrentThread loop iteration")
@@ -246,8 +246,8 @@ class Plugin(indigo.PluginBase):
 		# _changeTempSensorValue integrated into this method
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
-		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature)
-		displayText = Schluter.temperatureFormatter.format(value)
+		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
+		displayText = self.temperatureFormatter.format(value)
 
 		# remove once tempformatter fixed
 #		if self.tempScale == "F":
@@ -259,7 +259,7 @@ class Plugin(indigo.PluginBase):
 		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
-		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
+		value = self.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
 		
 		# remove once tempformatter fixed
 		if self.tempScale == "F":
