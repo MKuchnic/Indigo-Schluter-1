@@ -30,7 +30,7 @@
 				<Label>Supports fan modes:</Label>
 				<Description>Show fan mode controls (auto/always on) in UI</Description>
 			</Field>
-			<Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" hidden="true">
+			<Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" defaultValue="true" hidden="true">
 				<Label>Supports compressor/furnace feedback:</Label>
 				<Description>Show compressor/furnace states in UI</Description>
 			</Field>
