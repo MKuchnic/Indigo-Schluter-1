@@ -19,11 +19,24 @@ from schluter import Schluter
 from schluter_thermo import Schluter_Thermo
 from authenticator import Authenticator, Authentication, AuthenticationState
 
+################################################################################
 TEMPERATURE_SCALE_PLUGIN_PREF='temperatureScale'
 TEMP_CONVERTERS = {
 	'F': temperature_scale.Fahrenheit(),
 	'C': temperature_scale.Celsius(),
 }
+
+################################################################################
+kHvacModeEnumToStrMap = {
+	indigo.kHvacMode.Cool				: u"cool",
+	indigo.kHvacMode.Heat				: u"heat",
+	indigo.kHvacMode.HeatCool			: u"auto",
+	indigo.kHvacMode.Off				: u"off",
+	indigo.kHvacMode.ProgramHeat		: u"program heat",
+	indigo.kHvacMode.ProgramCool		: u"program cool",
+	indigo.kHvacMode.ProgramHeatCool	: u"program auto"
+}
+
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
@@ -223,7 +236,7 @@ class Plugin(indigo.PluginBase):
 		update_list.append({'key' : "regulation_mode", 'value' : value})
 
 # added to get the mode list
-		update_list.append({'key' : "hvacOperationMode", 'value' : 1})
+		update_list.append({'key' : "hvacOperationMode", indigo.kHvacMode.Heat})
 		
 		dev.updateStatesOnServer(update_list)
 	
