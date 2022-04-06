@@ -229,7 +229,7 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.regulation_mode
 		update_list.append({'key' : "regulation_mode", 'value' : value})
 
-		update_list.append({'key' : "hvacOperationMode", 'value' : u"heat"})
+		update_list.append({'key' : "hvacOperationMode", 'value' : 1})
 		
 		dev.updateStatesOnServer(update_list)
 	
