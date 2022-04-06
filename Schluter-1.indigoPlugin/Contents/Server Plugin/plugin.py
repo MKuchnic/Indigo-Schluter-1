@@ -157,7 +157,7 @@ class Plugin(indigo.PluginBase):
 # fix it once tempformatter fixed
 				self.logger.info(u"Current temp: %s °%s",Schluter.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
-				self.logger.debug(u"is_online: %s", tempthermo.is_online)
+				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 				self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(60.0)
