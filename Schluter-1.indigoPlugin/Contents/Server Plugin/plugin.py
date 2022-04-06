@@ -167,10 +167,11 @@ class Plugin(indigo.PluginBase):
 	
 	########################################
 	
+	# Hopefully will be deprecated
 	def _changeTempSensorValue(self, dev, index, value):
 		stateKey = "temperatureInput" + str(index)
 
-# remove once tempformatter fixed
+		# remove once tempformatter fixed
 		if self.tempScale == "F":
 			displayText = "%.1f°F" % (value)
 		else:
@@ -181,10 +182,11 @@ class Plugin(indigo.PluginBase):
 	
 	########################################
 	
+	# Hopefully will be deprecated
 	def _changeTempSetpoint(self, dev, value):
 		stateKey = "setpointHeat"
 
-# remove once tempformatter fixed
+		# remove once tempformatter fixed
 		if self.tempScale == "F":
 			displayText = "%.1f°F" % (value)
 		else:
@@ -192,20 +194,19 @@ class Plugin(indigo.PluginBase):
 		
 		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
 		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-		
-
+	
 	########################################
 	
 	def _updateDeviceStatesList(self, dev, thermostat):
 		self.logger.debug("{}: Updating device".format(dev.name))
-		
 		self.logger.debug("Device Details: id = {}, name = {}, model = {}, enabled = {}, deviceTypeId = {}, displayStateId = {}".format(dev.id, dev.name, dev.model, dev.enabled, dev.deviceTypeId, dev.displayStateId))
 		
-		pluginProps_dict = dev.pluginProps.to_dict()
-		self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps.to_dict())))
+		# These were only added to check values
+		#pluginProps_dict = dev.pluginProps.to_dict()
+		#self.logger.debug("pluginProps = {}".format(json.dumps(dev.pluginProps.to_dict())))
 		
-		states_dict = dev.states.to_dict()
-		self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
+		#states_dict = dev.states.to_dict()
+		#self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
 		
 		self.logger.debug("Thermostat values: vacation_enabled = {}, is_online = {}, early_start_of_heating = {}, error_code = {}, tzoffset = {}, kwh_charge = {}, load_measured_watt = {}".format(thermostat.vacation_enabled, thermostat.is_online, thermostat.early_start_of_heating, thermostat.error_code, thermostat.tzoffset, thermostat.kwh_charge, thermostat.load_measured_watt))
 		
@@ -235,12 +236,38 @@ class Plugin(indigo.PluginBase):
 		value = thermostat.regulation_mode
 		update_list.append({'key' : "regulation_mode", 'value' : value})
 
-# added to get the mode list
+		# added to get the mode list
 		update_list.append({'key' : "hvacOperationMode", 'value' : indigo.kHvacMode.Heat})
 		
 		value = bool(thermostat.is_heating)
 		self.logger.debug("Heating is on: %s", value)
 		update_list.append({'key' : "hvacHeaterIsOn", 'value' : value})
+
+		# _changeTempSensorValue integrated into this method
+		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
+		stateKey = "temperatureInput" + str(index)
+		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature)
+
+		# remove once tempformatter fixed
+		if self.tempScale == "F":
+			displayText = "%.1f°F" % (value)
+		else:
+			displayText = "%.1f°C" % (value)
+		
+		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
+		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1)})
+		
+		# _changeTempSetpoint integrated into this method
+		value = Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
+		
+		# remove once tempformatter fixed
+		if self.tempScale == "F":
+			displayText = "%.1f°F" % (value)
+		else:
+			displayText = "%.1f°C" % (value)
+		
+		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
+		update_list.append({'key' : "setpointHeat", 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1)})
 
 		dev.updateStatesOnServer(update_list)
 	
@@ -251,8 +278,8 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-		self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
-		self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
+		#self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
+		#self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
 
 	########################################
