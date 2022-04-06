@@ -225,7 +225,7 @@ class Plugin(indigo.PluginBase):
 		value = bool(thermostat.is_heating)
 		update_list.append({'key' : "hvacHeaterIsOn", 'value' : value})
 
-		update_list.append({'key' : "hvacOperationModeIsHeat", 'value' : True})
+		update_list.append({'key' : "hvacOperationMode", 'value' : 1})
 		
 		dev.updateStatesOnServer(update_list)
 	
