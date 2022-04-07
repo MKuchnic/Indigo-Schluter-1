@@ -248,7 +248,7 @@ class Plugin(indigo.PluginBase):
 		stateKey = "temperatureInput" + str(index)
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
 		displayText = self.temperatureFormatter.format(value)
-
+		self.logger.debug("displayText: %s",displayText)
 #		# remove once tempformatter fixed
 #		if self.tempScale == "F":
 #			displayText = "%.1f°F" % (value)
