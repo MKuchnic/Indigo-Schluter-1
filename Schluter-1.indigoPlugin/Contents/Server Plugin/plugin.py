@@ -60,7 +60,6 @@ class Plugin(indigo.PluginBase):
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
-#		self.temperatureFormatter = temperature_scale.Celsius()
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
@@ -156,7 +155,6 @@ class Plugin(indigo.PluginBase):
 
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
-# fix it once tempformatter fixed
 				self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(tempthermo.temperature))
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
@@ -167,37 +165,7 @@ class Plugin(indigo.PluginBase):
 		except self.StopThread:
 			pass
 	
-	########################################
-	
-	# Hopefully will be deprecated
-	def _changeTempSensorValue(self, dev, index, value):
-		stateKey = "temperatureInput" + str(index)
-
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-	
-	########################################
-	
-	# Hopefully will be deprecated
-	def _changeTempSetpoint(self, dev, value):
-		stateKey = "setpointHeat"
-
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-	
-	########################################
+		########################################
 	
 	def _updateDeviceStatesList(self, dev, thermostat):
 		self.logger.debug("{}: Updating device".format(dev.name))
@@ -248,30 +216,12 @@ class Plugin(indigo.PluginBase):
 		# _changeTempSensorValue integrated into this method
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
-		value = self.temperatureFormatter.convertFromSchluter(thermostat.temperature)
-#		displayText = self.temperatureFormatter.format(thermostat.temperature)
-		self.logger.debug("displayText: %s",self.temperatureFormatter.format(thermostat.temperature))
-
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
+		self.logger.debug("_changeTempSensorValue: value = {}".format(self.temperatureFormatter.format(thermostat.temperature)))
 		update_list.append({'key' : stateKey, 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.temperature), 'uiValue' : self.temperatureFormatter.format(thermostat.temperature), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
-		value = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
-		
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		update_list.append({'key' : "setpointHeat", 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
+		self.logger.debug("_changeTempSetpoint: value = {}".format(self.temperatureFormatter.format(thermostat.set_point)))
+		update_list.append({'key' : "setpointHeat", 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp), 'uiValue' : self.temperatureFormatter.format(thermostat.set_point), 'decimalPlaces' : 1})
 
 		dev.updateStatesOnServer(update_list)
 	
