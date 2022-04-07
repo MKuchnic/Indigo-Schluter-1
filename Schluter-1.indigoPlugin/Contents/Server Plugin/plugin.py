@@ -214,7 +214,7 @@ class Plugin(indigo.PluginBase):
 		# _changeTempSensorValue integrated into this method
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
-		self.logger.debug(u"_changeTempSensorValue: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.temperature), self.temperatureFormatter.format(thermostat.temperature)))
+		self.logger.debug(u"_changeTempSensorValue: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.temperature), self.temperatureFormatter.format(thermostat.temperature).encode('utf-8')))
 		update_list.append({'key' : stateKey, 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.temperature), 'uiValue' : self.temperatureFormatter.format(thermostat.temperature), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
