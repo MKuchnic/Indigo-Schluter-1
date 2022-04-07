@@ -60,7 +60,7 @@ class Plugin(indigo.PluginBase):
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
-		self.temperatureFormatter = temperature_scale.Celsius()
+#		self.temperatureFormatter = temperature_scale.Celsius()
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
@@ -248,7 +248,7 @@ class Plugin(indigo.PluginBase):
 		# _changeTempSensorValue integrated into this method
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
-		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
+		value = self.temperatureFormatter.convertFromSchluter(thermostat.temperature)
 #		displayText = self.temperatureFormatter.format(value)
 #		self.logger.debug("displayText: %s",displayText)
 
@@ -262,7 +262,7 @@ class Plugin(indigo.PluginBase):
 		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
-		value = self.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
+		value = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
 		
 		# remove once tempformatter fixed
 		if self.tempScale == "F":
@@ -282,8 +282,8 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-		#self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchuter(thermostat.temperature))
-		#self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp))
+		#self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchluter(thermostat.temperature))
+		#self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
 
 	########################################

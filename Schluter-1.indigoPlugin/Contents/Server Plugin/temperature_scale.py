@@ -9,17 +9,17 @@ class TemperatureScale:
         return txt
 
     def format(self, reading):
-        return u"%s%s" % (FORMAT_STRING.format(reading), self.suffix())
+        return u"%s%s" % (FORMAT_STRING.format(self.convertFromSchluter(reading)), self.suffix())
 
 
 class Fahrenheit(TemperatureScale):
 
     # convertFromSchluter() methods input the Schuter temperature value (convert to C x 100) and output the rounded to the nearest 0.5 converted value for the class
-    def convertFromSchuter(self, reading):
+    def convertFromSchluter(self, reading):
         return round(((((reading / 100.0) * 9.0) / 5.0) + 32.0) * 2.0) / 2.0
         
-    # convertToSchuter() methods input the temperature value in the current scale and output the Schluter value int(convert to C x 100)
-    def convertToSchuter(self, reading):
+    # convertToSchluter() methods input the temperature value in the current scale and output the Schluter value int(convert to C x 100)
+    def convertToSchluter(self, reading):
         return int((((reading - 32.0) * 5.0) / 9.0) * 100)
         
     def suffix(self):
@@ -28,11 +28,11 @@ class Fahrenheit(TemperatureScale):
 class Celsius(TemperatureScale):
 
     # convertFromSchluter() methods input the Schuter temperature value (C x 100) and output the rounded to the nearest 0.5 converted value for the class
-    def convertFromSchuter(self, reading):
+    def convertFromSchluter(self, reading):
         return round((reading / 100.0) * 2.0) / 2.0
         
-    # convertToSchuter() methods input the temperature value in the current scale and output the Schluter value int(C x 100)
-    def convertToSchuter(self, reading):
+    # convertToSchluter() methods input the temperature value in the current scale and output the Schluter value int(C x 100)
+    def convertToSchluter(self, reading):
         return int(reading * 100)
         
     def suffix(self):
