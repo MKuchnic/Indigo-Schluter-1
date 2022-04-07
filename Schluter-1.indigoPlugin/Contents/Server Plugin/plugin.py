@@ -39,6 +39,8 @@ kHvacModeEnumToStrMap = {
 
 
 class Plugin(indigo.PluginBase):
+			self.temperatureFormatter = TEMP_CONVERTERS['C']
+
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -155,7 +157,7 @@ class Plugin(indigo.PluginBase):
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
 # fix it once tempformatter fixed
-				self.logger.info(u"Current temp: %s%s",self.temperatureFormatter.convertFromSchluter(tempthermo.temperature), self.tempScale)
+				self.logger.info(u"Current temp: %s%s", self.temperatureFormatter.convertFromSchluter(tempthermo.temperature), self.tempScale)
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 				self.logger.debug("runConcurrentThread loop iteration")
