@@ -155,7 +155,7 @@ class Plugin(indigo.PluginBase):
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
 # fix it once tempformatter fixed
-				self.logger.info(u"Current temp: %s °%s",self.temperatureFormatter.convertFromSchuter(tempthermo.temperature), self.tempScale)
+				self.logger.info(u"Current temp: %s",self.temperatureFormatter.format(self.temperatureFormatter.convertFromSchuter(tempthermo.temperature))
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 				self.logger.debug("runConcurrentThread loop iteration")
@@ -257,7 +257,7 @@ class Plugin(indigo.PluginBase):
 #			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
-		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : displayText, 'decimalPlaces' : 1})
+		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
