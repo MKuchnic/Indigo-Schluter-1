@@ -69,6 +69,8 @@ class Plugin(indigo.PluginBase):
 		self.authentication = self.authenticator.authenticate()
 		self.authentication_cache = self.authentication
 		self.logger.debug("Startup Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
+		self.auth_next_update = time.time() + 300.0
+		self.auth_update_needed =  False
 
 	
 	def shutdown(self):
@@ -118,6 +120,8 @@ class Plugin(indigo.PluginBase):
 			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 			self.authentication = self.authenticator.authenticate()
 			self.authentication_cache = self.authentication
+			self.auth_next_update = time.time() + 300.0
+			self.auth_update_needed =  False
 
 			self.temperatureFormatter = temperature_scale.Celsius()
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
@@ -134,11 +138,14 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 #				check  if we need to re-autheticate every loop
-				self.logger.debug(u"Checking authentication")
-				self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
-				self.authentication = self.authenticator.authenticate()
-				self.authentication_cache = self.authentication
-				self.logger.debug("Periodic Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
+				if (time.time() > self.auth_next_update) or self.auth_update_needed:
+					self.logger.debug(u"Checking authentication")
+					self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
+					self.authentication = self.authenticator.authenticate()
+					self.authentication_cache = self.authentication
+					self.logger.debug("Periodic Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
+					self.auth_next_update = time.time() + 300.0
+					self.auth_update_needed =  False
 				
 #				check if the interval time has passed
 				if (time.time() > self.next_update) or self.update_needed:
