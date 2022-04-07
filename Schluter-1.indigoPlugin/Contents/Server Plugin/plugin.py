@@ -120,6 +120,7 @@ class Plugin(indigo.PluginBase):
 			self.authentication = self.authenticator.authenticate()
 			self.authentication_cache = self.authentication
 
+			self.temperatureFormatter = temperature_scale.Celsius()
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
 			self.logger.debug(u'setting temperature scale to {}'.format(scale))
 			self.temperatureFormatter = TEMP_CONVERTERS[scale]
