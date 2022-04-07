@@ -39,8 +39,6 @@ kHvacModeEnumToStrMap = {
 
 
 class Plugin(indigo.PluginBase):
-			self.temperatureFormatter = TEMP_CONVERTERS['C']
-
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		super(Plugin, self).__init__(pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
 		pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -249,14 +247,14 @@ class Plugin(indigo.PluginBase):
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
-		displayText = self.temperatureFormatter.format(value)
-		self.logger.debug("displayText: %s",displayText)
+#		displayText = self.temperatureFormatter.format(value)
+#		self.logger.debug("displayText: %s",displayText)
 
-#		# remove once tempformatter fixed
-#		if self.tempScale == "F":
-#			displayText = "%.1f°F" % (value)
-#		else:
-#			displayText = "%.1f°C" % (value)
+		# remove once tempformatter fixed
+		if self.tempScale == "F":
+			displayText = "%.1f°F" % (value)
+		else:
+			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
 		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
