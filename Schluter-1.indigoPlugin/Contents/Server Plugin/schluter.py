@@ -20,7 +20,7 @@ API_APPLICATION_ID = 7
 
 class Schluter:
 
-    temperatureFormatter = temperature_scale.Celsius()
+#    temperatureFormatter = temperature_scale.Celsius()
     
     def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
