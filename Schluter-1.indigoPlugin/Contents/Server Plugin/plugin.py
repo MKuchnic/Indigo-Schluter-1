@@ -253,8 +253,8 @@ class Plugin(indigo.PluginBase):
 		
 		# _changeTempSetpoint integrated into this method
 		value = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.set_point),self.temperatureFormatter.format(thermostat.set_point).encode('utf-8')))
-		update_list.append({'key' : "setpointHeat", 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.set_point), 'uiValue' : self.temperatureFormatter.format(thermostat.set_point), 'decimalPlaces' : 1})
+		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp),self.temperatureFormatter.format(thermostat.set_point_temp).encode('utf-8')))
+		update_list.append({'key' : "setpointHeat", 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp), 'uiValue' : self.temperatureFormatter.format(thermostat.set_point_temp), 'decimalPlaces' : 1})
 
 		dev.updateStatesOnServer(update_list)
 	
