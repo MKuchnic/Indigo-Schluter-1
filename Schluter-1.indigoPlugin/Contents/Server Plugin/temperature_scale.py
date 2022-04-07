@@ -9,7 +9,7 @@ class TemperatureScale:
         return txt
 
     def format(self, reading):
-        return u"%s%s" % (FORMAT_STRING.format(self.convertFromSchluter(reading)), self.suffix())
+        return u"%s%s" % (FORMAT_STRING.format(reading), self.suffix())
 
 
 class Fahrenheit(TemperatureScale):
