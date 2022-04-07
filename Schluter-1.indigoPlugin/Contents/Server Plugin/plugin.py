@@ -249,6 +249,7 @@ class Plugin(indigo.PluginBase):
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.temperature)
 		displayText = self.temperatureFormatter.format(value)
 		self.logger.debug("displayText: %s",displayText)
+
 #		# remove once tempformatter fixed
 #		if self.tempScale == "F":
 #			displayText = "%.1f°F" % (value)
@@ -256,7 +257,7 @@ class Plugin(indigo.PluginBase):
 #			displayText = "%.1f°C" % (value)
 		
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
-		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : str(displayText), 'decimalPlaces' : 1})
+		update_list.append({'key' : stateKey, 'value' : value, 'uiValue' : displayText, 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
 		value = self.temperatureFormatter.convertFromSchuter(thermostat.set_point_temp)
