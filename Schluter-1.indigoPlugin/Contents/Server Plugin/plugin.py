@@ -134,7 +134,7 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 #				check  if we need to re-autheticate every loop
-				self.logger.info(u"Re-authenticating")
+				self.logger.info(u"Checking authentication")
 				self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 				self.authentication = self.authenticator.authenticate()
 				self.authentication_cache = self.authentication
@@ -157,7 +157,7 @@ class Plugin(indigo.PluginBase):
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 				self.logger.debug("runConcurrentThread loop iteration")
 
-				self.sleep(60.0)
+				self.sleep(1.0)
 				
 		except self.StopThread:
 			pass
