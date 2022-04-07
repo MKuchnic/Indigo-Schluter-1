@@ -64,8 +64,6 @@ class Plugin(indigo.PluginBase):
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
-# remove once tempformatter fixed
-		self.tempScale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 		self.authentication = self.authenticator.authenticate()
@@ -125,8 +123,6 @@ class Plugin(indigo.PluginBase):
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
 			self.logger.debug(u'setting temperature scale to {}'.format(scale))
 			self.temperatureFormatter = TEMP_CONVERTERS[scale]
-# remove once tempformatter fixed
-			self.tempScale = valuesDict["temperatureScale"]
 
 			self.logger.debug(u"updating authentication")
 			
@@ -156,7 +152,6 @@ class Plugin(indigo.PluginBase):
 
 #				debug checking 
 				tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
-# fix it once tempformatter fixed
 				self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(tempthermo.temperature))
 				self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 				self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
@@ -167,35 +162,6 @@ class Plugin(indigo.PluginBase):
 		except self.StopThread:
 			pass
 	
-	########################################
-	
-	# Hopefully will be deprecated
-	def _changeTempSensorValue(self, dev, index, value):
-		stateKey = "temperatureInput" + str(index)
-
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
-	
-	########################################
-	
-	# Hopefully will be deprecated
-	def _changeTempSetpoint(self, dev, value):
-		stateKey = "setpointHeat"
-
-		# remove once tempformatter fixed
-		if self.tempScale == "F":
-			displayText = "%.1f°F" % (value)
-		else:
-			displayText = "%.1f°C" % (value)
-		
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(value, displayText))
-		dev.updateStateOnServer(stateKey, value, uiValue=str(displayText), decimalPlaces=1)
 	
 	########################################
 	
@@ -265,8 +231,6 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 
-		#self._changeTempSensorValue(dev, 1, Schluter.temperatureFormatter.convertFromSchluter(thermostat.temperature))
-		#self._changeTempSetpoint(dev, Schluter.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp))
 		self._updateDeviceStatesList(dev, thermostat)
 
 	########################################
