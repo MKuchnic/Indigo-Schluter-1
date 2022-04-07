@@ -134,7 +134,7 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 #				check  if we need to re-autheticate every loop
-				self.logger.info(u"Checking authentication")
+				self.logger.debug(u"Checking authentication")
 				self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 				self.authentication = self.authenticator.authenticate()
 				self.authentication_cache = self.authentication
