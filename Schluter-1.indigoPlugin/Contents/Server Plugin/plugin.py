@@ -210,7 +210,7 @@ class Plugin(indigo.PluginBase):
 		#states_dict = dev.states.to_dict()
 		#self.logger.debug("states = {}".format(json.dumps(dev.states.to_dict())))
 		
-		self.logger.debug("Thermostat values: vacation_enabled = {}, is_online = {}, early_start_of_heating = {}, error_code = {}, tzoffset = {}, kwh_charge = {}, load_measured_watt = {}".format(thermostat.vacation_enabled, thermostat.is_online, thermostat.early_start_of_heating, thermostat.error_code, thermostat.tzoffset, thermostat.kwh_charge, thermostat.load_measured_watt))
+		self.logger.debug("Thermostat values: vacation_enabled = {}, is_online = {}, early_start_of_heating = {}, error_code = {}, tzoffset = {}, kwh_charge = {}, load_measured_watt = {}, thermostat.regulation_mode = {}".format(thermostat.vacation_enabled, thermostat.is_online, thermostat.early_start_of_heating, thermostat.error_code, thermostat.tzoffset, thermostat.kwh_charge, thermostat.load_measured_watt, thermostat.regulation_mode))
 		
 		update_list = []
 		
@@ -249,6 +249,7 @@ class Plugin(indigo.PluginBase):
 		index = 1 # Not sure if this thermostat can even have more than 1 temp sensor
 		stateKey = "temperatureInput" + str(index)
 		value = self.temperatureFormatter.convertFromSchluter(thermostat.temperature)
+		displayText = self.temperatureFormatter.format(thermostat.temperature)
 		self.logger.debug("displayText: %s",self.temperatureFormatter.format(thermostat.temperature))
 
 		self.logger.debug("_changeTempSensorValue: value = {}, uiValue = {}".format(value, displayText))
