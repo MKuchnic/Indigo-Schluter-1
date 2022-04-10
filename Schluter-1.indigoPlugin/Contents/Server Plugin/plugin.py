@@ -162,7 +162,7 @@ class Plugin(indigo.PluginBase):
 					self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(tempthermo.temperature))
 					self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
 					self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
-				self.logger.debug("runConcurrentThread loop iteration")
+	#			self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(1.0)
 				
