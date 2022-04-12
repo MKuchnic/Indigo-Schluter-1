@@ -355,3 +355,11 @@ class Plugin(indigo.PluginBase):
 		indigo.kThermostatAction.RequestSetpoints]:
 			self.update_needed = True
 
+	########################################
+	# Resume Program callbacks
+	########################################
+
+	def actionResumeProgram(self, action, device):
+		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
+
+    
