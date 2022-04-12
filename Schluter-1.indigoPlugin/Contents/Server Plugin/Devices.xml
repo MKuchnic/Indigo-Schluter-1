@@ -12,12 +12,12 @@
 				<Label>Serial Number:</Label>
 			</Field>
 			<Field type="menu" id="holdType" defaultValue="nextTransition" hidden="true">
-                <Label>Default Hold Type:</Label>
-                <List>
-                    <Option value="nextTransition">Next Transition</Option>
-                    <Option value="indefinite">Indefinite</Option>
-                </List>
-            </Field>
+				<Label>Default Hold Type:</Label>
+				<List>
+					<Option value="nextTransition">Next Transition</Option>
+					<Option value="indefinite">Indefinite</Option>
+				</List>
+			</Field>
 			<Field type="checkbox" id="SupportsHeatSetpoint" defaultValue="true" hidden="true">
 				<Label>Supports heat setpoint:</Label>
 				<Description>Show heat setpoint controls in UI</Description>
