@@ -63,6 +63,7 @@ class Schluter:
         return Schluter_Thermo(result)
 
     def return_to_schedule(self, sessionId, serialNumber):
+        self.logger.debug(u"return_to_schedule called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { "RegulationMode": 1, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json).json()
@@ -70,6 +71,7 @@ class Schluter:
         return result["Success"]
 
     def set_temp_next_sched(self, sessionId, serialNumber, temperature):
+        self.logger.debug(u"set_temp_next_sched called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { "ComfortTemperature": temperature, "RegulationMode": 2, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json).json()
@@ -78,6 +80,7 @@ class Schluter:
 
     
     def set_temp_permanently(self, sessionId, serialNumber, temperature):
+        self.logger.debug(u"set_temp_permanently called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { 'ManualTemperature': temperature, "RegulationMode": 3, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json).json()
