@@ -350,16 +350,23 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"{}: action.thermostatAction: {}, action.actionValue: {}, setpointHeat: {}, setpointCool: {}".format(device.name, action.thermostatAction, 
 		action.actionValue, device.heatSetpoint, device.coolSetpoint))
 
-		if action.thermostatAction in [indigo.kThermostatAction.RequestStatusAll, indigo.kThermostatAction.RequestMode, indigo.kThermostatAction.RequestEquipmentState, 
-		indigo.kThermostatAction.RequestTemperatures, indigo.kThermostatAction.RequestHumidities, indigo.kThermostatAction.RequestDeadbands, 
-		indigo.kThermostatAction.RequestSetpoints]:
+		if action.thermostatAction in [ indigo.kThermostatAction.RequestStatusAll,
+										indigo.kThermostatAction.RequestMode,
+										indigo.kThermostatAction.RequestEquipmentState,
+										indigo.kThermostatAction.RequestTemperatures,
+										indigo.kThermostatAction.RequestHumidities,
+										indigo.kThermostatAction.RequestDeadbands,
+										indigo.kThermostatAction.RequestSetpoints ]:
 			self.update_needed = True
-
+		
+		if action.thermostatAction in [ indigo.kThermostatAction.SetHeatSetpoint,
+										indigo.kThermostatAction.IncreaseHeatSetpoint,
+										indigo.kThermostatAction.IncreaseHeatSetpoint ]:
+			self.logger.debug(u"Some HeatSetpoint stuff: actionValue = {}".format(action.actionValue))
+			
 	########################################
 	# Resume Program callbacks
 	########################################
 
 	def actionResumeProgram(self, action, device):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
-
-    
