@@ -5,7 +5,7 @@ FORMAT_STRING = "{0:.1f}"
 class TemperatureScale:
 
     def report(self, dev, stateKey, reading):
-        dev.updateStateOnServer(key=stateKey, value=self.convertFromSchuter(reading), decimalPlaces=1, uiValue=self.format(reading))
+        dev.updateStateOnServer(key=stateKey, value=self.convertFromSchluter(reading), decimalPlaces=1, uiValue=self.format(reading))
         return txt
 
     def format(self, reading):
