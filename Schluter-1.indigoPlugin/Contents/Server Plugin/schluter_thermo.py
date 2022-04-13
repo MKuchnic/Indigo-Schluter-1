@@ -132,4 +132,6 @@ class Schluter_Thermo():
             self._display_setpoint = self._comfort_temperature
         elif self._regulation_mode == 3 :
             self._display_setpoint = self._manual_temp
+        elif self._regulation_mode == 4 :
+            self._display_setpoint = self._vacation_temperature
         return self._display_setpoint
