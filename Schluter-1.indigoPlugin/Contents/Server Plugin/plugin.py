@@ -369,8 +369,16 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug(u"IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
-			#self.current_setpoint += float(self.temperatureFormatter.tempStep)
-			#self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+			self.current_setpoint += self.temperatureFormatter.tempStep()
+			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+		
+		if action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
+			self.logger.debug(u"DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
+			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
+			self.current_setpoint -= self.temperatureFormatter.tempStep()
+			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 	########################################
@@ -379,4 +387,3 @@ class Plugin(indigo.PluginBase):
 
 	def actionResumeProgram(self, action, device):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
-		
