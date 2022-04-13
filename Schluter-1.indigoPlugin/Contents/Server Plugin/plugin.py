@@ -243,6 +243,7 @@ class Plugin(indigo.PluginBase):
 		# Update current stored setpoint
 		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
 		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
+		self.logger.debug("update current_setpoint: {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)))
 
 		self._updateDeviceStatesList(dev, thermostat)
 
