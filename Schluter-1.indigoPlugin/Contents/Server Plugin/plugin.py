@@ -372,6 +372,9 @@ class Plugin(indigo.PluginBase):
 			self.current_setpoint += self.temperatureFormatter.tempStep()
 			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+			self.update_needed = True
 		
 		if action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
 			self.logger.debug(u"DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
@@ -380,6 +383,9 @@ class Plugin(indigo.PluginBase):
 			self.current_setpoint -= self.temperatureFormatter.tempStep()
 			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+			self.update_needed = True
 			
 	########################################
 	# Resume Program callbacks
