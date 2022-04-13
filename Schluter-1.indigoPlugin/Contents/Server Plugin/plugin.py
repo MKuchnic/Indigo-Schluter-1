@@ -370,3 +370,4 @@ class Plugin(indigo.PluginBase):
 
 	def actionResumeProgram(self, action, device):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
+		
