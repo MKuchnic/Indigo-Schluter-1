@@ -60,6 +60,8 @@ class Plugin(indigo.PluginBase):
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
+		self.current_setpoint = 0.0
+		
 #		self.temperatureFormatter = temperature_scale.Celsius()
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
@@ -237,6 +239,10 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		
+		# Update current stored setpoint
+		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
+		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
 
 		self._updateDeviceStatesList(dev, thermostat)
 
@@ -359,10 +365,12 @@ class Plugin(indigo.PluginBase):
 										indigo.kThermostatAction.RequestSetpoints ]:
 			self.update_needed = True
 		
-		if action.thermostatAction in [ indigo.kThermostatAction.SetHeatSetpoint,
-										indigo.kThermostatAction.IncreaseHeatSetpoint,
-										indigo.kThermostatAction.IncreaseHeatSetpoint ]:
-			self.logger.debug(u"Some HeatSetpoint stuff: actionValue = {}".format(action.actionValue))
+		if action.thermostatAction == indigo.kThermostatAction.IncreaseHeatSetpoint:
+			self.logger.debug(u"IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
+			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+			self.current_setpoint += self.temperatureFormatter.tempStep
+			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 	########################################
 	# Resume Program callbacks
