@@ -24,6 +24,10 @@ class Fahrenheit(TemperatureScale):
         
     def suffix(self):
         return u"°F"
+
+    def tempStep(self):
+        return 1.0
+
         
 class Celsius(TemperatureScale):
 
@@ -37,4 +41,7 @@ class Celsius(TemperatureScale):
         
     def suffix(self):
         return u"°C"
+
+    def tempStep(self):
+        return 0.5
         
