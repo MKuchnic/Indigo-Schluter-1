@@ -227,9 +227,9 @@ class Plugin(indigo.PluginBase):
 		update_list.append({'key' : stateKey, 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.temperature), 'uiValue' : self.temperatureFormatter.format(thermostat.temperature), 'decimalPlaces' : 1})
 		
 		# _changeTempSetpoint integrated into this method
-		value = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
-		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp),self.temperatureFormatter.format(thermostat.set_point_temp).encode('utf-8')))
-		update_list.append({'key' : "setpointHeat", 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp), 'uiValue' : self.temperatureFormatter.format(thermostat.set_point_temp), 'decimalPlaces' : 1})
+		value = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
+		self.logger.debug("_changeTempSetpoint: value = {}, uiValue = {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint),self.temperatureFormatter.format(thermostat.display_setpoint).encode('utf-8')))
+		update_list.append({'key' : "setpointHeat", 'value' : self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint), 'uiValue' : self.temperatureFormatter.format(thermostat.display_setpoint), 'decimalPlaces' : 1})
 
 		dev.updateStatesOnServer(update_list)
 	
@@ -241,7 +241,7 @@ class Plugin(indigo.PluginBase):
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
 		# Update current stored setpoint
-		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.set_point_temp)
+		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
 		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
 
 		self._updateDeviceStatesList(dev, thermostat)
