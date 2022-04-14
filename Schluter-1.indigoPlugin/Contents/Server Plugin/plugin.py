@@ -357,6 +357,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"{}: action.thermostatAction: {}, action.actionValue: {}, setpointHeat: {}, setpointCool: {}".format(device.name, action.thermostatAction, 
 		action.actionValue, device.heatSetpoint, device.coolSetpoint))
 
+        ###### REQUEST STATE UPDATES ######
 		if action.thermostatAction in [ indigo.kThermostatAction.RequestStatusAll,
 										indigo.kThermostatAction.RequestMode,
 										indigo.kThermostatAction.RequestEquipmentState,
@@ -366,6 +367,7 @@ class Plugin(indigo.PluginBase):
 										indigo.kThermostatAction.RequestSetpoints ]:
 			self.update_needed = True
 		
+        ###### DECREASE/INCREASE HEAT SETPOINT ######
 		if action.thermostatAction == indigo.kThermostatAction.IncreaseHeatSetpoint:
 			self.logger.debug(u"IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
