@@ -61,6 +61,7 @@ class Plugin(indigo.PluginBase):
 		self.update_needed = False
 		
 		self.current_setpoint = 0.0
+		self.display_setpoint = 0
 		
 #		self.temperatureFormatter = temperature_scale.Celsius()
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
@@ -241,9 +242,12 @@ class Plugin(indigo.PluginBase):
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
 		# Update current stored setpoint
-		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
-		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
+#		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
+#		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
 #		self.logger.debug("update current_setpoint: {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)))
+
+		self.display_setpoint = thermostat.display_setpoint
+		self.logger.debug(u"display_setpoint = {}".format(self.display_setpoint))
 
 		self._updateDeviceStatesList(dev, thermostat)
 
@@ -370,38 +374,51 @@ class Plugin(indigo.PluginBase):
         ###### DECREASE/INCREASE HEAT SETPOINT ######
 		if action.thermostatAction == indigo.kThermostatAction.IncreaseHeatSetpoint:
 			self.logger.debug(u"IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
-			self.current_setpoint += self.temperatureFormatter.tempStep()
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			self.logger.debug(u"display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug(u"new setpoint: {} + {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint + self.temperatureFormatter.tempStepSchluter()))
 			
-			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))			
+#			self.current_setpoint += self.temperatureFormatter.tempStep()
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			
+#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter())
 			self.update_needed = True
 		
 		if action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
 			self.logger.debug(u"DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
-			self.current_setpoint -= self.temperatureFormatter.tempStep()
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			self.logger.debug(u"display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug(u"new setpoint: {} - {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()))
+
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
+#			self.current_setpoint -= self.temperatureFormatter.tempStep()
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
-			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter())
 			self.update_needed = True
 
 		###### SET HEAT SETPOINT ######
 		if action.thermostatAction == indigo.kThermostatAction.SetHeatSetpoint:
 			self.logger.debug(u"SetHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.current_setpoint = action.actionValue
-			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+			self.logger.debug(u"new setpoint: {}".format(self.temperatureFormatter.convertToSchluter(action.actionValue)))
+			
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.current_setpoint = action.actionValue
+#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 
-			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
+
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue))
 			self.update_needed = True
 
-			
 	########################################
 	# Resume Program callbacks
 	########################################
