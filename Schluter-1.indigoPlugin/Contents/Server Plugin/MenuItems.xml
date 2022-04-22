@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
 <MenuItems>
 	<MenuItem id="menu1">
-		<Name>Resume program (Select Thermostat)</Name>
+		<Name>Resume Program (Select Thermostat)</Name>
 		<CallbackMethod>menuResumeProgram</CallbackMethod>
+#        <ConfigUI>
+#            <Field id="device" type="menu">
+#                <Label>Select Thermostat:</Label>
+#                <List class="self" deviceFilter="self" method="" dynamicReload="true"/>
+#            </Field>
+#        </ConfigUI>
 	</MenuItem>
 	<MenuItem id="pluginPrefs">
 		<Name>Print Plugin Prefs</Name>
