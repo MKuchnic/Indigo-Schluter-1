@@ -426,3 +426,6 @@ class Plugin(indigo.PluginBase):
 	def actionResumeProgram(self, action, device):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
+
+	def actionSetTemperature(self, action, device):
+		self.logger.debug(u"{}: actionSetTemperature".format(device.name))

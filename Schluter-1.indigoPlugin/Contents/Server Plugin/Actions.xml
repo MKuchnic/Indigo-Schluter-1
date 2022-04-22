@@ -8,4 +8,21 @@
         <CallbackMethod>actionResumeProgram</CallbackMethod>
     </Action>
     
+    <Action id="setTemperature" deviceFilter="self">
+        <Name>Set Temperature</Name>
+		<ConfigUI>
+			<Field type="menu" id="chooseTypeMenu" defaultValue="item1">
+				<Label>Popup Menu:</Label>
+				<List>
+					<Option value="item1">Item 1</Option>
+					<Option value="item2">Item 2</Option>
+				</List>
+			</Field>
+			<Field id="simpleTextField" type="textField">
+				<Label>Text Field:</Label>
+			</Field>
+		</ConfigUI>
+        <CallbackMethod>actionSetTemperature</CallbackMethod>
+    </Action>
+    
 </Actions>
