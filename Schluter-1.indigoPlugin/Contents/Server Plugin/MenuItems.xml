@@ -6,7 +6,7 @@
 #        <ConfigUI>
 #            <Field id="device" type="menu">
 #                <Label>Select Thermostat:</Label>
-#                <List class="self" deviceFilter="self" method="" dynamicReload="true"/>
+#                <List class="self" filter="" method="pickThermostat" dynamicReload="true"/>
 #            </Field>
 #        </ConfigUI>
 	</MenuItem>

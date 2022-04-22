@@ -342,7 +342,7 @@ class Plugin(indigo.PluginBase):
 	# Actions defined in MenuItems.xml:
 	########################################
 	
-	def menuResumeProgram(self):
+	def menuResumeProgram(self, action, device):
 		self.logger.debug("menuResumeProgram called: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
 
@@ -428,6 +428,15 @@ class Plugin(indigo.PluginBase):
 	def actionResumeProgram(self, action, device):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
+
+    def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
+        retList = []
+        for device in indigo.devices.iter("self"):
+            if device.deviceTypeId == 'Thermostat':
+                retList.append((device.id, device.name))
+        retList.sort(key=lambda tup: tup[1])
+        return retList
+
 
 	def actionSetTemperature(self, action, device):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))
