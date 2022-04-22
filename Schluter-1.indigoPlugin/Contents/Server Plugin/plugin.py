@@ -342,9 +342,10 @@ class Plugin(indigo.PluginBase):
 	# Actions defined in MenuItems.xml:
 	########################################
 	
-	def menuResumeProgram(self, action, device):
-		self.logger.debug("menuResumeProgram called: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
-		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
+	def menuResumeProgram(self, valuesDict, typeId):
+		self.logger.debug("menuResumeProgram called")
+		deviceId = int(valuesDict["targetDevice"])
+		self.schluter.return_to_schedule(self.authentication.session_id, deviceId)
 
 	
 	def printPluginPrefs(self):
