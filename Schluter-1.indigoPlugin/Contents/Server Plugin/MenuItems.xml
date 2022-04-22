@@ -2,7 +2,7 @@
 <MenuItems>
 	<MenuItem id="menu1">
 		<Name>Resume program (Select Thermostat)</Name>
-		<CallbackMethod>testMethod</CallbackMethod>
+		<CallbackMethod>menuResumeProgram</CallbackMethod>
 	</MenuItem>
 	<MenuItem id="pluginPrefs">
 		<Name>Print Plugin Prefs</Name>
