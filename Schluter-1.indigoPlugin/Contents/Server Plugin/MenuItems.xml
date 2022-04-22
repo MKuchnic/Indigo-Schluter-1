@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <MenuItems>
 	<MenuItem id="menu1">
-		<Name>Test Menu Item</Name>
+		<Name>Resume program (Select Thermostat)</Name>
 		<CallbackMethod>testMethod</CallbackMethod>
 	</MenuItem>
 	<MenuItem id="pluginPrefs">
