@@ -429,13 +429,13 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
 
-    def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
-        retList = []
-        for device in indigo.devices.iter("self"):
-            if device.deviceTypeId == 'Thermostat':
-                retList.append((device.id, device.name))
-        retList.sort(key=lambda tup: tup[1])
-        return retList
+	def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
+		retList = []
+		for device in indigo.devices.iter("self"):
+			if device.deviceTypeId == 'Thermostat':
+				retList.append((device.id, device.name))
+		retList.sort(key=lambda tup: tup[1])
+		return retList
 
 
 	def actionSetTemperature(self, action, device):

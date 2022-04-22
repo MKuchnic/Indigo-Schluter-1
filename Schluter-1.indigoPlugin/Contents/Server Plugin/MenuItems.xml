@@ -3,12 +3,12 @@
 	<MenuItem id="menu1">
 		<Name>Resume Program (Select Thermostat)</Name>
 		<CallbackMethod>menuResumeProgram</CallbackMethod>
-#        <ConfigUI>
-#            <Field id="device" type="menu">
-#                <Label>Select Thermostat:</Label>
-#                <List class="self" filter="" method="pickThermostat" dynamicReload="true"/>
-#            </Field>
-#        </ConfigUI>
+		<ConfigUI>
+			<Field id="device" type="menu">
+				<Label>Select Thermostat:</Label>
+				<List class="self" filter="" method="pickThermostat" dynamicReload="true"/>
+			</Field>
+		</ConfigUI>
 	</MenuItem>
 	<MenuItem id="pluginPrefs">
 		<Name>Print Plugin Prefs</Name>
