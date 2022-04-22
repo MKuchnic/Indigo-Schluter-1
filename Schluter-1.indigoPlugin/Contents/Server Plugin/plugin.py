@@ -342,8 +342,8 @@ class Plugin(indigo.PluginBase):
 	# Actions defined in MenuItems.xml:
 	########################################
 	
-	def testMethod(self):
-		self.logger.debug("testMethod called: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
+	def menuResumeProgram(self):
+		self.logger.debug("menuResumeProgram called: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
 	
 	def printPluginPrefs(self):
 		self.logger.debug("printPluginPrefs values: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
