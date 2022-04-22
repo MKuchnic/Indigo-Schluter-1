@@ -431,10 +431,12 @@ class Plugin(indigo.PluginBase):
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
 
 	def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
+		self.logger.debug(u"pickThermostat")
 		retList = []
 		for device in indigo.devices.iter("self"):
 			if device.deviceTypeId == 'Thermostat':
 				retList.append((device.id, device.name))
+				self.logger.debug(u"device.id %s  device.name %s".format(device.id, device.name))
 		retList.sort(key=lambda tup: tup[1])
 		return retList
 
