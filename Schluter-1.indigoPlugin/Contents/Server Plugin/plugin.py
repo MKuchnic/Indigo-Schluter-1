@@ -344,7 +344,7 @@ class Plugin(indigo.PluginBase):
 	
 	def menuResumeProgram(self, valuesDict, typeId):
 		self.logger.debug("menuResumeProgram called")
-		deviceId = int(valuesDict["targetDevice"])
+		deviceId = int(valuesDict["deviceId"])
 		self.schluter.return_to_schedule(self.authentication.session_id, deviceId)
 
 	
