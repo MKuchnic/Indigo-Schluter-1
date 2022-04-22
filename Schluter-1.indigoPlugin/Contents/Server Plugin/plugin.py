@@ -436,7 +436,7 @@ class Plugin(indigo.PluginBase):
 		for device in indigo.devices.iter("self"):
 			if device.deviceTypeId == 'Thermostat':
 				retList.append((device.id, device.name))
-				self.logger.debug(u"device.id %s  device.name %s".format(device.id, device.name))
+				self.logger.debug(u"device.id {}  device.name {}".format(device.id, device.name))
 		retList.sort(key=lambda tup: tup[1])
 		return retList
 
