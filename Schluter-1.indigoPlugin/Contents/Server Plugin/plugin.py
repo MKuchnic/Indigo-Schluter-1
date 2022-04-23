@@ -345,7 +345,7 @@ class Plugin(indigo.PluginBase):
 	def menuResumeProgram(self, valuesDict, typeId):
 		self.logger.debug("menuResumeProgram called")
 		try:
-			deviceId = str(valuesDict["targetDevice"])
+			deviceId = int(valuesDict["targetDevice"])
 		except:
 			self.logger.error(u"Bad Device specified for Resume Program operation")
 			return False
@@ -354,7 +354,6 @@ class Plugin(indigo.PluginBase):
 # needto convert deviceID to serial number
 # device not defined here need a different call?
 		serialNumber = indigo.devices[deviceId].address
-#		serialNumber = thermodevice.pluginProps.get("serialNumbers", False)
 		self.logger.debug("serialNumber {}".format(serialNumber))
 #		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
 		return True
