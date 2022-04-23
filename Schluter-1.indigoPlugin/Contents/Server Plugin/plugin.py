@@ -346,7 +346,10 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("menuResumeProgram called")
 		deviceId = valuesDict["targetDevice"]
 		self.logger.debug("deviceID {}".format(deviceId))
-		self.schluter.return_to_schedule(self.authentication.session_id, deviceId)
+		serialNumber = device.pluginProps.get("serialNumbers", False)
+		self.logger.debug("serialNumber {}".format(serialNumber))
+# needto convert deviceID to serial number
+		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
 
 	
 	def printPluginPrefs(self):
