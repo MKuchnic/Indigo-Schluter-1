@@ -330,7 +330,7 @@ class Plugin(indigo.PluginBase):
 		
 		return serial_numbers
 	
-	def serialNumberPicked(self, valuesDict, typeId, devId):
+	def serialNumberPicked(self, valuesDict=None, typeId, devId):
 		self.logger.debug("serialNumberPicked called")
 		self.logger.debug("valuesDict = {}".format(json.dumps(valuesDict.to_dict())))
 		
