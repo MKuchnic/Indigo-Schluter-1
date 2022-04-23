@@ -11,15 +11,15 @@
     <Action id="setTemperature" deviceFilter="self">
         <Name>Set Temperature</Name>
 		<ConfigUI>
+			<Field id="temperatureValue" type="textField">
+				<Label>Temperature:</Label>
+			</Field>
 			<Field type="menu" id="holdType" defaultValue="nextTransition">
 				<Label>Hold Type:</Label>
 				<List>
 					<Option value="nextTransition">Until Next Transition</Option>
 					<Option value="indefinite">Indefinite</Option>
 				</List>
-			</Field>
-			<Field id="temperatureValue" type="textField">
-				<Label>Temperature:</Label>
 			</Field>
 		</ConfigUI>
         <CallbackMethod>actionSetTemperature</CallbackMethod>

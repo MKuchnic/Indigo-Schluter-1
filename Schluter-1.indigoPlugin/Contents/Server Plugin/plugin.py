@@ -442,12 +442,11 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"pickThermostat")
 		retList = []
 		for device in indigo.devices.iter("self"):
-			if device.deviceTypeId == 'Thermostat':
+			if device.deviceTypeId == 'SchluterThermostat':
 				retList.append((device.id, device.name))
 				self.logger.debug(u"device.id {}  device.name {}".format(device.id, device.name))
 		retList.sort(key=lambda tup: tup[1])
 		return retList
-
 
 	def actionSetTemperature(self, action, device):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))

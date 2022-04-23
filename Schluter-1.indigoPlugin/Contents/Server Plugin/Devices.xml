@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Devices>
-	<Device type="thermostat" id="Thermostat">
+	<Device type="thermostat" id="SchluterThermostat">
 		<Name>DITRA-HEAT-E-WIFI</Name>
 		<ConfigUI>
 			<Field id="serialNumbers" type="menu">
