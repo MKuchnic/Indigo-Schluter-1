@@ -351,7 +351,7 @@ class Plugin(indigo.PluginBase):
 			return False
 
 		serialNumber = indigo.devices[deviceId].address
-		self.logger.info("Return to Schedule for thermostat: {}".format(indigo.devices[deviceId].name))
+		self.logger.info("Resume Program for thermostat: {}".format(indigo.devices[deviceId].name))
 		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
 		return True
 
@@ -435,7 +435,7 @@ class Plugin(indigo.PluginBase):
 	########################################
 
 	def actionResumeProgram(self, action, device):
-		self.logger.debug(u"{}: actionResumeProgram".format(device.name))
+		self.logger.info(u"Resume Program for thermostat: {}".format(device.name))
 		self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False))
 
 	def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
