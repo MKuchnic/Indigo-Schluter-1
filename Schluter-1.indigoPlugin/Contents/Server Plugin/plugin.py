@@ -450,3 +450,17 @@ class Plugin(indigo.PluginBase):
 
 	def actionSetTemperature(self, action, device):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))
+		tempValue = self.temperatureFormatter.convertToSchluter(action.temperatureValue)
+		try:
+			if (tempValue < 500) or (tempValue > 4000):
+				return False
+		except:
+			self.logger.error(u"Bad operation")
+			return False
+		
+		if action.holdType == "nextTransition":
+			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue)
+		else:
+			self.schluter.set_temp_permanently(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue)
+		return True
+
