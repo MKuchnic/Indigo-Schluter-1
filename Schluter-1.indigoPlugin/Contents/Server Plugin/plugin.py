@@ -344,13 +344,19 @@ class Plugin(indigo.PluginBase):
 	
 	def menuResumeProgram(self, valuesDict, typeId):
 		self.logger.debug("menuResumeProgram called")
-		deviceId = valuesDict["targetDevice"]
+		try:
+			deviceId = valuesDict["targetDevice"]
+		except:
+			self.logger.error(u"Bad Device specified for Resume Program operation")
+			return False
+
 		self.logger.debug("deviceID {}".format(deviceId))
 # needto convert deviceID to serial number
 # device not defined here need a different call?
-		serialNumber = device.pluginProps.get("serialNumbers", False)
+		serialNumber = indigo.devices[deviceId].address
 		self.logger.debug("serialNumber {}".format(serialNumber))
-		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
+#		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
+		return True
 
 	
 	def printPluginPrefs(self):
