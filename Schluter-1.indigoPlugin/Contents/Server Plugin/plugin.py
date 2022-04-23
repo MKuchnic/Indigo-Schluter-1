@@ -351,7 +351,7 @@ class Plugin(indigo.PluginBase):
 			return False
 
 		serialNumber = indigo.devices[deviceId].address
-		self.logger.debug("serialNumber {}".format(serialNumber))
+		self.logger.info("Return to Schedule for thermostat: {}".format(indigo.devices[deviceId].name))
 		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
 		return True
 
