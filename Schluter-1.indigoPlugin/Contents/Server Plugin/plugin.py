@@ -354,7 +354,7 @@ class Plugin(indigo.PluginBase):
 # needto convert deviceID to serial number
 # device not defined here need a different call?
 		thermodevice = indigo.devices[deviceId]
-		serialNumber = thermodevice.address
+		serialNumber = thermodevice.pluginProps.get("serialNumbers", False)
 		self.logger.debug("serialNumber {}".format(serialNumber))
 #		self.schluter.return_to_schedule(self.authentication.session_id, serialNumber)
 		return True
