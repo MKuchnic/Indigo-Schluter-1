@@ -330,7 +330,7 @@ class Plugin(indigo.PluginBase):
 		
 		return serial_numbers
 	
-	def serialNumberPicked(self, valuesDict=None, typeId, devId):
+	def serialNumberPicked(self, valuesDict, typeId, devId):
 		self.logger.debug("serialNumberPicked called")
 		self.logger.debug("valuesDict = {}".format(json.dumps(valuesDict.to_dict())))
 		
@@ -344,7 +344,7 @@ class Plugin(indigo.PluginBase):
 	
 	def menuResumeProgram(self, valuesDict, typeId):
 		self.logger.debug("menuResumeProgram called")
-		deviceId = valuesDict["serialNumber"]
+		deviceId = valuesDict["targetDevice"]
 		self.logger.debug("deviceID {}".format(deviceId))
 		self.schluter.return_to_schedule(self.authentication.session_id, deviceId)
 
