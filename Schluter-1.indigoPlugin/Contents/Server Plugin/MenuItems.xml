@@ -4,9 +4,9 @@
 		<Name>Resume Program (Select Thermostat)</Name>
 		<CallbackMethod>menuResumeProgram</CallbackMethod>
 		<ConfigUI>
-			<Field id="device" type="menu">
+			<Field id="serialNumber" type="menu">
 				<Label>Select Thermostat:</Label>
-				<List class="self" filter="" method="pickThermostat" dynamicReload="true"/>
+				<List class="self" filter="" method="serialNumberPicked" dynamicReload="true"/>
 			</Field>
 		</ConfigUI>
 	</MenuItem>
