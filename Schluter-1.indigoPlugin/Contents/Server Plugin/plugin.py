@@ -453,6 +453,7 @@ class Plugin(indigo.PluginBase):
 #	action.temperatureValue doesn't exist
 		tempValue = self.temperatureFormatter.convertToSchluter(action.props.get("temperatureValue"))
 		holdType = action.props.get("holdType")
+		self.logger.debug(u"tempValue {}  holdType {}".format(tempValue, holdType))
 
 		if (tempValue < 500) or (tempValue > 4000):
 				return False
