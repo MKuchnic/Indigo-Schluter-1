@@ -451,7 +451,7 @@ class Plugin(indigo.PluginBase):
 	def actionSetTemperature(self, action, device):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))
 #	action.temperatureValue doesn't exist
-		tempValue = self.temperatureFormatter.convertToSchluter(action.props.get("temperatureValue"))
+		tempValue = self.temperatureFormatter.convertToSchluter(int(action.props.get("temperatureValue")))
 		holdType = action.props.get("holdType")
 		self.logger.debug(u"tempValue {}  holdType {}".format(tempValue, holdType))
 
