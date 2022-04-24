@@ -454,12 +454,8 @@ class Plugin(indigo.PluginBase):
 		tempValue = self.temperatureFormatter.convertToSchluter(action.props.get("temperatureValue"))
 		holdType = action.props.get("holdType")
 
-		try:
-			if (tempValue < 500) or (tempValue > 4000):
+		if (tempValue < 500) or (tempValue > 4000):
 				return False
-		except:
-			self.logger.error(u"Bad operation")
-			return False
 		
 		if holdType == "nextTransition":
 			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue)
