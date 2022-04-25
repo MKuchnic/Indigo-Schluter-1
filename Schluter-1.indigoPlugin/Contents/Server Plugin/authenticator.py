@@ -78,7 +78,7 @@ class Authenticator:
             self.logger.error(u"Authenticate - Bad Email")
         else:
             state = AuthenticationState.AUTHENTICATED
-
+            self.logger.info(u"Authentication Successful")
         
         self._authentication = Authentication(state, session_id, expires)
 
