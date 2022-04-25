@@ -160,11 +160,6 @@ class Plugin(indigo.PluginBase):
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
 
-#				debug checking 
-					tempthermo = self.schluter.get_temperature(self.authentication.session_id, 954095)
-					self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(tempthermo.temperature))
-					self.logger.debug(u"Current temp unformatted: %s", tempthermo.temperature)
-					self.logger.debug(u"is_heating: %s", tempthermo.is_heating)
 	#			self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(1.0)
@@ -241,11 +236,12 @@ class Plugin(indigo.PluginBase):
 		
 		thermostat = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
-		# Update current stored setpoint
-#		self.current_setpoint = self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)
-#		self.logger.debug("update current_setpoint: {}".format(self.current_setpoint))
-#		self.logger.debug("update current_setpoint: {}".format(self.temperatureFormatter.convertFromSchluter(thermostat.display_setpoint)))
+		# debugging 
+		self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(thermostat.temperature))
+		self.logger.debug(u"Current temp unformatted: %s", thermostat.temperature)
+		self.logger.debug(u"is_heating: %s", thermostat.is_heating)
 
+		# Update current stored setpoint
 		self.display_setpoint = thermostat.display_setpoint
 		self.logger.debug(u"display_setpoint = {}".format(self.display_setpoint))
 
@@ -450,7 +446,6 @@ class Plugin(indigo.PluginBase):
 
 	def actionSetTemperature(self, action, device):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))
-#	action.temperatureValue doesn't exist
 		tempValue = self.temperatureFormatter.convertToSchluter(int(action.props.get("temperatureValue")))
 		holdType = action.props.get("holdType")
 		self.logger.debug(u"tempValue {}  holdType {}".format(tempValue, holdType))
