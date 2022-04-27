@@ -11,7 +11,7 @@ import temperature_scale
 from schluter_thermo import Schluter_Thermo
 
 # URL Constants
-API_BASE_URL = "https://ditra-heat-e-wifi.schluter.com"
+API_BASE_URL = "https://ditra-heat-e-wifi.schluter.cm"
 API_AUTH_URL = API_BASE_URL + "/api/authenticate/user"
 API_USERACCOUNT_URL = API_BASE_URL + "/api/useraccount?sessionid="
 API_GET_THERMOSTATS_URL = API_BASE_URL + "/api/thermostats"
@@ -100,8 +100,8 @@ class Schluter:
             response = self._http_session.request(method, url, params = params, **kwargs) if\
                 self._http_session is not None else\
                 request(method, url, params = params, **kwargs)
-        except requests.RequestException:
-            self.logger.error("Connection Error - Unable to connect")
+        except requests.RequestException as error:
+            self.logger.error("Connection Error - Unable to connect - {}".format(error))
             response.raise_for_status()
         
         if response.status_code == requests.codes.ok:
