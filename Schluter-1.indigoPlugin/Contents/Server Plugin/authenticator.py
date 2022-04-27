@@ -61,7 +61,7 @@ class Authenticator:
     def authenticate(self):
         self.logger.debug(u"authenticate called")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
-            self.logger.debug(u"Exiting authenticate - authetication still valid")
+            self.logger.debug(u"Exiting authenticate - authentication still valid")
             return self._authentication
         
         response = self._api.get_session(self._email, self._password)
