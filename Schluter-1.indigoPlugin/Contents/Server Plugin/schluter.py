@@ -96,11 +96,19 @@ class Schluter:
         
         self.logger.debug("Calling %s with payload=%s", url, payload)
 
-        response = self._http_session.request(method, url, params = params, **kwargs) if\
-            self._http_session is not None else\
-            request(method, url, params = params, **kwargs)
+        try:
+            response = self._http_session.request(method, url, params = params, **kwargs) if\
+                self._http_session is not None else\
+                request(method, url, params = params, **kwargs)
+        except requests.RequestException:
+            self.logger.error("Connection Error - Unable to connect".format(e))
+        
+        if response.status_code == requests.codes.ok:
+            self.logger.debug("Response OK")
+        else:
+            self.logger.error("Response Error: {}".format(response.status_code))
 
         self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
 
-        response.raise_for_status()
+#        response.raise_for_status()
         return response
