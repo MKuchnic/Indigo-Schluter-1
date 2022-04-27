@@ -15,7 +15,7 @@ API_BASE_URL = "https://ditra-heat-e-wifi.schluter.com"
 API_AUTH_URL = API_BASE_URL + "/api/authenticate/user"
 API_USERACCOUNT_URL = API_BASE_URL + "/api/useraccount?sessionid="
 API_GET_THERMOSTATS_URL = API_BASE_URL + "/api/thermostats"
-API_SET_TEMPERATURE_URL = API_BASE_URL + "/api/thermostat"
+API_SET_TEMPERATURE_URL = API_BASE_URL + "/api/thermosta"
 API_APPLICATION_ID = 7
 
 
@@ -101,7 +101,7 @@ class Schluter:
                 self._http_session is not None else\
                 request(method, url, params = params, **kwargs)
         except requests.RequestException:
-            self.logger.error("Connection Error - Unable to connect {}".format(requests.RequestException))
+            self.logger.error("Connection Error - Unable to connect")
             response.raise_for_status()
         
         if response.status_code == requests.codes.ok:
