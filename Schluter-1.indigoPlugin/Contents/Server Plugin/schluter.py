@@ -101,7 +101,7 @@ class Schluter:
                 self._http_session is not None else\
                 request(method, url, params = params, **kwargs)
         except requests.RequestException:
-            self.logger.error("Connection Error - Unable to connect".format(e))
+            self.logger.error("Connection Error - Unable to connect".format(requests.RequestException))
         
         if response.status_code == requests.codes.ok:
             self.logger.debug("Response OK")
