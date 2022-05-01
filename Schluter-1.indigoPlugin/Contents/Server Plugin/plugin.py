@@ -63,7 +63,6 @@ class Plugin(indigo.PluginBase):
 		self.current_setpoint = 0.0
 		self.display_setpoint = 0
 		
-#		self.temperatureFormatter = temperature_scale.Celsius()
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
@@ -84,7 +83,6 @@ class Plugin(indigo.PluginBase):
 # 		do an authentication here to check entered values
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
-
 
 		errorDict = indigo.Dict()
 
@@ -159,8 +157,6 @@ class Plugin(indigo.PluginBase):
 						self._refreshStatesFromHardware(dev, False, False)
 					self.update_needed = False
 					self.next_update = time.time() + self.updateFrequency
-
-	#			self.logger.debug("runConcurrentThread loop iteration")
 
 				self.sleep(1.0)
 				
@@ -311,8 +307,6 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def serialNumberListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
-#		authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"])
-#		authentication = authenticator.authenticate()
 		self.logger.debug(u"get serial number called")
 				
 		sessionID = self.authentication.session_id[0]
@@ -386,42 +380,33 @@ class Plugin(indigo.PluginBase):
 			
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))			
-#			self.current_setpoint += self.temperatureFormatter.tempStep()
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
-#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
-
 			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter())
 			self.update_needed = True
 		
-		if action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
+		elif action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
 			self.logger.debug(u"DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug(u"display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
 			self.logger.debug(u"new setpoint: {} - {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()))
 
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
-#			self.current_setpoint -= self.temperatureFormatter.tempStep()
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
-#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
-
 			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter())
 			self.update_needed = True
 
 		###### SET HEAT SETPOINT ######
-		if action.thermostatAction == indigo.kThermostatAction.SetHeatSetpoint:
+		elif action.thermostatAction == indigo.kThermostatAction.SetHeatSetpoint:
 			self.logger.debug(u"SetHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug(u"new setpoint: {}".format(self.temperatureFormatter.convertToSchluter(action.actionValue)))
 			
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.current_setpoint = action.actionValue
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
-
-#			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(self.current_setpoint))
 
 			self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue))
 			self.update_needed = True
