@@ -111,5 +111,5 @@ class Schluter:
 
         self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
 
-#        response.raise_for_status()
+        response.raise_for_status()
         return response
