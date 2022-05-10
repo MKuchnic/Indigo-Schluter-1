@@ -94,7 +94,7 @@ class Schluter:
         if "timeout" not in kwargs:
             kwargs["timeout"] = self._timeout
         
-        self.logger.debug("Calling %s with payload=%s", url, payload)
+        self.logger.debug("Calling %s with params %s and payload=%s", url, params, payload)
 
         try:
             response = self._http_session.request(method, url, params = params, **kwargs) if\
