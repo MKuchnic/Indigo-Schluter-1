@@ -23,10 +23,10 @@ class Schluter:
 
 #    temperatureFormatter = temperature_scale.Celsius()
     
-    def __init__(self, timeout=10, command_timeout=60):
+    def __init__(self, timeout=10, command_timeout=60 http_session: Session = None):
         self._timeout = timeout
         self._command_timeout = command_timeout
-        self._http_session = None
+        self._http_session = http_session
         self.logger = logging.getLogger("Plugin.Schluter")
 
     def get_session(self, email, password):
