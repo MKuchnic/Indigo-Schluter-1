@@ -69,7 +69,7 @@ class Plugin(indigo.PluginBase):
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 		self.authentication = self.authenticator.authenticate()
-		if self.authentication.state is CONNECTION_ERROR:
+		if self.authentication.state is AuthenticationState.CONNECTION_ERROR:
 			self.logger.error("Startup Authentication = Connection Error")
 		else:
 			self.authentication_cache = self.authentication
@@ -126,7 +126,7 @@ class Plugin(indigo.PluginBase):
 			
 			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 			self.authentication = self.authenticator.authenticate()
-			if self.authentication.state is CONNECTION_ERROR:
+			if self.authentication.state is AuthenticationState.CONNECTION_ERROR:
 				self.logger.error("Authentication = Connection Error")
 			else:
 				self.authentication_cache = self.authentication
@@ -152,7 +152,7 @@ class Plugin(indigo.PluginBase):
 					self.logger.info(u"Checking authentication")
 					self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 					self.authentication = self.authenticator.authenticate()
-					if self.authentication.state is CONNECTION_ERROR:
+					if self.authentication.state is AuthenticationState.CONNECTION_ERROR:
 						self.logger.error("Periodic Authentication = Connection Error")
 					else:
 						self.authentication_cache = self.authentication
@@ -162,7 +162,7 @@ class Plugin(indigo.PluginBase):
 				
 				# We shouldn't do any API calls unless server connection can be established
 				# This could probably be more elegant
-				if self.authentication.state is not CONNECTION_ERROR:
+				if self.authentication.state is not AuthenticationState.CONNECTION_ERROR:
 	#				check if the interval time has passed
 					if (time.time() > self.next_update) or self.update_needed:
 	# 					update the schluter devices

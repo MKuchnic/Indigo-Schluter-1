@@ -63,7 +63,7 @@ class Schluter:
     def get_temperature(self, sessionId, serialNumber):
         self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
-        result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params).json()
+        result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params)
         
         return result
 
