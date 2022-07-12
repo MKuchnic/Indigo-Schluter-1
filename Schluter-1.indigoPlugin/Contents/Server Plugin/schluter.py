@@ -22,10 +22,10 @@ class Schluter:
 
 #    temperatureFormatter = temperature_scale.Celsius()
     
-    def __init__(self, timeout=10, command_timeout=60, http_session: Session = None):
+    def __init__(self, timeout=10, command_timeout=60):
         self._timeout = timeout
         self._command_timeout = command_timeout
-        self._http_session = http_session
+        self._http_session = None
         self.logger = logging.getLogger("Plugin.Schluter")
 
     def get_session(self, email, password):
@@ -116,7 +116,7 @@ class Schluter:
         except requests.RequestException as error:
             self.logger.error("Connection Error - Unable to connect - {}".format(error))
             return None
-#            response.raise_for_status()
+            #response.raise_for_status()
         
         if response is not None:
             # These won't work if response doesn't exist
@@ -124,8 +124,7 @@ class Schluter:
                 self.logger.debug("Response OK")
             else:
                 self.logger.error("Response Error: {}".format(response.status_code))
-                return None
-#                response.raise_for_status()
+                #response.raise_for_status()
 
             self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
         else:
