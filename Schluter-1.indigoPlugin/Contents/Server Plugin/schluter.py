@@ -127,8 +127,8 @@ class Schluter:
                 return None
 #                response.raise_for_status()
 
-            if response.json() ['SessionID'] == "":
-                self.logger.error("SessionID Error")
+            if response.json() ['SessionId'] == "":
+                self.logger.error("SessionId Error")
                 return None
 
             self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
