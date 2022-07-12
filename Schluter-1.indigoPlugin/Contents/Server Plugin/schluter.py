@@ -124,6 +124,7 @@ class Schluter:
                 self.logger.debug("Response OK")
             else:
                 self.logger.error("Response Error: {}".format(response.status_code))
+                return None
                 #response.raise_for_status()
 
             self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
