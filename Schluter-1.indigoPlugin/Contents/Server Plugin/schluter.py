@@ -115,7 +115,8 @@ class Schluter:
                 request(method, url, params = params, **kwargs)
         except requests.RequestException as error:
             self.logger.error("Connection Error - Unable to connect - {}".format(error))
-            response.raise_for_status()
+            return None
+#            response.raise_for_status()
         
         if response is not None:
             # These won't work if response doesn't exist
