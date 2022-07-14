@@ -81,7 +81,7 @@ class Schluter:
     def set_temp_next_sched(self, sessionId, serialNumber, temperature):
         self.logger.debug(u"set_temp_next_sched called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
-        json = { "ComfortTemperature": temperature, "ComfortEndTime": "15/07/2022 04:30:00 +00:00", "RegulationMode": 2, "VacationEnabled": False}
+        json = { "ComfortTemperature": temperature, "ComfortEndTime": "", "RegulationMode": 2, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json)
         
         if result is not None:
