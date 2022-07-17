@@ -12,6 +12,7 @@ class AuthenticationState(Enum):
     AUTHENTICATED = "authenticated"
     BAD_EMAIL = "bad_email"
     BAD_PASSWORD = "bad_password"
+    CONNECTION_ERROR = "connection_error"
 
 class Authentication:
     def __init__(self, state, session_id = None, expires = None):
@@ -66,21 +67,24 @@ class Authenticator:
         
         response = self._api.get_session(self._email, self._password)
 
-        data = response.json()
-        session_id = data["SessionId"]
-        expires = datetime.utcnow() + timedelta(hours=1)
+        if response is not None:
+            data = response.json()
+            session_id = data["SessionId"]
+            expires = datetime.utcnow() + timedelta(hours=1)
 
-        if data["ErrorCode"] == 2:
-            state = AuthenticationState.BAD_PASSWORD
-            self.logger.error(u"Authenticate - Bad Password")
-        elif data["ErrorCode"] == 1:
-            state = AuthenticationState.BAD_EMAIL
-            self.logger.error(u"Authenticate - Bad Email")
-        else:
-            state = AuthenticationState.AUTHENTICATED
-            self.logger.info(u"Authentication Successful")
+            if data["ErrorCode"] == 2:
+                state = AuthenticationState.BAD_PASSWORD
+                self.logger.error(u"Authenticate - Bad Password")
+            elif data["ErrorCode"] == 1:
+                state = AuthenticationState.BAD_EMAIL
+                self.logger.error(u"Authenticate - Bad Email")
+            else:
+                state = AuthenticationState.AUTHENTICATED
+                self.logger.info(u"Authentication Successful")
         
-        self._authentication = Authentication(state, session_id, expires)
+            self._authentication = Authentication(state, session_id, expires)
+        else:
+            self.logger.error(u"Authenticate - Connection Error")
+            self._authentication = Authentication(AuthenticationState.CONNECTION_ERROR, None, None)
 
         return self._authentication
-
