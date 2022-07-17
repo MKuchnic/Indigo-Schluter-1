@@ -401,7 +401,7 @@ class Plugin(indigo.PluginBase):
 		# Combine the chosen schedule time to make a complete datetime string
 		if end_time_string is not None:
 			end_time = datetime.strptime(end_time_string, "%H:%M:%S").time()
-			date_diff = datetime.timedelta(days = weekday_increment)
+			date_diff = timedelta(days = weekday_increment)
 			end_datetime = current_datetime.replace(hour = end_time.hour, minute = end_time.minute, second = end_time.second, microsecond = 0) + date_diff
 			end_datetime_string = end_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
 		# This should never trigger unless there is somehow no active schedule times; Set the end time to the current time as a failsafe
