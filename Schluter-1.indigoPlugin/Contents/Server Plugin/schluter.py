@@ -60,7 +60,7 @@ class Schluter:
         else:
             return None
     
-    def get_temperature(self, sessionId, serialNumber):
+    def get_thermostat(self, sessionId, serialNumber):
         self.logger.debug(u"get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params)
@@ -78,10 +78,10 @@ class Schluter:
         else:
             return False
 
-    def set_temp_next_sched(self, sessionId, serialNumber, temperature):
+    def set_temp_next_sched(self, sessionId, serialNumber, temperature, endTime):
         self.logger.debug(u"set_temp_next_sched called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
-        json = { "ComfortTemperature": temperature, "ComfortEndTime": "", "RegulationMode": 2, "VacationEnabled": False}
+        json = { "ComfortTemperature": temperature, "ComfortEndTime": endTime, "RegulationMode": 2, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json)
         
         if result is not None:

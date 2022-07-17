@@ -27,6 +27,7 @@ class Schluter_Thermo():
         self._load_measured_watt = data["LoadMeasuredWatt"]
         self._sw_version = data["SWVersion"]
         self._display_setpoint = 1
+        self._schedules = data["Schedules"]
     
     @property
     def serial_number(self):
@@ -107,7 +108,7 @@ class Schluter_Thermo():
     @property
     def error_code(self):
         return self._error_code
-		    
+
     @property
     def tzoffset(self):
         return self._tzoffset
@@ -135,3 +136,7 @@ class Schluter_Thermo():
         elif self._regulation_mode == 4 :
             self._display_setpoint = self._vacation_temperature
         return self._display_setpoint
+
+    @property
+    def schedules(self):
+        return self._schedules
