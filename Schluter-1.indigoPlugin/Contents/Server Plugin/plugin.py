@@ -470,7 +470,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter(), getNextScheduleTime()) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter(), self.getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -486,7 +486,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter(), getNextScheduleTime()) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter(), self.getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -501,7 +501,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue), getNextScheduleTime()) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue), self.getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -538,7 +538,7 @@ class Plugin(indigo.PluginBase):
 		
 		if holdType == "nextTransition":
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue, getNextScheduleTime()) is False:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue, self.getNextScheduleTime()) is False:
 				self.logger.error(u"Server Connection Error")
 				return False
 		else:
