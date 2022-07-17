@@ -363,7 +363,7 @@ class Plugin(indigo.PluginBase):
 	
 	def getNextScheduleTime(self):
 		# Derive the current date and time
-		current_datetime = datetime.datetime.utcnow()
+		current_datetime = datetime.utcnow()
 		current_weekday = current_datetime.weekday()
 		current_time = current_datetime.time()
 		
@@ -373,7 +373,7 @@ class Plugin(indigo.PluginBase):
 		# Loop through the current weekday to find the next schedule time
 		schedule_index = 0
 		while schedule_index < len(self.schedules[current_weekday]["Events"]) and incomplete:
-			schedule_time = datetime.datetime.strptime(self.schedules[current_weekday]["Events"][schedule_index]["Clock"], "%H:%M:%S").time()
+			schedule_time = datetime.strptime(self.schedules[current_weekday]["Events"][schedule_index]["Clock"], "%H:%M:%S").time()
 			# TODO: Possibly add a buffer so that if the next schedule time is within a few seconds of the current time we can skip ahead
 			if current_time < schedule_time and self.schedules[current_weekday]["Events"][schedule_index]["Active"]:
 				end_time_string = self.schedules[current_weekday]["Events"][schedule_index]["Clock"]
@@ -400,7 +400,7 @@ class Plugin(indigo.PluginBase):
 
 		# Combine the chosen schedule time to make a complete datetime string
 		if end_time_string is not None:
-			end_time = datetime.datetime.strptime(end_time_string, "%H:%M:%S").time()
+			end_time = datetime.strptime(end_time_string, "%H:%M:%S").time()
 			date_diff = datetime.timedelta(days = weekday_increment)
 			end_datetime = current_datetime.replace(hour = end_time.hour, minute = end_time.minute, second = end_time.second, microsecond = 0) + date_diff
 			end_datetime_string = end_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
