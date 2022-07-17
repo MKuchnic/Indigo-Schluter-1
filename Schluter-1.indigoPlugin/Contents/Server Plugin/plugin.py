@@ -63,6 +63,8 @@ class Plugin(indigo.PluginBase):
 		self.current_setpoint = 0.0
 		self.display_setpoint = 0
 		
+		self.schedules = None
+		
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
@@ -246,10 +248,12 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug("_refreshStatesFromHardware called")
 		
 		# TODO: Setup catch for nonexistant response
-		response = self.schluter.get_temperature(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
+		response = self.schluter.get_thermostat(self.authentication.session_id, dev.pluginProps.get("serialNumbers", False))
 		
 		if response is not None:
 			thermostat = Schluter_Thermo(response.json())
+			
+			self.schedules = thermostat.schedules
 			
 			# debugging 
 			self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(thermostat.temperature))
@@ -356,6 +360,57 @@ class Plugin(indigo.PluginBase):
 		return valuesDict
 	
 	########################################
+	
+	def getNextScheduleTime(self):
+		# Derive the current date and time
+		current_datetime = datetime.datetime.utcnow()
+		current_weekday = current_datetime.weekday()
+		current_time = current_datetime.time()
+		
+		end_time_string = None
+		incomplete = True
+		
+		# Loop through the current weekday to find the next schedule time
+		schedule_index = 0
+		while schedule_index < len(self.schedules[current_weekday]["Events"]) and incomplete:
+			schedule_time = datetime.datetime.strptime(self.schedules[current_weekday]["Events"][schedule_index]["Clock"], "%H:%M:%S").time()
+			# TODO: Possibly add a buffer so that if the next schedule time is within a few seconds of the current time we can skip ahead
+			if current_time < schedule_time and self.schedules[current_weekday]["Events"][schedule_index]["Active"]:
+				end_time_string = self.schedules[current_weekday]["Events"][schedule_index]["Clock"]
+				incomplete = False
+			else:
+				schedule_index += 1
+
+		# Move to the next weekday
+		weekday_increment = 0
+
+		# If the next schedule time is not on the current weekday, find the next valid schedule time
+		while weekday_increment < 6 and incomplete:
+			schedule_index = 0
+			weekday_increment += 1
+			while schedule_index < len(self.schedules[(current_weekday + weekday_increment) % 7]["Events"]) and incomplete:
+				# TODO: Possibly add a buffer so that if the next schedule time is within a few seconds of the current time we can skip ahead
+				if self.schedules[(current_weekday + weekday_increment) % 7]["Events"][schedule_index]["Active"]:
+					end_time_string = self.schedules[(current_weekday + weekday_increment) % 7]["Events"][schedule_index]["Clock"]
+					incomplete = False
+				else:
+					schedule_index += 1
+
+		end_datetime_string = None
+
+		# Combine the chosen schedule time to make a complete datetime string
+		if end_time_string is not None:
+			end_time = datetime.datetime.strptime(end_time_string, "%H:%M:%S").time()
+			date_diff = datetime.timedelta(days = weekday_increment)
+			end_datetime = current_datetime.replace(hour = end_time.hour, minute = end_time.minute, second = end_time.second, microsecond = 0) + date_diff
+			end_datetime_string = end_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
+		# This should never trigger unless there is somehow no active schedule times; Set the end time to the current time as a failsafe
+		else:
+			end_datetime_string = current_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
+
+		return end_datetime_string
+	
+	########################################
 	# Actions defined in MenuItems.xml:
 	########################################
 	
@@ -415,7 +470,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter()) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter(), getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -431,7 +486,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter(), getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -446,7 +501,7 @@ class Plugin(indigo.PluginBase):
 #			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue)) is True:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue), getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
 				self.logger.error(u"Server Connection Error")
@@ -483,7 +538,7 @@ class Plugin(indigo.PluginBase):
 		
 		if holdType == "nextTransition":
 			# TODO: Setup catch for nonexistant response
-			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue) is False:
+			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue, getNextScheduleTime()) is False:
 				self.logger.error(u"Server Connection Error")
 				return False
 		else:
