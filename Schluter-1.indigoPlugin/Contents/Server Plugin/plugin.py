@@ -64,6 +64,7 @@ class Plugin(indigo.PluginBase):
 		self.display_setpoint = 0
 		
 		self.schedules = None
+		self.tzoffset = None
 		
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
 		self.logger.debug(u'setting temperature scale to {}'.format(scale))
@@ -254,6 +255,7 @@ class Plugin(indigo.PluginBase):
 			thermostat = Schluter_Thermo(response.json())
 			
 			self.schedules = thermostat.schedules
+			self.tzoffset = thermostat.tzoffset
 			
 			# debugging 
 			self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(thermostat.temperature))
@@ -362,8 +364,11 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def getNextScheduleTime(self):
+		timezone_offset = datetime.strptime(self.tzoffset, "%z").utcoffset()
+		
 		# Derive the current date and time
-		current_datetime = datetime.utcnow()
+		# Convert from UTC to local time
+		current_datetime = datetime.utcnow() + timezone_offset
 		current_weekday = current_datetime.weekday()
 		current_time = current_datetime.time()
 		
@@ -402,10 +407,13 @@ class Plugin(indigo.PluginBase):
 		if end_time_string is not None:
 			end_time = datetime.strptime(end_time_string, "%H:%M:%S").time()
 			date_diff = timedelta(days = weekday_increment)
-			end_datetime = current_datetime.replace(hour = end_time.hour, minute = end_time.minute, second = end_time.second, microsecond = 0) + date_diff
+			# Re-convert back to UTC
+			end_datetime = current_datetime.replace(hour = end_time.hour, minute = end_time.minute, second = end_time.second, microsecond = 0) + date_diff - timezone_offset
 			end_datetime_string = end_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
 		# This should never trigger unless there is somehow no active schedule times; Set the end time to the current time as a failsafe
 		else:
+			# Re-convert back to UTC
+			current_datetime = current_datetime - timezone_offset
 			end_datetime_string = current_datetime.strftime("%d/%m/%Y %H:%M:%S +00:00")
 
 		return end_datetime_string
