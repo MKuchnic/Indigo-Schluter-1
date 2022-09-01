@@ -108,7 +108,13 @@ class Plugin(indigo.PluginBase):
 			errorDict['updateFrequency'] = "Update frequency is invalid - enter a valid number (between 3 and 60)"
 
 		if len(errorDict) > 0 :
-			return (False, valuesDict, errorDict)
+			if authentication.state.value == "connection_error":
+				if valuesDict["login"] == self.pluginPrefs["login"]  and valuesDict["password"] == self.pluginPrefs["password"] :
+					return True
+				else:
+					return (False, valuesDict, errorDict)
+			else:
+				return (False, valuesDict, errorDict)
 		
 		return True
 
@@ -349,7 +355,7 @@ class Plugin(indigo.PluginBase):
 				serial_numbers.append(tuple)
 		else:
 			tuple = (00000, "ERROR")
-			serial_nubmers.append(tuple)
+			serial_numbers.append(tuple)
 			
 		return serial_numbers
 	
