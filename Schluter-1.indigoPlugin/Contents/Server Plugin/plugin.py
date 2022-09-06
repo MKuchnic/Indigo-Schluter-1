@@ -110,7 +110,8 @@ class Plugin(indigo.PluginBase):
 		if len(errorDict) > 0 :
 			if authentication.state.value == "connection_error":
 				if valuesDict["login"] != self.pluginPrefs["login"]  or valuesDict["password"] != self.pluginPrefs["password"] :
-					return (False, valuesDict, errorDict)
+ 					return (True, valuesDict, errorDict)
+# 					return (False, valuesDict, errorDict)
 			else:
 				return (False, valuesDict, errorDict)
 		
