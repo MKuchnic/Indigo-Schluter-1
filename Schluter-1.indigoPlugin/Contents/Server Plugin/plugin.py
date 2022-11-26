@@ -44,19 +44,19 @@ class Plugin(indigo.PluginBase):
 		pfmt = logging.Formatter('%(asctime)s.%(msecs)03d\t[%(levelname)8s] %(name)20s.%(funcName)-25s%(msg)s', datefmt='%Y-%m-%d %H:%M:%S')
 		self.plugin_file_handler.setFormatter(pfmt)
 
-		self.logLevel = int(self.pluginPrefs.get(u"logLevel", logging.INFO))
+		self.logLevel = int(self.pluginPrefs.get("logLevel", logging.INFO))
 		self.indigo_log_handler.setLevel(self.logLevel)
 		self.logger.debug(u"logLevel = {}".format(self.logLevel))
 		
 		self.authentication_cache = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION, None, None)
 
 	def startup(self):
-		self.logger.info(u"Starting Schluter")
+		self.logger.info("Starting Schluter")
 		
 		self.schluter = Schluter()
 
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
-		self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
+		self.logger.debug("updateFrequency = {}".format(self.updateFrequency))
 		self.next_update = time.time() + self.updateFrequency
 		self.update_needed = False
 		
@@ -85,7 +85,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.info(u"Stopping Schluter")
 	
 	def validatePrefsConfigUi(self, valuesDict):
-		self.logger.debug(u"validatePrefsConfigUi called")
+		self.logger.debug("validatePrefsConfigUi called")
 # 		do an authentication here to check entered values
 		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
 		authentication = authenticator.authenticate()
@@ -124,10 +124,10 @@ class Plugin(indigo.PluginBase):
 			except:
 				self.logLevel = logging.INFO
 			self.indigo_log_handler.setLevel(self.logLevel)
-			self.logger.debug(u"logLevel = " + str(self.logLevel))
+			self.logger.debug("logLevel = " + str(self.logLevel))
 			
 			self.updateFrequency = float(valuesDict['updateFrequency']) * 60.0
-			self.logger.debug(u"updateFrequency = {}".format(self.updateFrequency))
+			self.logger.debug("updateFrequency = {}".format(self.updateFrequency))
 			self.next_update = time.time()
 			self.update_needed = True
 			
@@ -142,21 +142,21 @@ class Plugin(indigo.PluginBase):
 
 			self.temperatureFormatter = temperature_scale.Celsius()
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
-			self.logger.debug(u'setting temperature scale to {}'.format(scale))
+			self.logger.debug("setting temperature scale to {}".format(scale))
 			self.temperatureFormatter = TEMP_CONVERTERS[scale]
 
-			self.logger.debug(u"updating authentication")
+			self.logger.debug("updating authentication")
 			
 	
 	########################################
 	
 	def runConcurrentThread(self):
-		self.logger.debug(u"runConcurrentThread starting")
+		self.logger.debug("runConcurrentThread starting")
 		try:
 			while True:
 #				check  if we need to re-autheticate every loop
 				if (time.time() > self.auth_next_update) or self.auth_update_needed:
-					self.logger.info(u"Checking authentication")
+					self.logger.info("Checking authentication")
 					self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 					self.authentication = self.authenticator.authenticate()
 					if self.authentication.state is AuthenticationState.CONNECTION_ERROR:
@@ -262,17 +262,17 @@ class Plugin(indigo.PluginBase):
 			self.tzoffset = thermostat.tzoffset
 			
 			# debugging 
-			self.logger.info(u"Current temp: %s", self.temperatureFormatter.format(thermostat.temperature))
-			self.logger.debug(u"Current temp unformatted: %s", thermostat.temperature)
-			self.logger.debug(u"is_heating: %s", thermostat.is_heating)
+			self.logger.info("Current temp: %s", self.temperatureFormatter.format(thermostat.temperature))
+			self.logger.debug("Current temp unformatted: %s", thermostat.temperature)
+			self.logger.debug("is_heating: %s", thermostat.is_heating)
 
 			# Update current stored setpoint
 			self.display_setpoint = thermostat.display_setpoint
-			self.logger.debug(u"display_setpoint = {}".format(self.display_setpoint))
+			self.logger.debug("display_setpoint = {}".format(self.display_setpoint))
 
 			self._updateDeviceStatesList(dev, thermostat)
 		else:
-			self.logger.error(u"Server Connection Error")
+			self.logger.error("Server Connection Error")
 
 	########################################
 	
@@ -338,7 +338,7 @@ class Plugin(indigo.PluginBase):
 	########################################
 	
 	def serialNumberListGenerator(self, filter="", valuesDict=None, typeId="", targetId=0):
-		self.logger.debug(u"get serial number called")
+		self.logger.debug("get serial number called")
 				
 		sessionID = self.authentication.session_id[0]
 		
@@ -431,7 +431,7 @@ class Plugin(indigo.PluginBase):
 		try:
 			deviceId = int(valuesDict["targetDevice"])
 		except:
-			self.logger.error(u"Bad Device specified for Resume Program operation")
+			self.logger.error("Bad Device specified for Resume Program operation")
 			return False
 
 		serialNumber = indigo.devices[deviceId].address
@@ -441,7 +441,7 @@ class Plugin(indigo.PluginBase):
 		if self.schluter.return_to_schedule(self.authentication.session_id, serialNumber) is True:
 			return True
 		else:
-			self.logger.error(u"Server Connection Error")
+			self.logger.error("Server Connection Error")
 			return False
 	
 	def printPluginPrefs(self):
@@ -457,7 +457,7 @@ class Plugin(indigo.PluginBase):
     # Main thermostat action bottleneck called by Indigo Server.
    
 	def actionControlThermostat(self, action, device):
-		self.logger.debug(u"{}: action.thermostatAction: {}, action.actionValue: {}, setpointHeat: {}, setpointCool: {}".format(device.name, action.thermostatAction, 
+		self.logger.debug("{}: action.thermostatAction: {}, action.actionValue: {}, setpointHeat: {}, setpointCool: {}".format(device.name, action.thermostatAction, 
 		action.actionValue, device.heatSetpoint, device.coolSetpoint))
 
         ###### REQUEST STATE UPDATES ######
@@ -472,9 +472,9 @@ class Plugin(indigo.PluginBase):
 		
         ###### DECREASE/INCREASE HEAT SETPOINT ######
 		if action.thermostatAction == indigo.kThermostatAction.IncreaseHeatSetpoint:
-			self.logger.debug(u"IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
-			self.logger.debug(u"new setpoint: {} + {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint + self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug("IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
+			self.logger.debug("display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug("new setpoint: {} + {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint + self.temperatureFormatter.tempStepSchluter()))
 			
 #			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
 #			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))			
@@ -488,54 +488,54 @@ class Plugin(indigo.PluginBase):
 				self.logger.error(u"Server Connection Error")
 		
 		elif action.thermostatAction == indigo.kThermostatAction.DecreaseHeatSetpoint:
-			self.logger.debug(u"DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
-			self.logger.debug(u"new setpoint: {} - {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug("DecreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
+			self.logger.debug("display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
+			self.logger.debug("new setpoint: {} - {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()))
 
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug("tempStep = {}".format(self.temperatureFormatter.tempStep()))
+#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug("self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 			
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter(), self.getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
-				self.logger.error(u"Server Connection Error")
+				self.logger.error("Server Connection Error")
 
 		###### SET HEAT SETPOINT ######
 		elif action.thermostatAction == indigo.kThermostatAction.SetHeatSetpoint:
-			self.logger.debug(u"SetHeatSetpoint: actionValue = {}".format(action.actionValue))
-			self.logger.debug(u"new setpoint: {}".format(self.temperatureFormatter.convertToSchluter(action.actionValue)))
+			self.logger.debug("SetHeatSetpoint: actionValue = {}".format(action.actionValue))
+			self.logger.debug("new setpoint: {}".format(self.temperatureFormatter.convertToSchluter(action.actionValue)))
 			
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
+#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
+#			self.logger.debug("self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
 
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue), self.getNextScheduleTime()) is True:
 				self.update_needed = True
 			else:
-				self.logger.error(u"Server Connection Error")
+				self.logger.error("Server Connection Error")
 
 	########################################
 	# Resume Program callbacks
 	########################################
 
 	def actionResumeProgram(self, action, device):
-		self.logger.info(u"Resume Program for thermostat: {}".format(device.name))
+		self.logger.info("Resume Program for thermostat: {}".format(device.name))
 		
 		# TODO: Setup catch for nonexistant response
 		if self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False)) is False:
-			self.logger.error(u"Server Connection Error")
+			self.logger.error("Server Connection Error")
 
 	def pickThermostat(self, filter=None, valuesDict=None, typeId=0):
-		self.logger.debug(u"pickThermostat")
+		self.logger.debug("pickThermostat")
 		retList = []
 		for device in indigo.devices.iter("self"):
 			if device.deviceTypeId == 'SchluterThermostat':
 				retList.append((device.id, device.name))
-				self.logger.debug(u"device.id {}  device.name {}".format(device.id, device.name))
+				self.logger.debug("device.id {}  device.name {}".format(device.id, device.name))
 		retList.sort(key=lambda tup: tup[1])
 		return retList
 
@@ -543,7 +543,7 @@ class Plugin(indigo.PluginBase):
 		self.logger.debug(u"{}: actionSetTemperature".format(device.name))
 		tempValue = self.temperatureFormatter.convertToSchluter(int(action.props.get("temperatureValue")))
 		holdType = action.props.get("holdType")
-		self.logger.debug(u"tempValue {}  holdType {}".format(tempValue, holdType))
+		self.logger.debug("tempValue {}  holdType {}".format(tempValue, holdType))
 
 		if (tempValue < 500) or (tempValue > 4000):
 				return False
@@ -551,12 +551,12 @@ class Plugin(indigo.PluginBase):
 		if holdType == "nextTransition":
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue, self.getNextScheduleTime()) is False:
-				self.logger.error(u"Server Connection Error")
+				self.logger.error("Server Connection Error")
 				return False
 		else:
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_permanently(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), tempValue) is False:
-				self.logger.error(u"Server Connection Error")
+				self.logger.error("Server Connection Error")
 				return False
 		return True
 
