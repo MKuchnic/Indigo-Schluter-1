@@ -29,7 +29,7 @@ class Schluter:
         self.logger = logging.getLogger("Plugin.Schluter")
 
     def get_session(self, email, password):
-        self.logger.debug(u"get_session called")
+        self.logger.debug("get_session called")
         response = self._call_api(
             "post", 
             API_AUTH_URL,
@@ -43,7 +43,7 @@ class Schluter:
         return response
 
     def get_thermostats(self, sessionId):
-        self.logger.debug(u"get_thermostats called")
+        self.logger.debug("get_thermostats called")
         params = { 'sessionId': sessionId }
         result = self._call_api("get", API_GET_THERMOSTATS_URL, params)
         
@@ -68,7 +68,7 @@ class Schluter:
         return result
 
     def return_to_schedule(self, sessionId, serialNumber):
-        self.logger.debug(u"return_to_schedule called")
+        self.logger.debug("return_to_schedule called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { "RegulationMode": 1, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json)
@@ -79,7 +79,7 @@ class Schluter:
             return False
 
     def set_temp_next_sched(self, sessionId, serialNumber, temperature, endTime):
-        self.logger.debug(u"set_temp_next_sched called")
+        self.logger.debug("set_temp_next_sched called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { "ComfortTemperature": temperature, "ComfortEndTime": endTime, "RegulationMode": 2, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json)
@@ -90,7 +90,7 @@ class Schluter:
             return False
 
     def set_temp_permanently(self, sessionId, serialNumber, temperature):
-        self.logger.debug(u"set_temp_permanently called")
+        self.logger.debug("set_temp_permanently called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         json = { 'ManualTemperature': temperature, "RegulationMode": 3, "VacationEnabled": False}
         result = self._call_api("post", API_SET_TEMPERATURE_URL, params = params, json = json)
@@ -116,7 +116,6 @@ class Schluter:
         except requests.RequestException as error:
             self.logger.error("Connection Error - Unable to connect - {}".format(error))
             return None
-            #response.raise_for_status()
         
         if response is not None:
             # These won't work if response doesn't exist
@@ -124,8 +123,10 @@ class Schluter:
                 self.logger.debug("Response OK")
             else:
                 self.logger.error("Response Error: {}".format(response.status_code))
+                if response.status_code == 401 :
+                    self.auth_update_needed =  True
+                    self.logger.error("Authetication Error - will re-authenticate")
                 return None
-                #response.raise_for_status()
 
             self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
         else:
