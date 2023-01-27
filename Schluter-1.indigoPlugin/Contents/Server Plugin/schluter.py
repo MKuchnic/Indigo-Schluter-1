@@ -102,7 +102,7 @@ class Schluter:
 
     # This method will return a None object if there is a connection error
     def _call_api(self, method, url, params, **kwargs):
-        Global auth_update_needed
+        global auth_update_needed
         
         payload = kwargs.get("params") or kwargs.get("json")
 
