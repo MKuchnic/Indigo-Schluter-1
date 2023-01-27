@@ -124,10 +124,9 @@ class Schluter:
             else:
                 self.logger.error("Response Error: {}".format(response.status_code))
                 if response.status_code == 401 :
-                    self.auth_update_needed =  True
+                    auth_update_needed =  True
                     self.logger.error("Authetication Error - will re-authenticate")
-                    self.logger.error("self.auth_update_needed: {}".format(self.auth_update_needed))
-                    self.loglevel = 5
+                    self.logger.error("auth_update_needed: {}".format(auth_update_needed))
                 return None
 
             self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
