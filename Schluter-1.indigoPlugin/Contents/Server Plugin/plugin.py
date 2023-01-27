@@ -37,6 +37,8 @@ kHvacModeEnumToStrMap = {
 	indigo.kHvacMode.ProgramHeatCool	: u"program auto"
 }
 
+# Global variables
+auth_update_needed = True
 
 class Plugin(indigo.PluginBase):
 	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
@@ -78,7 +80,7 @@ class Plugin(indigo.PluginBase):
 			self.authentication_cache = self.authentication
 			self.logger.debug("Startup Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
 		self.auth_next_update = time.time() + 300.0
-		self.auth_update_needed =  False
+		auth_update_needed =  False
 
 	
 	def shutdown(self):
@@ -138,7 +140,7 @@ class Plugin(indigo.PluginBase):
 			else:
 				self.authentication_cache = self.authentication
 			self.auth_next_update = time.time() + 300.0
-			self.auth_update_needed =  False
+			auth_update_needed =  False
 
 			self.temperatureFormatter = temperature_scale.Celsius()
 			scale = valuesDict[TEMPERATURE_SCALE_PLUGIN_PREF]
@@ -155,7 +157,7 @@ class Plugin(indigo.PluginBase):
 		try:
 			while True:
 #				check  if we need to re-autheticate every loop
-				if (time.time() > self.auth_next_update) or self.auth_update_needed:
+				if (time.time() > self.auth_next_update) or auth_update_needed:
 					self.logger.info("Checking authentication")
 					self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
 					self.authentication = self.authenticator.authenticate()
@@ -165,7 +167,7 @@ class Plugin(indigo.PluginBase):
 						self.authentication_cache = self.authentication
 						self.logger.debug("Periodic Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
 					self.auth_next_update = time.time() + 300.0
-					self.auth_update_needed =  False
+					auth_update_needed =  False
 				
 				# We shouldn't do any API calls unless server connection can be established
 				# This could probably be more elegant
@@ -475,12 +477,7 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug("IncreaseHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug("display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
 			self.logger.debug("new setpoint: {} + {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint + self.temperatureFormatter.tempStepSchluter()))
-			
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"tempStep = {}".format(self.temperatureFormatter.tempStep()))			
-#			self.logger.debug(u"current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug(u"self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
-			
+					
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint + self.temperatureFormatter.tempStepSchluter(), self.getNextScheduleTime()) is True:
 				self.update_needed = True
@@ -492,11 +489,6 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug("display_setpoint = {} tempStepSchluter = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter()))
 			self.logger.debug("new setpoint: {} - {} = {}".format(self.display_setpoint, self.temperatureFormatter.tempStepSchluter(), self.display_setpoint - self.temperatureFormatter.tempStepSchluter()))
 
-#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug("tempStep = {}".format(self.temperatureFormatter.tempStep()))
-#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug("self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
-			
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.display_setpoint - self.temperatureFormatter.tempStepSchluter(), self.getNextScheduleTime()) is True:
 				self.update_needed = True
@@ -508,10 +500,6 @@ class Plugin(indigo.PluginBase):
 			self.logger.debug("SetHeatSetpoint: actionValue = {}".format(action.actionValue))
 			self.logger.debug("new setpoint: {}".format(self.temperatureFormatter.convertToSchluter(action.actionValue)))
 			
-#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug("current_setpoint = {}".format(self.current_setpoint))
-#			self.logger.debug("self.temperatureFormatter.convertToSchluter = {}".format(self.temperatureFormatter.convertToSchluter(self.current_setpoint)))
-
 			# TODO: Setup catch for nonexistant response
 			if self.schluter.set_temp_next_sched(self.authentication.session_id, device.pluginProps.get("serialNumbers", False), self.temperatureFormatter.convertToSchluter(action.actionValue), self.getNextScheduleTime()) is True:
 				self.update_needed = True
