@@ -54,7 +54,8 @@ class Plugin(indigo.PluginBase):
 
 	def startup(self):
 		self.logger.info("Starting Schluter")
-		
+		Global auth_update_needed
+
 		self.schluter = Schluter()
 
 		self.updateFrequency = float(self.pluginPrefs.get('updateFrequency', "10")) *  60.0
@@ -120,6 +121,8 @@ class Plugin(indigo.PluginBase):
 
 	def closedPrefsConfigUi(self, valuesDict, userCancelled):
 		self.logger.debug(u"closedPrefsConfigUi called")
+		Global auth_update_needed
+		
 		if not userCancelled:
 			try:
 				self.logLevel = int(valuesDict[u"logLevel"])
@@ -154,9 +157,10 @@ class Plugin(indigo.PluginBase):
 	
 	def runConcurrentThread(self):
 		self.logger.debug("runConcurrentThread starting")
+		Global auth_update_needed
 		try:
 			while True:
-#				check  if we need to re-autheticate every loop
+#				check if we need to re-autheticate every loop
 				if (time.time() > self.auth_next_update) or auth_update_needed:
 					self.logger.info("Checking authentication")
 					self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
