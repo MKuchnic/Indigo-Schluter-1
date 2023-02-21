@@ -139,7 +139,7 @@ class Plugin(indigo.PluginBase):
 			self.next_update = time.time()
 			update_needed = True
 			
-			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
+			self.authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"], None)
 			self.authentication = self.authenticator.authenticate()
 			if self.authentication.state is AuthenticationState.CONNECTION_ERROR:
 				self.logger.error("Authentication = Connection Error")
