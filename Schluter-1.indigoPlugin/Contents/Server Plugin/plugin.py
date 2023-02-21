@@ -92,7 +92,7 @@ class Plugin(indigo.PluginBase):
 	def validatePrefsConfigUi(self, valuesDict):
 		self.logger.debug("validatePrefsConfigUi called")
 # 		do an authentication here to check entered values
-		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"])
+		authenticator = Authenticator(self.schluter, valuesDict["login"], valuesDict["password"], None)
 		authentication = authenticator.authenticate()
 
 		errorDict = indigo.Dict()
