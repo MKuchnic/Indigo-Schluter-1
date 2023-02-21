@@ -38,12 +38,12 @@ class Authentication:
 
 class Authenticator:
 
-    def __init__(self, api, email, password, authentication_cache = None):
+    def __init__(self, api, email, password, authentication_cache):
         self._api = api
         self._email = email
         self._password = password
         self._authentication = authentication_cache
-        self.logger = logging.getLogger('Plugin.Authenticator')
+        self.logger = logging.getLogger("Plugin.Authenticator")
         
         if self._authentication == None :
             self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
@@ -51,18 +51,18 @@ class Authenticator:
         
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
             token_expired = self._authentication.expires - datetime.utcnow()
-            self.logger.debug(u"Checking token expiry")
+            self.logger.debug("Checking token expiry")
             if token_expired < timedelta(minutes=5):
-                self.logger.debug(u"Token has expired.")
+                self.logger.debug("Token has expired.")
                 self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
             return
 
         self._authentication = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION)
 
     def authenticate(self):
-        self.logger.debug(u"authenticate called")
+        self.logger.debug("authenticate called")
         if self._authentication.state == AuthenticationState.AUTHENTICATED:
-            self.logger.debug(u"Exiting authenticate - authentication still valid")
+            self.logger.debug("Exiting authenticate - authentication still valid")
             return self._authentication
         
         response = self._api.get_session(self._email, self._password)
@@ -74,17 +74,17 @@ class Authenticator:
 
             if data["ErrorCode"] == 2:
                 state = AuthenticationState.BAD_PASSWORD
-                self.logger.error(u"Authenticate - Bad Password")
+                self.logger.error("Authenticate - Bad Password")
             elif data["ErrorCode"] == 1:
                 state = AuthenticationState.BAD_EMAIL
-                self.logger.error(u"Authenticate - Bad Email")
+                self.logger.error("Authenticate - Bad Email")
             else:
                 state = AuthenticationState.AUTHENTICATED
-                self.logger.info(u"Authentication Successful")
+                self.logger.info("Authentication Successful")
         
             self._authentication = Authentication(state, session_id, expires)
         else:
-            self.logger.error(u"Authenticate - Connection Error")
+            self.logger.error("Authenticate - Connection Error")
             self._authentication = Authentication(AuthenticationState.CONNECTION_ERROR, None, None)
 
         return self._authentication
