@@ -11,7 +11,7 @@
 		</ConfigUI>
 	</MenuItem>
 	<MenuItem id="pluginPrefs">
-		<Name>Print Plugin Prefs</Name>
+		<Name>Print Plugin Prefs (debug mode)</Name>
 		<CallbackMethod>printPluginPrefs</CallbackMethod>
 	</MenuItem>
 </MenuItems>
