@@ -49,7 +49,8 @@ class Plugin(indigo.PluginBase):
 
 		self.logLevel = int(self.pluginPrefs.get("logLevel", logging.INFO))
 		self.indigo_log_handler.setLevel(self.logLevel)
-		self.logger.debug(u"logLevel = {}".format(self.logLevel))
+		self.plugin_file_handler.setLevel(self.logLevel)
+		self.logger.debug(f"logLevel = {self.logLevel}")
 		
 		self.authentication_cache = Authentication(AuthenticationState.REQUIRES_AUTHENTICATION, None, None)
 
