@@ -133,7 +133,7 @@ class Plugin(indigo.PluginBase):
 			except:
 				self.logLevel = logging.INFO
 			self.indigo_log_handler.setLevel(self.logLevel)
-			self.logger.debug(f"logLevel = {str(self.logLevel)})
+			self.logger.debug(f"logLevel = {str(self.logLevel)}")
 			
 			self.updateFrequency = float(valuesDict['updateFrequency']) * 60.0
 			self.logger.debug(f"updateFrequency = {self.updateFrequency}")
@@ -174,7 +174,7 @@ class Plugin(indigo.PluginBase):
 						self.logger.error("Periodic Authentication = Connection Error")
 					else:
 						self.authentication_cache = self.authentication
-						self.logger.debug(f"Periodic Authentication = {str(self.authentication.session_id)} - {str(self.authentication.expires)})
+						self.logger.debug(f"Periodic Authentication = {str(self.authentication.session_id)} - {str(self.authentication.expires)}")
 					self.auth_next_update = time.time() + 300.0
 					auth_update_needed =  False
 				
@@ -275,7 +275,7 @@ class Plugin(indigo.PluginBase):
 			# debugging 
 			self.logger.info(f"Current temp: {str(self.temperatureFormatter.format(thermostat.temperature))}")
 			self.logger.debug(f"Current temp unformatted: {str(thermostat.temperature)}")
-			self.logger.debug(f"is_heating: {}str(thermostat.is_heating)")
+			self.logger.debug(f"is_heating: {str(thermostat.is_heating)}")
 
 			# Update current stored setpoint
 			self.display_setpoint = thermostat.display_setpoint
@@ -370,7 +370,7 @@ class Plugin(indigo.PluginBase):
 	
 	def serialNumberPicked(self, valuesDict, typeId, devId):
 		self.logger.debug("serialNumberPicked called")
-		self.logger.debug(f"valuesDict = {json.dumps(valuesDict.to_dict()}")
+		self.logger.debug(f"valuesDict = {json.dumps(valuesDict.to_dict())}")
 		
 		valuesDict["address"] = str(valuesDict["serialNumbers"])
 		
@@ -468,7 +468,7 @@ class Plugin(indigo.PluginBase):
     # Main thermostat action bottleneck called by Indigo Server.
    
 	def actionControlThermostat(self, action, device):
-		self.logger.debugf"{device.name}: action.thermostatAction: {action.thermostatAction}, action.actionValue: {action.actionValue}, setpointHeat: {device.heatSetpoint}, setpointCool: {device.coolSetpoint}")
+		self.logger.debug(f"{device.name}: action.thermostatAction: {action.thermostatAction}, action.actionValue: {action.actionValue}, setpointHeat: {device.heatSetpoint}, setpointCool: {device.coolSetpoint}")
 		global update_needed
 
         ###### REQUEST STATE UPDATES ######
@@ -521,7 +521,7 @@ class Plugin(indigo.PluginBase):
 
 	def actionResumeProgram(self, action, device):
 		global update_needed
-		self.logger.info(f"Resume Program for thermostat: {}")
+		self.logger.info(f"Resume Program for thermostat: {device.name}")
 		
 		# TODO: Setup catch for nonexistant response
 		if self.schluter.return_to_schedule(self.authentication.session_id, device.pluginProps.get("serialNumbers", False)) is False:
