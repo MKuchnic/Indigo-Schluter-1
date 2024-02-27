@@ -456,7 +456,7 @@ class Plugin(indigo.PluginBase):
 			return False
 	
 	def printPluginPrefs(self):
-		self.logger.debug(f"printPluginPrefs values: login = {self.pluginPrefs["login"]}, password = {self.pluginPrefs["password"]}")
+		self.logger.debug("printPluginPrefs values: login = {}, password = {}".format(self.pluginPrefs["login"], self.pluginPrefs["password"]))
 	
 	def test_device_method(self):
 		self.logger.debug("test_device_method called")
