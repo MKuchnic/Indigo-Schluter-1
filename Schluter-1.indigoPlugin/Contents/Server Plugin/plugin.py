@@ -73,7 +73,7 @@ class Plugin(indigo.PluginBase):
 		self.tzoffset = None
 		
 		scale = self.pluginPrefs.get(TEMPERATURE_SCALE_PLUGIN_PREF, 'C')
-		self.logger.debug(f"setting temperature scale to {scale})
+		self.logger.debug(f"setting temperature scale to {scale}")
 		self.temperatureFormatter = TEMP_CONVERTERS[scale]
 		
 		self.authenticator = Authenticator(self.schluter, self.pluginPrefs["login"], self.pluginPrefs["password"], self.authentication_cache)
@@ -82,7 +82,7 @@ class Plugin(indigo.PluginBase):
 			self.logger.error("Startup Authentication = Connection Error")
 		else:
 			self.authentication_cache = self.authentication
-			self.logger.debug("Startup Authentication = %s - %s",self.authentication.session_id,self.authentication.expires)
+			self.logger.debug(f"Startup Authentication = {str(self.authentication.session_id)} - {str(self.authentication.expires)}")
 		self.auth_next_update = time.time() + 300.0
 		auth_update_needed =  False
 
