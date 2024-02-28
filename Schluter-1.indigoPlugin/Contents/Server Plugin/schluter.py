@@ -61,7 +61,7 @@ class Schluter:
             return None
     
     def get_thermostat(self, sessionId, serialNumber):
-        self.logger.debug(u"get_temperature called")
+        self.logger.debug("get_temperature called")
         params = { 'sessionId': sessionId, 'serialnumber': serialNumber }
         result = self._call_api("get", API_SET_TEMPERATURE_URL, params = params)
         
@@ -109,7 +109,7 @@ class Schluter:
         if "timeout" not in kwargs:
             kwargs["timeout"] = self._timeout
         
-        self.logger.debug("Calling %s with params %s and payload=%s", url, params, payload)
+        self.logger.debug(f"Calling {str(url)} with params {str(params)} and payload={str(payload)}")
 
         try:
             response = self._http_session.request(method, url, params = params, **kwargs) if\
@@ -128,10 +128,10 @@ class Schluter:
                 if response.status_code == 401 :
                     auth_update_needed =  True
                     self.logger.error("Authetication Error - will re-authenticate")
-                    self.logger.error("auth_update_needed: {}".format(auth_update_needed))
+                    self.logger.error(f"auth_update_needed: {auth_update_needed}")
                 return None
 
-            self.logger.debug("API Response received: %s - %s", response.status_code, response.content)
+            self.logger.debug(f"API Response received: {str(response.status_code)} - {str(response.content)}")
         else:
             self.logger.error("No Response - Connection Error")
             return None
