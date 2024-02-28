@@ -6,8 +6,8 @@ class TemperatureScale:
 
 	def report(self, dev, stateKey, reading):
 		dev.updateStateOnServer(key=stateKey, value=self.convertFromSchluter(reading), decimalPlaces=1, uiValue=self.format(reading))
-		return txt
-	
+		return
+		
 	def format(self, reading):
 		return u"%s%s" % (FORMAT_STRING.format(self.convertFromSchluter(reading)), self.suffix())
 
