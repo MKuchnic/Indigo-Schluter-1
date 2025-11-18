@@ -11,7 +11,7 @@ import sys
 import logging
 import time
 import json # For debugging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 import threading
 import temperature_scale
 
@@ -383,7 +383,7 @@ class Plugin(indigo.PluginBase):
 		
 		# Derive the current date and time
 		# Convert from UTC to local time
-		current_datetime = datetime.utcnow() + timezone_offset
+		current_datetime = datetime.now(UTC) + timezone_offset
 		current_weekday = current_datetime.weekday()
 		current_time = current_datetime.time()
 		
