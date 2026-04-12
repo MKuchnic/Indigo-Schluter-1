@@ -4,7 +4,7 @@ import json
 import logging
 import indigo
 from enum import Enum
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 
 
 class AuthenticationState(Enum):
@@ -50,7 +50,7 @@ class Authenticator:
             return
         
         if self._authentication.state == AuthenticationState.AUTHENTICATED :
-            token_expired = self._authentication.expires - datetime.utcnow()
+            token_expired = self._authentication.expires - datetime.now(UTC)
             self.logger.debug("Checking token expiry")
             if token_expired < timedelta(minutes=5):
                 self.logger.debug("Token has expired.")
@@ -70,7 +70,7 @@ class Authenticator:
         if response is not None:
             data = response.json()
             session_id = data["SessionId"]
-            expires = datetime.utcnow() + timedelta(hours=1)
+            expires = datetime.now(UTC) + timedelta(hours=1)
 
             if data["ErrorCode"] == 2:
                 state = AuthenticationState.BAD_PASSWORD
