@@ -12,8 +12,7 @@ from schluter_thermo import Schluter_Thermo
 
 # URL Constants
 API_BASE_URL = "https://ditra-heat-e-wifi.schluter.com"
-# API_AUTH_URL = API_BASE_URL + "/api/authenticate/user"
-API_AUTH_URL = "https://identity-schluter.mythermostat.info" + "/api/authenticate/user"
+API_AUTH_URL = API_BASE_URL + "/api/authenticate/user"
 API_USERACCOUNT_URL = API_BASE_URL + "/api/useraccount?sessionid="
 API_GET_THERMOSTATS_URL = API_BASE_URL + "/api/thermostats"
 API_SET_TEMPERATURE_URL = API_BASE_URL + "/api/thermostat"
